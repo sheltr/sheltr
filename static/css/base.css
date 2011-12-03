@@ -1,0 +1,21 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  line-height: 20px;
+  margin: 0 0 0 0;
+  padding: 0 0 0 0;
+}
+/* https://github.com/paulirish/html5-boilerplate/blob/362d0b7/css/style.css#L35 */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+a {
+  color: #333;
+  text-decoration: none;
+}
+a:hover {
+  color: #fc3;
+}
+a:active {
+  color: #f90;
+}
