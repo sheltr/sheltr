@@ -13,6 +13,7 @@ if (typeof SH === 'undefined' || !SH) {
         var settings = {
             mapId: 'map',
             zoom: 12,
+				    center: new google.maps.LatLng(39.95240, -75.16362), 
             mapTypId: google.maps.MapTypeId.ROADMAP
           };
 
@@ -23,8 +24,23 @@ if (typeof SH === 'undefined' || !SH) {
 
       },
 
-      anotherMethod: function () {
-        
+      addShelters: function (shelters) {
+        var i,
+            lat,
+            lng,
+            latlng,
+            sheltersLength = shelters.length;
+
+        for (i=0; i<sheltersLength;) {
+          lat = shelters.shelters[i].lat;
+          lng = shelters.shelters[i].lng;
+          latlng = new google.maps.LatLng(lat, lng);
+          this.createMarker(/*TODO*/);
+        }
+      },
+
+      createMarker: function () {
+        // TODO:
       }
     };
 
