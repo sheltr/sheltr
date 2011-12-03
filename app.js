@@ -26,6 +26,15 @@ app.route('/', function(req, res) {
   res.end(rend(temp.index));
 });
 
+app.route('/static/.*', function(req, res) {
+  paperboy.deliver(__dirname, req, res);
+});
+
+// temporarily look for missing in templates
+app.route('/.*', function(req, res) {
+  paperboy.deliver(__dirname+'/templates', req, res);
+});
+
 
 // exports
 
