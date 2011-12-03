@@ -29,18 +29,28 @@ if (typeof SH === 'undefined' || !SH) {
             lat,
             lng,
             latlng,
-            sheltersLength = shelters.length;
+            sheltersLength = shelters.shelters.length;
 
-        for (i=0; i<sheltersLength;) {
+        for (i=0; i<sheltersLength; i++) {
           lat = shelters.shelters[i].lat;
           lng = shelters.shelters[i].lng;
           latlng = new google.maps.LatLng(lat, lng);
-          this.createMarker(/*TODO*/);
+
+				  this.createMarker(latlng, shelters.shelters[i].desc);
         }
       },
 
-      createMarker: function () {
-        // TODO:
+      createMarker: function (latlng, description) {
+        marker = new google.maps.Marker({
+          position: latlng,
+          map: map
+        });
+
+        google.maps.event.addListener(marker, 'click', function() {
+          infowindow.close();
+          infowindow.setContent(description);
+          infowindow.open(map,marker);
+        });
       }
     };
 
