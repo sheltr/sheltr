@@ -26,6 +26,16 @@ app.route('/', function(req, res) {
   res.end(rend(temp.index));
 });
 
+app.route('/about', function(req, res) {
+  res.writeHead(200, {'Content-Type': 'text/html'});
+  res.end(rend(temp.about));
+});
+
+app.route('/shelter', function(req, res) {
+  res.writeHead(200, {'Content-Type': 'text/html'});
+  res.end(rend(temp.shelter));
+});
+
 app.route('/static/.*', function(req, res) {
   paperboy.deliver(__dirname, req, res);
 });
