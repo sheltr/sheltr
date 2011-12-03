@@ -20,7 +20,13 @@ a:active {
   color: #f90;
 }
 
-#map {
-  width: 500px;
+.map-container {
+  width: 500px;  
   height: 500px;
+  position: absolute;
+}
+
+#map {
+  width: 100%;
+  height: 100%;
 }

@@ -14,7 +14,7 @@ if (typeof SH === 'undefined' || !SH) {
             mapId: 'map',
             zoom: 12,
 				    center: new google.maps.LatLng(39.95240, -75.16362), 
-            mapTypId: google.maps.MapTypeId.ROADMAP
+            mapTypeId: google.maps.MapTypeId.ROADMAP
           };
 
         if (options) {
