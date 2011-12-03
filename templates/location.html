@@ -1,0 +1,39 @@
+  {>partials.header}
+  <article>
+    <h1>Shelter.Name Test</h1>
+    <div class="map-container">
+      <div id="map"></div>
+    </div>
+    <ul>
+      <li>shelter detail</li>
+      <li>shelter detail</li>
+      <li>shelter detail</li>
+    </ul>
+    <p>shelter notes</p>
+  </article>
+  {>partials.footer}
+  <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+    <script type="text/javascript" src="static/js/sh.map.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+
+        /* test location hardcoded.  update with dynamic data */
+        var location = {
+          'lat': 39.995,
+          'lng': -75.173,
+          'desc': 'This Location'
+        };
+
+        var map = new SH.map();
+
+        map.create({
+          center: new google.maps.LatLng(location.lat, location.lng),
+          zoom: 14
+        });
+
+        map.addShelters({'shelters': [location]});
+
+      });
+    </script>
+  </body>
+</html>

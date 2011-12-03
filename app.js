@@ -31,9 +31,9 @@ app.route('/about', function(req, res) {
   res.end(rend(temp.about));
 });
 
-app.route('/shelter', function(req, res) {
+app.route('/location', function(req, res) {
   res.writeHead(200, {'Content-Type': 'text/html'});
-  res.end(rend(temp.shelter));
+  res.end(rend(temp.location));
 });
 
 app.route('/static/.*', function(req, res) {
