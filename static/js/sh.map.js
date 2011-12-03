@@ -15,7 +15,6 @@ if (typeof SH === 'undefined' || !SH) {
             zoom: 12,
             mapTypId: google.maps.MapTypeId.ROADMAP
           };
-        console.log(document.getElementById(settings.mapId));
 
         if (options) {
           $.extend(settings, options);
