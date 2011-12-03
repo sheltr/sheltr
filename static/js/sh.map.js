@@ -21,7 +21,6 @@ if (typeof SH === 'undefined' || !SH) {
           $.extend(settings, options);
         }
 			  map = new google.maps.Map(document.getElementById(settings.mapId), settings);
-        console.log('map obj: ', map);
       },
 
       addShelters: function (shelters) {
