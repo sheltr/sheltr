@@ -21,7 +21,7 @@ if (typeof SH === 'undefined' || !SH) {
           $.extend(settings, options);
         }
 			  map = new google.maps.Map(document.getElementById(settings.mapId), settings);
-
+        console.log('map obj: ', map);
       },
 
       addShelters: function (shelters) {
@@ -51,6 +51,20 @@ if (typeof SH === 'undefined' || !SH) {
           infowindow.setContent(description);
           infowindow.open(map,marker);
         });
+      },
+
+      locateUser: function () {
+        var userLocation = null;
+
+        // Try W3C Geolocation
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            userLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+            return userLocation;
+          }, function() {
+            return userLocation;
+          });
+        }
       }
     };
 
