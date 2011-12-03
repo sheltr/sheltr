@@ -12,9 +12,9 @@
 									 {'lat':39.997,'lng':-75.153,'desc':'Shelter 2'},
 									 {'lat':40,'lng':-75,'desc':'Shelter 3'}]};
 	
-		function initialize(){
+		function initialize() {
 
-			var options = { 
+			var options = {
 				zoom: 12, 
 				center: new google.maps.LatLng(39.95240, -75.16362), 
 				mapTypeId: google.maps.MapTypeId.ROADMAP 
@@ -26,7 +26,6 @@
 			
 		}		
 
-		//add shelters to map
 		function addShelters (shelterCollection){
 		
 			for (var i=0; i<shelterCollection.shelters.length; i++) { 
@@ -41,7 +40,6 @@
 
 		}
 
-		//add marker to map
 		function createMarker(latlng,text) {
 			
 			marker = new google.maps.Marker({
@@ -56,6 +54,7 @@
 			});
 			
 		}
+    */
 		
 		</script> 
 
