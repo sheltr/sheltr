@@ -7,8 +7,10 @@
 
 		<script type="text/javascript"> 
 		var map;
-		
-		var address = new Array([39.955, -75.173],[39.997,-75.153],[,]);
+		var infowindow = new google.maps.InfoWindow();
+		var shelters = {'shelters': [{'lat':39.955,'lng':-75.173,'desc':'Shelter 1'},
+									 {'lat':39.997,'lng':-75.153,'desc':'Shelter 2'},
+									 {'lat':40,'lng':-75,'desc':'Shelter 3'}]};
 	
 		function initialize(){
 
@@ -18,27 +20,42 @@
 				mapTypeId: google.maps.MapTypeId.ROADMAP 
 			}; 
 
-			map = new google.maps.Map(document.getElementById('map'), options); 
+			map = new google.maps.Map(document.getElementById('map'), options);
 
-			var geocoder = new google.maps.Geocoder(); 
-		
-			for (var i = 0; i < address.length; i++) { 
-				geocoder.geocode( {'address': address[i]}, function(results, status) {
-						if (status == google.maps.GeocoderStatus.OK) {
-						
-							var marker = new google.maps.Marker({
-								position: results[0].geometry.location,
-							});
-
-							mc.addMarker(marker);
-
-						} else { 
-							alert("Geocode was not successful for the following reason: " + status); 
-						} 
-				});
-			}
+			addShelters(shelters);
 			
 		}		
+
+		//add shelters to map
+		function addShelters (shelterCollection){
+		
+			for (var i=0; i<shelterCollection.shelters.length; i++) { 
+
+				var lat = shelterCollection.shelters[i].lat;
+				var lng = shelterCollection.shelters[i].lng;
+				var latlng = new google.maps.LatLng(lat,lng);
+					
+				createMarker(latlng, shelterCollection.shelters[i].desc);
+
+			}
+
+		}
+
+		//add marker to map
+		function createMarker(latlng,text) {
+			
+			marker = new google.maps.Marker({
+				position: latlng,
+				map: map
+			});
+
+			google.maps.event.addListener(marker, 'click', function() {
+				infowindow.close();
+				infowindow.setContent(text);
+				infowindow.open(map,marker);
+			});
+			
+		}
 		
 		</script> 
 
