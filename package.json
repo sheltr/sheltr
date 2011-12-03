@@ -1,0 +1,17 @@
+{ "name": "sheltr"
+, "description": "Locate nearby homeless shelters"
+, "version": "0.0.1"
+, "author": "Gabriel Farrell <g@grrawr.com>"
+, "engines": { "node": ">=0.4.0" }
+, "main": "app"
+, "repository":
+  { "type": "git"
+  , "url": "http://github.com/PhillyShelter/sheltr.git"
+  }
+, "dependencies":
+  { "moment": ">=1.1.1"
+  , "paperboy": ">=0.0.2"
+  , "snout": ">=0.0.3"
+  , "whiskers": ">=0.0.6"
+  }
+}
