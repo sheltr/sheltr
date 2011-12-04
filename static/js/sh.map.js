@@ -20,7 +20,7 @@ if (typeof SH === 'undefined' || !SH) {
         if (options) {
           $.extend(settings, options);
         }
-			  map = new google.maps.Map(document.getElementById(settings.mapId), settings);
+        map = new google.maps.Map(document.getElementById(settings.mapId), settings);
       },
 
       addShelters: function (shelters) {
