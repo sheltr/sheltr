@@ -20,10 +20,6 @@ a:active {
   color: #f90;
 }
 
-.content {
-  text-align: center;  
-}
-
 header {
   width: 960px;  
   margin: 0 auto;
@@ -31,6 +27,7 @@ header {
 
 header h1 {
   text-align: center;  
+  margin-bottom: 30px;
 }
 
 form {
