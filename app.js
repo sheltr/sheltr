@@ -31,22 +31,25 @@ app.route('/about', function(req, res) {
   res.end(rend(temp.about));
 });
 
-app.route('/[A-Z]{1,2}', function(req, res, matches) {
+app.route('/([A-Z]{1,2})', function(req, res, matches) {
   var id = matches[1];
   res.writeHead(200, {'Content-Type': 'text/html'});
-  console.log(process.env.CMAPI);
   https.get({
     host: 'api.cloudmine.me',
-    port: 80,
-    path: '/v1/app/60ecdcdd9fd6433297924f75c1c07b13/text',
+    path: '/v1/app/60ecdcdd9fd6433297924f75c1c07b13/text?keys='+id,
     headers: {'X-CloudMine-ApiKey': process.env.CMAPI}
   }, function(cmres) {
-    console.log(cmres.statusCode);
+    var data = '';
     cmres.on('data', function(chunk) {
-      res.write(chunk);
+      data += chunk;
     }).on('end', function() {
-      //res.end(rend(temp.location));
-      res.end();
+      var parsed = JSON.parse(data);
+      if (!parsed.success) {
+        return app.NotFound(res);
+      }
+      var loc = parsed.success[id];
+      loc.raw = JSON.stringify(loc);
+      res.end(rend(temp.location, {loc: loc}));
     });
   }).on('error', function(e) {
     console.log(e);
