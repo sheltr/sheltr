@@ -3,13 +3,22 @@ if (typeof SH === 'undefined' || !SH) {
 }
 
 SH.needs = (function ($) {
-  var _self;
+  var settings = {
+        listRoot: $('ul.needs')
+      },
+      _self;
+
+  function getClass(need) {
+    return 'test';
+  }
 
   function buildNeedsHTML(need) {
     var name = need.Name ? need.Name : '',
-        addr = need.Address1;
+        addr = need.Address1,
+        liClass = getClass(need),
+        url = 'l/' + need.id;
 
-    return '<li><h2>' + name + '</h2><address>' + addr + '</address></li>';
+    return '<li class="' + liClass + '"><img src="/img/shelter.png" /><h2><a href="' + url + '">' + name + '</a></h2><address>' + addr + '</address><a href="">View on map</a></li>';
   }
 
   _self = {
@@ -22,7 +31,8 @@ SH.needs = (function ($) {
         needsHTML = needsHTML + buildNeedsHTML(needs.result[i]);
       }
 
-      $('ul.needs').append(needsHTML);
+      settings.listRoot.addClass('visible');
+      settings.listRoot.append(needsHTML);
     }
 
   };
