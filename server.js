@@ -65,18 +65,18 @@ function route(app) {
         data += chunk;
       }).on('end', function() {
         var parsed = JSON.parse(data);
-        if (!parsed.success[id]) {
+        if (parsed.success && parsed.success[id]) {
+          var loc = parsed.success[id];
+        } else {
           return next();
         }
         res.writeHead(200, {'Content-Type': 'text/html'});
-        var loc = parsed.success[id];
         loc.raw = JSON.stringify(loc);
         res.end(render(templates.location, {loc: loc}));
       });
     }).on('error', function(e) {
       console.log(e);
-      res.writeHead(200, {'Content-Type': 'text/html'});
-      res.end(render(templates.location));
+      next();
     });
   });
 };
