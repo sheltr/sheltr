@@ -58,7 +58,30 @@ header h1 a {
 }
 
 .container {
-  width: 100%;  
+  width: 100%;
+}
+
+h1 {
+  margin-bottom: 15px;
+}
+
+table {
+  border:  1px solid #666;
+  border-collapse: collapse;
+  margin-bottom: 15px;
+}
+
+table td, table th {
+  padding:  4px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+table tr:nth-child(odd) {
+  background-color: #eee;
+}
+table tr:nth-child(even) {
+  background-color: #fff;
 }
 
 .user {
@@ -74,6 +97,14 @@ form {
   width: 85%;  
   margin: 0 auto;
   margin-bottom: 30px;
+}
+
+textarea, input[type="text"] {
+  width: 300px;
+}
+
+textarea {
+  height: 50px;
 }
 
 form input.text {
