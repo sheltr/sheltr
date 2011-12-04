@@ -13,9 +13,9 @@ if (typeof SH === 'undefined' || !SH) {
         _self;
 
     var markerShadow = new google.maps.MarkerImage('/img/marker_shadow.png',
-      new google.maps.Size(51.0, 37.0),
-      new google.maps.Point(16, 16),
-      new google.maps.Point(0, 22));
+      new google.maps.Size(51, 37),
+      new google.maps.Point(0, 0),
+      new google.maps.Point(16, 37));
 
     _self = {
       create: function (options) {
@@ -39,7 +39,8 @@ if (typeof SH === 'undefined' || !SH) {
 
         $.ajax({
         url: '_map?lat=' + lat + '&long=' + lng,
-        context: document.body,
+        //context: document.body,
+        datatype: 'json',
         success: function(data){
            _self.addShelters(data);
           }
@@ -85,7 +86,8 @@ if (typeof SH === 'undefined' || !SH) {
         
         if (description === 'Your Location') { //TODO: this is fragile.
           google.maps.event.addListener(marker, 'dragend', function () {
-            //recalc distance to needs when marker is dragged
+            _self.getShelters(marker.getPosition());
+            _self.updateMapCenter(marker.getPosition());
           });
           
            _self.removeMarkers(youMarkerCollection)
@@ -104,6 +106,7 @@ if (typeof SH === 'undefined' || !SH) {
             userLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
             _self.create({ center: userLocation });
             _self.getShelters(userLocation);
+            _self.updateMapCenter(userLocation);
             _self.createMarker(userLocation, 'Your Location', {
               animation: google.maps.Animation.DROP,
               draggable: true,
