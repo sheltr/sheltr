@@ -1,19 +1,50 @@
   {>header}
   <article>
+
+    <p>{loc.raw}</p>
+
     <h1>{loc.Name}</h1>
+
+    {if loc.Address1}
+      <p>
+        {loc.Address1}
+        {if loc.Address2}
+          <br />
+          {loc.Address2}
+        {/if}
+      </p>
+    {/if}
+
+    {if loc.Phone}
+      <p>{loc.Phone}</p>
+    {/if}
+
+    {if loc.HoursNotes}
+      <p>{loc.HoursNotes}</p>
+    {/if}
+
+    {if loc.OtherNotes}
+      <p>{loc.OtherNotes}</p>
+    {/if}
+
+    {if loc.OtherServices}
+      <p>{loc.OtherServices}</p>
+    {/if}
+
+    {if loc.isShelterAndNotIntake}
+      <p>Note:  Most shelters require residents to be preprocessed at an Intake Center.</p>
+    {/if}
+
     <ul>
       {if loc.IsShelter}<li>Shelter</li>{/if}
       {if loc.IsIntake}<li>Intake center</li>{/if}
       {if loc.HasMeals}<li>Has meals</li>{/if}
     </ul>
-    {if loc.OtherServices}
-      <h2>Other Services</h2>
-      <p>{loc.OtherServices}</p>
-    {/if}
-    <!--<p>{loc.raw}</p>-->
+
     <div class="map-container">
       <div id="map"></div>
     </div>
+
   </article>
   {>footer}
   <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
@@ -21,7 +52,6 @@
     <script type="text/javascript">
       $(document).ready(function() {
 
-        /* test location hardcoded.  update with dynamic data */
         var location = {
           'lat': {loc.Latitude},
           'lng': {loc.Longitude},

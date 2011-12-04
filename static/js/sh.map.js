@@ -32,23 +32,25 @@ if (typeof SH === 'undefined' || !SH) {
         map = new google.maps.Map(document.getElementById(settings.mapId), settings);
       },
 
-      getShelters: function (userLocation) {
+      getShelters: function (userLocation,plot) {
 
         var lat = parseFloat(userLocation.lat());
         var lng = parseFloat(userLocation.lng());
 
         $.ajax({
         url: '_map?lat=' + lat + '&long=' + lng,
-        //context: document.body,
-        datatype: 'json',
         success: function(data){
-           _self.addShelters(data);
+          if (plot == true) {
+            _self.addSheltersToMap(data);
+          } 
+          //_self.addSheltersToList(data);
+           
           }
         });
 
       },
 
-      addShelters: function (shelters) {
+      addSheltersToMap: function (shelters) {
         var i,
             lat,
             lng,
@@ -61,8 +63,20 @@ if (typeof SH === 'undefined' || !SH) {
           lat = shelters.result[i].Latitude;
           lng = shelters.result[i].Longitude;
           latlng = new google.maps.LatLng(lat, lng);
-          
-          _self.createMarker(latlng, shelters.result[i].Name, {icon: '/img/shelter.png', shadow: markerShadow});
+
+          var options;
+        
+          if (shelters.result[i].HasMeals === "Y") {
+            options = {icon: '/img/food.png', shadow: markerShadow};
+          } 
+          if (shelters.result[i].IsShelter === "Y") {
+            options = {icon: '/img/shelter.png', shadow: markerShadow};
+          }
+          if (shelters.result[i].IsIntake === "Y") {
+            options = {icon: '/img/intake.png', shadow: markerShadow};
+          }
+
+          _self.createMarker(latlng, shelters.result[i].Name, options);
         }
       },
 
@@ -86,7 +100,7 @@ if (typeof SH === 'undefined' || !SH) {
         
         if (description === 'Your Location') { //TODO: this is fragile.
           google.maps.event.addListener(marker, 'dragend', function () {
-            _self.getShelters(marker.getPosition());
+            _self.getShelters(marker.getPosition(),false);
             _self.updateMapCenter(marker.getPosition());
           });
           
@@ -105,7 +119,7 @@ if (typeof SH === 'undefined' || !SH) {
           navigator.geolocation.getCurrentPosition(function(position) {
             userLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
             _self.create({ center: userLocation });
-            _self.getShelters(userLocation);
+            _self.getShelters(userLocation,true);
             _self.updateMapCenter(userLocation);
             _self.createMarker(userLocation, 'Your Location', {
               animation: google.maps.Animation.DROP,
