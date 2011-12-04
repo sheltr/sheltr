@@ -19,45 +19,10 @@ if (redisUrl) {
 
 var templates = snout.sniff(__dirname+'/templates');
 
-// from http://stackoverflow.com/questions/3498005/user-authentication-libraries-for-node-js
-var authCheck = function (req, res, next) {
-  var parsed = url.parse(req.url, true);
-
-  // Logout
-  if (parsed.pathname == "/logout") {
-    req.session.destroy();
-  }
-
-  // Is User already validated?
-  if (req.session && req.session.auth == true) {
-    next(); // stop here and pass to the next onion ring of connect
-    return;
-  }
-
-  // Auth - Replace this simple if with you Database or File or Whatever...
-  // If Database, you need a Async callback...
-  if (parsed.pathname == "/login" && 
-      parsed.query.name == "max" && 
-      parsed.query.pwd == "herewego") {
-    req.session.auth = true;
-    next();
-    return;
-  }
-
-  // User is not authorized. Stop talking to him.
-  if (parsed.pathname == "/admin") {
-    res.writeHead(403);
-    res.end('Sorry you are unauthorized.\n\nFor a login use: /login?name=max&pwd=herewego');
-    return;
-  }
-
-  // Pass on
-  next();
-};
-
 connect(
   connect.vhost('127.0.0.1|localhost|philly.sheltr.org', 
     connect(
+      nowww,
       connect.logger(),
       connect.cookieParser(),
       connect.session({
@@ -74,6 +39,7 @@ connect(
   ),
   connect.vhost('sheltr.org', 
     connect(
+      nowww,
       connect.logger(),
       connect.router(function(app) {
         app.get('/', function(req, res, next) {
@@ -87,12 +53,6 @@ connect(
 ).listen(port);
 
 console.log('Running on port '+port);
-
-// shortcut to populate partials with templates.partials
-function render(template, context) {
-  context = context || {};
-  return whiskers.render(template, context, templates.partials);
-};
 
 function route(app) {
   app.get('/', function(req, res, next) {
@@ -151,3 +111,57 @@ function route(app) {
     });
   });
 };
+
+// from https://github.com/vincentwoo/connect-no-www
+function nowww(req, res, next) {
+  if (/^www\./.exec(req.headers.host)) {
+    var host = req.headers.host.substring(req.headers.host.indexOf('.') + 1);
+    var newUrl  = 'http://' + host + req.url;
+    res.writeHead(301, {'Location': newUrl});
+    return res.end();
+  }
+  next();
+};
+
+// shortcut to populate partials with templates.partials
+function render(template, context) {
+  context = context || {};
+  return whiskers.render(template, context, templates.partials);
+};
+
+// from http://stackoverflow.com/questions/3498005/user-authentication-libraries-for-node-js
+function authCheck(req, res, next) {
+  var parsed = url.parse(req.url, true);
+
+  // Logout
+  if (parsed.pathname == "/logout") {
+    req.session.destroy();
+  }
+
+  // Is User already validated?
+  if (req.session && req.session.auth == true) {
+    next(); // stop here and pass to the next onion ring of connect
+    return;
+  }
+
+  // Auth - Replace this simple if with you Database or File or Whatever...
+  // If Database, you need a Async callback...
+  if (parsed.pathname == "/login" && 
+      parsed.query.name == "max" && 
+      parsed.query.pwd == "herewego") {
+    req.session.auth = true;
+    next();
+    return;
+  }
+
+  // User is not authorized. Stop talking to him.
+  if (parsed.pathname == "/admin") {
+    res.writeHead(403);
+    res.end('Sorry you are unauthorized.\n\nFor a login use: /login?name=max&pwd=herewego');
+    return;
+  }
+
+  // Pass on
+  next();
+};
+
