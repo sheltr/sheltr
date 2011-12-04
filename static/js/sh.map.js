@@ -9,6 +9,7 @@ if (typeof SH === 'undefined' || !SH) {
         geocoder = new google.maps.Geocoder(),
         youMarkerCollection = new Array(),
         needMarkerCollection = new Array(),
+        userLocation,
         _self;
 
     var markerShadow = new google.maps.MarkerImage('/img/marker_shadow.png',
@@ -29,6 +30,21 @@ if (typeof SH === 'undefined' || !SH) {
           $.extend(settings, options);
         }
         map = new google.maps.Map(document.getElementById(settings.mapId), settings);
+      },
+
+      getShelters: function (userLocation) {
+
+        var lat = parseFloat(userLocation.lat());
+        var lng = parseFloat(userLocation.lng());
+
+        $.ajax({
+        url: '_map?lat=' + lat + '&long=' + lng,
+        context: document.body,
+        success: function(){
+           console.log('got it!');
+          }
+        });
+
       },
 
       addShelters: function (shelters) {
@@ -80,13 +96,14 @@ if (typeof SH === 'undefined' || !SH) {
       },
 
       orientUser: function () {
-        var userLocation = null;
+        //var userLocation = null;
 
         // Try W3C Geolocation
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(function(position) {
             userLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
             _self.create({ center: userLocation });
+            _self.getShelters(userLocation);
             _self.addShelters(shelters);
             _self.createMarker(userLocation, 'Your Location', {
               animation: google.maps.Animation.DROP,
