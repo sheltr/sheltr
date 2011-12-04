@@ -32,20 +32,21 @@ if (typeof SH === 'undefined' || !SH) {
         map = new google.maps.Map(document.getElementById(settings.mapId), settings);
       },
 
-      getShelters: function (userLocation,plot) {
+      getShelters: function (userLocation, plot) {
+        plot = true || plot;
 
         var lat = parseFloat(userLocation.lat());
         var lng = parseFloat(userLocation.lng());
 
         $.ajax({
-        url: '_map?lat=' + lat + '&long=' + lng,
-        success: function(data){
-          needs = data;
-          if (plot == true) {
-            _self.addSheltersToMap(data);
-          } 
-          //_self.addSheltersToList(data);
-           
+          url: '_map?lat=' + lat + '&long=' + lng,
+          success: function(data) {
+            console.log('in getShelters success');
+            SH.state.needs = data;
+            if (plot === true) {
+              _self.addSheltersToMap(data);
+            }
+            SH.needs.list(SH.state.needs);
           }
         });
 

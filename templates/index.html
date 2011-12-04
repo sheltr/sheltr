@@ -1,4 +1,5 @@
     {>header}
+    <ul class="needs"></ul>
     <form class="submit">
       <input class="addr text" placeholder="Enter a Philadelphia address to find homeless shelters" type="text" />
       <button class="submit">Submit</button>
@@ -17,7 +18,6 @@
       }
 
       SH.state = {}; //global object through which we can share data
-      var needs = new SH.needs(); 
       $(document).ready(function() {
         var map = new SH.map(); 
         map.orientUser();
