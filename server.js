@@ -16,19 +16,19 @@ if (redisUrl) {
     pass: redisUrl.auth.split(':')[1]
   };
 }
-console.log(redisOptions);
 
 var templates = snout.sniff(__dirname+'/templates');
 
 connect(
   connect.vhost('127.0.0.1|localhost|philly.sheltr.org', 
     connect(
+      connect.logger(),
       connect.cookieParser(),
       connect.session({
         store: RedisStore(redisOptions), 
         secret: process.env.SECRET || 'walrus'
       }),
-      connect.logger(),
+      connect.query(),
       connect.router(function(app) {
         route(app);
       }),
@@ -94,9 +94,11 @@ function route(app) {
   app.get('/_map', function(req, res, next) {
     https.get({
       host: 'api.cloudmine.me',
-      path: '/v1/app/60ecdcdd9fd6433297924f75c1c07b13/text?f=shelters_near&apikey=1d0c51df5b5947059c018e9305e3fa69&result_only=true&params={"center": ['+req.query.lat+', '+req.query.long+']',
+      path: '/v1/app/60ecdcdd9fd6433297924f75c1c07b13/text?f=shelters_near&result_only=true&params={"center":['+req.query.lat+','+req.query.long+']}',
       headers: {'X-CloudMine-ApiKey': process.env.CMAPI}
     }, function(cmres) {
+      console.log(cmres.statusCode);
+      console.log(cmres.headers);
       res.writeHead(200, {'Content-Type': 'application/json'});
       cmres.on('data', function(chunk) {
         res.write(chunk);
