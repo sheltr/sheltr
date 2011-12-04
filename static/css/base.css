@@ -22,16 +22,12 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 }
 
 a {
-  color: #333;
+  color: #188db8;
   text-decoration: none;
 }
 
 a:hover {
-  color: #fc3;
-}
-
-a:active {
-  color: #f90;
+  color: #333;
 }
 
 ul {
