@@ -80,7 +80,8 @@ connect(
           res.writeHead(200, {'Content-Type': 'text/html'});
           res.end(render(templates.aboutSheltr));
         });
-      })
+      }),
+      connect.static(__dirname+'/static')
     )
   )
 ).listen(port);
