@@ -81,7 +81,7 @@ if (typeof SH === 'undefined' || !SH) {
             options = {icon: '/img/intake.png', shadow: markerShadow};
           }
 
-          _self.createMarker(latlng, shelters.result[i].Name, options);
+          _self.createMarker(latlng, shelters.result[i].Name + "<br>" + shelters.result[i].Address1, options);
         }
       },
 
