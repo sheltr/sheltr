@@ -20,7 +20,7 @@ if (redisUrl) {
 var templates = snout.sniff(__dirname+'/templates');
 
 connect(
-  connect.vhost('127.0.0.1|localhost|philly.sheltr.org', 
+  connect.vhost('127.0.0.1|localhost|philly.sheltr.org|www.philly.sheltr.org', 
     connect(
       nowww(),
       connect.logger(),
@@ -37,7 +37,7 @@ connect(
       connect.static(__dirname+'/static')
     )
   ),
-  connect.vhost('sheltr.org', 
+  connect.vhost('sheltr.org|www.sheltr.org', 
     connect(
       nowww(),
       connect.logger(),
@@ -121,7 +121,7 @@ function nowww() {
       res.writeHead(301, {'Location': newUrl});
       return res.end();
     }
-    next();
+    return next();
   };
 };
 
