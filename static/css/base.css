@@ -2,26 +2,33 @@
   margin: 0;
   padding: 0;
 }
+html {
+  height: 100%;
+}
 
 body {
   font-family: Arial, Helvetica, sans-serif;
   font: normal 100%/1.28571429 Helvetica, Arial, sans-serif;
   font-size: 12px;
   line-height: 20px;
-  margin: 0 0 0 0;
-  padding: 0 0 0 0;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 /* https://github.com/paulirish/html5-boilerplate/blob/362d0b7/css/style.css#L35 */
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
   display: block;
 }
+
 a {
   color: #333;
   text-decoration: none;
 }
+
 a:hover {
   color: #fc3;
 }
+
 a:active {
   color: #f90;
 }
@@ -72,16 +79,14 @@ form button.submit:hover {
   cursor: pointer;
 }
 
-.map-container {
-  width: 100%;  
-  height: 100%;
-  position: absolute;
+#map {
+  width: 960px;
+  height: 800px;
+  margin: 0 auto;
 }
 
-#map {
-  width: 100%;
-  height: 100%;
-}
+footer {}
+
 @media screen and (max-device-width: 480px) {
   header {
     padding-top: 5%;
@@ -93,13 +98,29 @@ form button.submit:hover {
   }
 
   form input.text {
-    font-size: 1.90em;
+    font-size: 1.8em;
     width: 95%;
-    padding: .25em 0 .25em .25em;
+    padding: .15em 0 .15em .15em;
   }
 
   form button.submit {
-    width: 100%;
+    width: 50%;
     padding: 0;
+    font-size: 1.25em;
+    padding: 0;
+  }
+
+  .map-container {
+    width: 90%;
+    height: 95%;
+    position: absolute;
+    left: 5%;
+  }
+
+  #map {
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+
   }
 }
