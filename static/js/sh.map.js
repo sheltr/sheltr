@@ -40,8 +40,8 @@ if (typeof SH === 'undefined' || !SH) {
         $.ajax({
         url: '_map?lat=' + lat + '&long=' + lng,
         context: document.body,
-        success: function(){
-           console.log('got it!');
+        success: function(data){
+           _self.addShelters(data);
           }
         });
 
@@ -52,16 +52,16 @@ if (typeof SH === 'undefined' || !SH) {
             lat,
             lng,
             latlng,
-            sheltersLength = shelters.shelters.length;
+            sheltersLength = shelters.result.length;
 
         _self.removeMarkers(needMarkerCollection);
 
         for (i=0; i<sheltersLength; i++) {
-          lat = shelters.shelters[i].lat;
-          lng = shelters.shelters[i].lng;
+          lat = shelters.result[i].Latitude;
+          lng = shelters.result[i].Longitude;
           latlng = new google.maps.LatLng(lat, lng);
           
-          _self.createMarker(latlng, shelters.shelters[i].desc, {icon: '/img/shelter.png', shadow: markerShadow});
+          _self.createMarker(latlng, shelters.result[i].Name, {icon: '/img/shelter.png', shadow: markerShadow});
         }
       },
 
@@ -77,8 +77,6 @@ if (typeof SH === 'undefined' || !SH) {
 
         var marker = new google.maps.Marker(settings);
 
-        needMarkerCollection.push(marker);
-
         google.maps.event.addListener(marker, 'click', function() {
           infoWindow.close();
           infoWindow.setContent(description);
@@ -92,6 +90,8 @@ if (typeof SH === 'undefined' || !SH) {
           
            _self.removeMarkers(youMarkerCollection)
           youMarkerCollection.push(marker); 
+        } else {
+          needMarkerCollection.push(marker);
         }
       },
 
@@ -104,7 +104,6 @@ if (typeof SH === 'undefined' || !SH) {
             userLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
             _self.create({ center: userLocation });
             _self.getShelters(userLocation);
-            _self.addShelters(shelters);
             _self.createMarker(userLocation, 'Your Location', {
               animation: google.maps.Animation.DROP,
               draggable: true,
