@@ -9,6 +9,11 @@ if (typeof SH === 'undefined' || !SH) {
         geocoder = new google.maps.Geocoder(),
         _self;
 
+    var markerShadow = new google.maps.MarkerImage('/img/marker_shadow.png',
+      new google.maps.Size(51, 37),
+      new google.maps.Point(16, 16),
+      new google.maps.Point(0, 22));
+
     _self = {
       create: function (options) {
         var settings = {
@@ -36,14 +41,14 @@ if (typeof SH === 'undefined' || !SH) {
           lng = shelters.shelters[i].lng;
           latlng = new google.maps.LatLng(lat, lng);
           
-          _self.createMarker(latlng, shelters.shelters[i].desc);
+          _self.createMarker(latlng, shelters.shelters[i].desc, {icon: '/img/shelter.png', shadow: markerShadow});
         }
       },
 
       createMarker: function (latlng, description, options) {
         var settings = {
               position: latlng,
-              map: map,
+              map: map
           };
 
         if (options) {
@@ -75,7 +80,9 @@ if (typeof SH === 'undefined' || !SH) {
             _self.addShelters(shelters);
             _self.createMarker(userLocation, 'You!', {
               animation: google.maps.Animation.DROP,
-              draggable: true
+              draggable: true,
+              icon: '/img/you.png',
+              shadow: markerShadow
             });
           }, function() {
             _self.create();
