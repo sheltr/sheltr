@@ -75,6 +75,7 @@ table td, table th {
   padding:  4px;
   text-align: left;
   border: 1px solid #ddd;
+  vertical-align: top;
 }
 
 table tr:nth-child(odd) {
