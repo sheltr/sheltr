@@ -104,14 +104,19 @@
           'desc': '{loc.Address1}'
         };
 
-        var map = new SH.map();
+        var center = new google.maps.LatLng(location.lat, location.lng);
 
-        map.create({
-          center: new google.maps.LatLng(location.lat, location.lng),
-          zoom: 14
-        });
+        var myOptions = { center: center, zoom: 18, mapTypeId: google.maps.MapTypeId.ROADMAP };
 
-        map.addShelters({'shelters': [location]});
+        var map = new google.maps.Map(document.getElementById("map"),myOptions);
+
+        var settings = {
+          position: center,
+          map: map,
+          icon: '../img/shelter.png'
+        };
+
+        var marker = new google.maps.Marker(settings);
 
       });
     </script>
