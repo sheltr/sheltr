@@ -34,8 +34,8 @@ if (typeof SH === 'undefined' || !SH) {
           lat = shelters.shelters[i].lat;
           lng = shelters.shelters[i].lng;
           latlng = new google.maps.LatLng(lat, lng);
-
-				  _self.createMarker(latlng, shelters.shelters[i].desc);
+          
+          _self.createMarker(latlng, shelters.shelters[i].desc);
         }
       },
 
