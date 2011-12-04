@@ -6,6 +6,7 @@ if (typeof SH === 'undefined' || !SH) {
   SH.map = function () {
     var map,
         infoWindow = new google.maps.InfoWindow(),
+        geocoder = new google.maps.Geocoder(),
         _self;
 
     _self = {
@@ -86,6 +87,20 @@ if (typeof SH === 'undefined' || !SH) {
 
       updateMapCenter: function (latLongObj) {
         map.setCenter(latLongObj);
+      },
+
+      geocode: function (addr, description) {
+        var lat,
+            lng,
+            latlng;
+
+        geocoder.geocode({
+          'address': addr,
+        }, function (results, status) {
+          if (status === google.maps.GeocoderStatus.OK) {
+            _self.createMarker(results[0].geometry.location, description);
+          }
+        });
       }
     };
 
