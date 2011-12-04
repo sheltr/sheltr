@@ -52,14 +52,14 @@ if (typeof SH === 'undefined' || !SH) {
       createMarker: function (latlng, description, options) {
         var settings = {
               position: latlng,
-              map: map
+              map: map,
           };
 
         if (options) {
           $.extend(settings, options);
         }
 
-        marker = new google.maps.Marker(settings);
+        var marker = new google.maps.Marker(settings);
 
         needMarkerCollection.push(marker);
 
