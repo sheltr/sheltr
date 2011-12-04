@@ -7,17 +7,16 @@ var RedisStore = require('connect-redis')(connect);
 
 var port = process.env.PORT || 8127;
 var redisUrl = process.env.REDISTOGO_URL && url.parse(process.env.REDISTOGO_URL);
-var redisStore;
+var redisOptions;
 
 if (redisUrl) {
-  redisStore = new RedisStore({
+  redisOptions = {
     host: redisUrl.host,
     port: redisUrl.port,
-    pass: redisURL.auth.split(':')[1]
-  });
-} else {
-  redisStore = new RedisStore;
+    pass: redisUrl.auth.split(':')[1]
+  };
 }
+console.log(redisOptions);
 
 var templates = snout.sniff(__dirname+'/templates');
 
@@ -26,7 +25,7 @@ connect(
     connect(
       connect.cookieParser(),
       connect.session({
-        store: redisStore, 
+        store: RedisStore(redisOptions), 
         secret: process.env.SECRET || 'walrus'
       }),
       connect.logger(),
