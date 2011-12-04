@@ -1,45 +1,88 @@
   {>header}
   <article>
 
-    <p>{loc.raw}</p>
-
     <h1>{loc.Name}</h1>
-
-    {if loc.Address1}
-      <p>
-        {loc.Address1}
-        {if loc.Address2}
-          <br />
-          {loc.Address2}
-        {/if}
-      </p>
-    {/if}
-
-    {if loc.Phone}
-      <p>{loc.Phone}</p>
-    {/if}
-
-    {if loc.HoursNotes}
-      <p>{loc.HoursNotes}</p>
-    {/if}
-
-    {if loc.OtherNotes}
-      <p>{loc.OtherNotes}</p>
-    {/if}
-
-    {if loc.OtherServices}
-      <p>{loc.OtherServices}</p>
-    {/if}
 
     {if loc.isShelterAndNotIntake}
       <p>Note:  Most shelters require residents to be preprocessed at an Intake Center.</p>
     {/if}
 
-    <ul>
-      {if loc.IsShelter}<li>Shelter</li>{/if}
-      {if loc.IsIntake}<li>Intake center</li>{/if}
-      {if loc.HasMeals}<li>Has meals</li>{/if}
-    </ul>
+    <table>
+
+      <tr>
+        <th>Address</th>
+        <td>
+          {loc.Address1}
+          {if loc.Address2}
+            <br />{loc.Address2}
+          {/if}
+          {loc.PostalCode}
+        </td>
+      </tr>
+
+      <tr>
+        <th>Phone</th>
+        <td>
+          {loc.Phone}
+        </td>
+      </tr>
+
+      <tr>
+        <th>Hours Notes</th>
+        <td>
+          {loc.HoursNotes}
+        </td>
+      </tr>
+
+      <tr>
+        <th>Other Notes</th>
+        <td>
+          {loc.OtherNotes}
+        </td>
+      </tr>
+
+      <tr>
+        <th>Other Services</th>
+        <td>
+          {loc.OtherServices}
+        </td>
+      </tr>
+
+      <tr>
+        <th>Is Shelter</th>
+        <td>
+          {if loc.IsShelter}
+            Yes
+          {else}
+            No
+          {/if}
+        </td>
+      </tr>
+
+      <tr>
+        <th>Is Intake Center</th>
+        <td>
+          {if loc.IsIntake}
+            Yes
+          {else}
+            No
+          {/if}
+        </td>
+      </tr>
+
+      <tr>
+        <th>Provides Meals</th>
+        <td>
+          {if loc.HasMeals}
+            Yes
+          {else}
+            No
+          {/if}
+        </td>
+      </tr>
+
+
+    </table>
 
     <div class="map-container">
       <div id="map"></div>
