@@ -12,7 +12,7 @@
   { "connect": ">=1.8.2"
   , "connect-redis": "1.2.0"
   , "paperboy": ">=0.0.2"
-  , "snout": ">=0.0.3"
-  , "whiskers": ">=0.0.6"
+  , "snout": ">=0.0.5"
+  , "whiskers": ">=0.1.1"
   }
 }
