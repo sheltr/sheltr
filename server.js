@@ -11,7 +11,7 @@ var redisOptions;
 
 if (redisUrl) {
   redisOptions = {
-    host: redisUrl.hostname,
+    host: redisUrl.host,
     port: redisUrl.port,
     pass: redisUrl.auth.split(':')[1]
   };
