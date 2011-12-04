@@ -22,7 +22,7 @@ var templates = snout.sniff(__dirname+'/templates');
 connect(
   connect.vhost('127.0.0.1|localhost|philly.sheltr.org', 
     connect(
-      nowww,
+      nowww(),
       connect.logger(),
       connect.cookieParser(),
       connect.session({
@@ -39,7 +39,7 @@ connect(
   ),
   connect.vhost('sheltr.org', 
     connect(
-      nowww,
+      nowww(),
       connect.logger(),
       connect.router(function(app) {
         app.get('/', function(req, res, next) {
@@ -113,14 +113,16 @@ function route(app) {
 };
 
 // from https://github.com/vincentwoo/connect-no-www
-function nowww(req, res, next) {
-  if (/^www\./.exec(req.headers.host)) {
-    var host = req.headers.host.substring(req.headers.host.indexOf('.') + 1);
-    var newUrl  = 'http://' + host + req.url;
-    res.writeHead(301, {'Location': newUrl});
-    return res.end();
-  }
-  next();
+function nowww() {
+  return function(req, res, next) {
+    if (/^www\./.exec(req.headers.host)) {
+      var host = req.headers.host.substring(req.headers.host.indexOf('.') + 1);
+      var newUrl  = 'http://' + host + req.url;
+      res.writeHead(301, {'Location': newUrl});
+      return res.end();
+    }
+    next();
+  };
 };
 
 // shortcut to populate partials with templates.partials
