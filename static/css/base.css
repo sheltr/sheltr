@@ -20,9 +20,53 @@ a:active {
   color: #f90;
 }
 
-.map-container {
+.content {
+  text-align: center;  
+}
+
+header {
+  width: 960px;  
+  margin: 0 auto;
+}
+
+header h1 {
+  text-align: center;  
+}
+
+form {
+  width: 960px;  
+  margin: 0 auto;
+  margin-bottom: 30px;
+}
+
+form input.text {
+  margin: 0 auto;
+  margin-bottom: 5px;
   width: 500px;  
-  height: 500px;
+  height: 50px;
+  border: 1px solid #bbb;
+  font-size: 18px;
+  text-align: center;
+  display: block;
+  font-family: inherit;
+}
+
+form button.submit {
+  font-size: 22px;
+  padding: 10px 20px;
+  font-family: inherit;
+  display: block;
+  margin: 0 auto;
+  width: 500px;
+}
+
+form button.submit:hover {
+  cursor: pointer;
+}
+
+.map-container {
+  width: 100%;  
+  height: 100%;
   position: absolute;
 }
 
