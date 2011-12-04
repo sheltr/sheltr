@@ -7,10 +7,12 @@ if (typeof SH === 'undefined' || !SH) {
     var map,
         infoWindow = new google.maps.InfoWindow(),
         geocoder = new google.maps.Geocoder(),
+        youMarkerCollection = new Array(),
+        needMarkerCollection = new Array(),
         _self;
 
     var markerShadow = new google.maps.MarkerImage('/img/marker_shadow.png',
-      new google.maps.Size(51, 37),
+      new google.maps.Size(51.0, 37.0),
       new google.maps.Point(16, 16),
       new google.maps.Point(0, 22));
 
@@ -36,6 +38,8 @@ if (typeof SH === 'undefined' || !SH) {
             latlng,
             sheltersLength = shelters.shelters.length;
 
+        _self.removeMarkers(needMarkerCollection);
+
         for (i=0; i<sheltersLength; i++) {
           lat = shelters.shelters[i].lat;
           lng = shelters.shelters[i].lng;
@@ -56,16 +60,22 @@ if (typeof SH === 'undefined' || !SH) {
         }
 
         marker = new google.maps.Marker(settings);
+
+        needMarkerCollection.push(marker);
+
         google.maps.event.addListener(marker, 'click', function() {
           infoWindow.close();
           infoWindow.setContent(description);
           infoWindow.open(map,marker);
         });
         
-        if (description === 'You!') { //TODO: this is fragile.
+        if (description === 'Your Location') { //TODO: this is fragile.
           google.maps.event.addListener(marker, 'dragend', function () {
-            console.log('dragend event listener worked!');
+            //recalc distance to needs when marker is dragged
           });
+          
+           _self.removeMarkers(youMarkerCollection)
+          youMarkerCollection.push(marker); 
         }
       },
 
@@ -78,7 +88,7 @@ if (typeof SH === 'undefined' || !SH) {
             userLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
             _self.create({ center: userLocation });
             _self.addShelters(shelters);
-            _self.createMarker(userLocation, 'You!', {
+            _self.createMarker(userLocation, 'Your Location', {
               animation: google.maps.Animation.DROP,
               draggable: true,
               icon: '/img/you.png',
@@ -105,10 +115,25 @@ if (typeof SH === 'undefined' || !SH) {
           'address': addr,
         }, function (results, status) {
           if (status === google.maps.GeocoderStatus.OK) {
-            _self.createMarker(results[0].geometry.location, description);
+            _self.createMarker(results[0].geometry.location, 'Your Location',  {
+              animation: google.maps.Animation.DROP,
+              draggable: true,
+              icon: '/img/you.png',
+              shadow: markerShadow
+            });
           }
         });
+      },
+
+      removeMarkers: function(markerArray) {
+        if (markerArray) {
+          for (i in markerArray) {
+            markerArray[i].setMap(null);
+          }
+          markerArray.length = 0;
+        }
       }
+
     };
 
     return _self;
