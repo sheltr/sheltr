@@ -33,6 +33,10 @@ a:active {
   color: #f90;
 }
 
+ul {
+  list-style: none;
+}
+
 header {
   width: 85%;  
   margin: 0 auto;
@@ -55,6 +59,15 @@ header h1 a {
 
 .container {
   width: 100%;  
+}
+
+.user {
+  float: right;
+}
+
+.user li {
+  float: left;
+  margin: 0 0 0 20px;
 }
 
 form {

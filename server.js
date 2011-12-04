@@ -30,7 +30,8 @@ connect(
         secret: process.env.SECRET || 'walrus'
       }),
       connect.query(),
-      authCheck,
+      // uncomment when we have users
+      //authCheck, 
       connect.router(function(app) {
         route(app);
       }),
@@ -57,7 +58,9 @@ console.log('Running on port '+port);
 function route(app) {
   app.get('/', function(req, res, next) {
     res.writeHead(200, {'Content-Type': 'text/html'});
-    res.end(render(templates.index));
+    // in the future, we'll get user from req
+    var context = {user: true};
+    res.end(render(templates.index, context));
   });
   app.get('/about', function(req, res, next) {
     res.writeHead(200, {'Content-Type': 'text/html'});
@@ -65,35 +68,8 @@ function route(app) {
   });
   app.get('/admin', function(req, res, next) {
     res.writeHead(200, {'Content-Type': 'text/html'});
-    res.end(render(templates.admin));
-  });
-  app.get('/edit_location/:id', function(req, res, next) {
-    var id = req.params.id;
-    https.get({
-      host: 'api.cloudmine.me',
-      path: '/v1/app/60ecdcdd9fd6433297924f75c1c07b13/text?keys='+id,
-      headers: {'X-CloudMine-ApiKey': process.env.CMAPI}
-    }, function(cmres) {
-      var data = '';
-      cmres.on('data', function(chunk) {
-        data += chunk;
-      }).on('end', function() {
-        var parsed = JSON.parse(data);
-        if (parsed.success && parsed.success[id]) {
-          var loc = parsed.success[id];
-          loc.id = id;
-        } else {
-          return next();
-        }
-        res.writeHead(200, {'Content-Type': 'text/html'});
-        loc.raw = JSON.stringify(loc);
-
-        res.end(render(templates.edit_location, {loc: loc}));
-      });
-    }).on('error', function(e) {
-      console.log(e);
-      next();
-    });
+    var context = {user: true};
+    res.end(render(templates.admin, context));
   });
   app.get('/l/:id', function(req, res, next) {
     var id = req.params.id;
@@ -114,10 +90,43 @@ function route(app) {
         }
         res.writeHead(200, {'Content-Type': 'text/html'});
         loc.raw = JSON.stringify(loc);
-
         loc.isShelterAndNotIntake = (loc.isShelter && !loc.isIntake);
-
-        res.end(render(templates.location, {loc: loc}));
+        var context = {
+          loc: loc,
+          user: true
+        };
+        res.end(render(templates.location, context));
+      });
+    }).on('error', function(e) {
+      console.log(e);
+      next();
+    });
+  });
+  app.get('/l/:id/edit', function(req, res, next) {
+    var id = req.params.id;
+    https.get({
+      host: 'api.cloudmine.me',
+      path: '/v1/app/60ecdcdd9fd6433297924f75c1c07b13/text?keys='+id,
+      headers: {'X-CloudMine-ApiKey': process.env.CMAPI}
+    }, function(cmres) {
+      var data = '';
+      cmres.on('data', function(chunk) {
+        data += chunk;
+      }).on('end', function() {
+        var parsed = JSON.parse(data);
+        if (parsed.success && parsed.success[id]) {
+          var loc = parsed.success[id];
+          loc.id = id;
+        } else {
+          return next();
+        }
+        res.writeHead(200, {'Content-Type': 'text/html'});
+        loc.raw = JSON.stringify(loc);
+        var context = {
+          loc: loc,
+          user: true
+        };
+        res.end(render(templates.edit_location, context));
       });
     }).on('error', function(e) {
       console.log(e);
