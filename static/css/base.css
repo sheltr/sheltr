@@ -34,6 +34,10 @@ a:active {
   color: #f90;
 }
 
+article {
+  margin: 20px;
+}
+
 ul {
   list-style: none;
 }
@@ -56,6 +60,14 @@ header h1 a {
   margin: 0 auto;
   text-indent: -5000px;
   margin-bottom: 30px;
+}
+
+footer {
+  margin: 20px;
+}
+
+footer p {
+  float: right;
 }
 
 .container {
@@ -161,7 +173,6 @@ form button.submit:hover {
   margin: 0 auto;
 }
 
-footer {}
 
 @media screen and (max-device-width: 480px) {
   header {
