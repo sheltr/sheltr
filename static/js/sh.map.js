@@ -40,6 +40,7 @@ if (typeof SH === 'undefined' || !SH) {
         $.ajax({
         url: '_map?lat=' + lat + '&long=' + lng,
         success: function(data){
+          needs = data;
           if (plot == true) {
             _self.addSheltersToMap(data);
           } 
@@ -71,6 +72,9 @@ if (typeof SH === 'undefined' || !SH) {
           } 
           if (shelters.result[i].IsShelter === "Y") {
             options = {icon: '/img/shelter.png', shadow: markerShadow};
+          }
+          if (shelters.result[i].IsShelter === "Y" && shelters.result[i].IsShelter === "N") {
+            options = {icon: '/img/shelter_food.png', shadow: markerShadow};
           }
           if (shelters.result[i].IsIntake === "Y") {
             options = {icon: '/img/intake.png', shadow: markerShadow};
