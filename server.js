@@ -89,9 +89,11 @@ function route(app) {
           return next();
         }
         res.writeHead(200, {'Content-Type': 'text/html'});
+        loc.id = id;
         loc.raw = JSON.stringify(loc);
         loc.isShelterAndNotIntake = (loc.isShelter && !loc.isIntake);
         var context = {
+          edit: true,
           loc: loc,
           user: true
         };
@@ -116,11 +118,11 @@ function route(app) {
         var parsed = JSON.parse(data);
         if (parsed.success && parsed.success[id]) {
           var loc = parsed.success[id];
-          loc.id = id;
         } else {
           return next();
         }
         res.writeHead(200, {'Content-Type': 'text/html'});
+        loc.id = id;
         loc.raw = JSON.stringify(loc);
         var context = {
           loc: loc,

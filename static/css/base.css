@@ -35,7 +35,7 @@ a:active {
 }
 
 article {
-  margin: 20px;
+  width: 85%;  
 }
 
 ul {
@@ -63,7 +63,7 @@ header h1 a {
 }
 
 footer {
-  margin: 20px;
+  width: 85%;  
 }
 
 footer p {
@@ -72,6 +72,10 @@ footer p {
 
 .container {
   width: 100%;
+}
+
+.edit {
+  float: right;
 }
 
 h1 {
