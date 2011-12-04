@@ -1,0 +1,130 @@
+  {>header}
+  <article>
+
+    <p>{loc.raw}</p>
+
+    <form method="POST">
+
+      <table>
+
+        <tr>
+          <th>Name</th>
+          <td>
+            <input type="text" value="{loc.Name}" name="loc[Name]" />
+          </td>
+        </tr>
+
+        <tr>
+          <th>Address1</th>
+          <td>
+            <input type="text" value="{loc.Address1}" name="loc[Address1]" />
+          </td>
+        </tr>
+
+        <tr>
+          <th>Address2</th>
+          <td>
+            <input type="text" value="{loc.Address2}" name="loc[Address2]" />
+          </td>
+        </tr>
+
+        <tr>
+          <th>Postal Code</th>
+          <td>
+            <input type="text" value="{loc.PostalCode}" name="loc[PostalCode]" />
+          </td>
+        </tr>
+
+        <tr>
+          <th>Phone</th>
+          <td>
+            <input type="text" value="{loc.Phone}" name="loc[Phone]" />
+          </td>
+        </tr>
+
+        <tr>
+          <th>Hours Notes</th>
+          <td>
+            <input type="textarea" value="{loc.HoursNotes}" name="loc[HoursNotes]" />
+          </td>
+        </tr>
+
+        <tr>
+          <th>Other Notes</th>
+          <td>
+            <input type="textarea" value="{loc.OtherNotes}" name="loc[OtherNotes]" />
+          </td>
+        </tr>
+
+        <tr>
+          <th>Other Services</th>
+          <td>
+            <input type="textarea" value="{loc.OtherServices}" name="loc[OtherServices]" />
+          </td>
+        </tr>
+
+        <tr>
+          <th>Is Shelter</th>
+          <td>
+            <select name="loc[IsShelter]">
+              <option
+                {if loc.IsShelter}
+                  selected="selected"
+                {/if}
+                value="Y">Yes</option>
+              <option
+                {if not loc.IsShelter}
+                  selected="selected"
+                {/if}
+                value="N">No</option>
+            </select>
+          </td>
+        </tr>
+
+        <tr>
+          <th>Is Intake Center</th>
+          <td>
+            <select name="loc[IsIntake]">
+              <option
+                {if loc.IsIntake}
+                  selected="selected"
+                {/if}
+                value="Y">Yes</option>
+              <option
+                {if not loc.IsIntake}
+                  selected="selected"
+                {/if}
+                value="N">No</option>
+            </select>
+          </td>
+        </tr>
+
+        <tr>
+          <th>Provides Meals</th>
+          <td>
+            <select name="loc[HasMeals]">
+              <option
+                {if loc.HasMeals}
+                  selected="selected"
+                {/if}
+                value="Y">Yes</option>
+              <option
+                {if not loc.HasMeals}
+                  selected="selected"
+                {/if}
+                value="N">No</option>
+            </select>
+          </td>
+        </tr>
+
+
+      </table>
+
+      <input type="submit" value="Save Changes" />
+
+    </form>
+
+  </article>
+  {>footer}
+  </body>
+</html>

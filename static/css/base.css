@@ -41,7 +41,6 @@ header {
 
 header h1 {
   text-align: center;  
-  margin-bottom: 30px;
 }
 
 header h1 a {
@@ -51,6 +50,7 @@ header h1 a {
   height: 110px;
   margin: 0 auto;
   text-indent: -5000px;
+  margin-bottom: 30px;
 }
 
 .container {
@@ -99,15 +99,24 @@ footer {}
 @media screen and (max-device-width: 480px) {
   header {
     padding-top: 5%;
+    margin-bottom: 0;
+  }
+
+  header h1 {
+    margin-bottom: 0;
   }
 
   h1 a {
-    background: url('../img/sheltr-logo-mobile.png') no-repeat 0 0;
     width: 200px;
     height: 70px;
+    max-width: 100%;
+    background-size: contain;
+    overflow: hidden;
+    margin-bottom: 0;
   }
 
   form {
+    margin-top: -20px; /*because we can't seem to change the h1 margin-bottom for mobile*/
     margin-bottom: 5%;
     width: 95%;
   }
