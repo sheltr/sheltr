@@ -74,7 +74,7 @@ if (typeof SH === 'undefined' || !SH) {
           if (shelters.result[i].IsShelter === "Y") {
             options = {icon: '/img/shelter.png', shadow: markerShadow};
           }
-          if (shelters.result[i].IsShelter === "Y" && shelters.result[i].IsShelter === "N") {
+          if (shelters.result[i].IsShelter === "Y" && shelters.result[i].HasMeals === "Y") {
             options = {icon: '/img/shelter_food.png', shadow: markerShadow};
           }
           if (shelters.result[i].IsIntake === "Y") {
