@@ -30,6 +30,10 @@ a:hover {
   color: #333;
 }
 
+article {
+  width: 85%;  
+}
+
 ul {
   list-style: none;
 }
@@ -54,8 +58,20 @@ header h1 a {
   margin-bottom: 30px;
 }
 
+footer {
+  width: 85%;  
+}
+
+footer p {
+  float: right;
+}
+
 .container {
   width: 100%;
+}
+
+.edit {
+  float: right;
 }
 
 h1 {
@@ -157,7 +173,6 @@ form button.submit:hover {
   margin: 0 auto;
 }
 
-footer {}
 
 @media screen and (max-device-width: 480px) {
   header {

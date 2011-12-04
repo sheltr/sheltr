@@ -89,9 +89,11 @@ function route(app) {
           return next();
         }
         res.writeHead(200, {'Content-Type': 'text/html'});
+        loc.id = id;
         loc.raw = JSON.stringify(loc);
         loc.isShelterAndNotIntake = (loc.isShelter && !loc.isIntake);
         var context = {
+          edit: true,
           loc: loc,
           user: true
         };
@@ -116,11 +118,11 @@ function route(app) {
         var parsed = JSON.parse(data);
         if (parsed.success && parsed.success[id]) {
           var loc = parsed.success[id];
-          loc.id = id;
         } else {
           return next();
         }
         res.writeHead(200, {'Content-Type': 'text/html'});
+        loc.id = id;
         loc.raw = JSON.stringify(loc);
         var context = {
           loc: loc,
@@ -136,7 +138,7 @@ function route(app) {
   app.get('/_map', function(req, res, next) {
     https.get({
       host: 'api.cloudmine.me',
-      path: '/v1/app/60ecdcdd9fd6433297924f75c1c07b13/text?f=shelters_near&result_only=true&params={"center":['+req.query.lat+','+req.query.long+']}',
+      path: '/v1/app/60ecdcdd9fd6433297924f75c1c07b13/text?f=shelters_near&params={"center":['+req.query.lat+','+req.query.long+']}',
       headers: {'X-CloudMine-ApiKey': process.env.CMAPI}
     }, function(cmres) {
       res.writeHead(200, {'Content-Type': 'application/json'});
