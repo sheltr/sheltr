@@ -21,7 +21,7 @@ a:active {
 }
 
 header {
-  width: 960px;  
+  width: 90%;  
   margin: 0 auto;
 }
 
@@ -31,7 +31,7 @@ header h1 {
 }
 
 form {
-  width: 960px;  
+  width: 90%;  
   margin: 0 auto;
   margin-bottom: 30px;
 }
@@ -39,7 +39,7 @@ form {
 form input.text {
   margin: 0 auto;
   margin-bottom: 5px;
-  width: 500px;  
+  width: 100%;  
   height: 50px;
   border: 1px solid #bbb;
   font-size: 18px;
@@ -54,7 +54,7 @@ form button.submit {
   font-family: inherit;
   display: block;
   margin: 0 auto;
-  width: 500px;
+  width: 100%;
 }
 
 form button.submit:hover {
@@ -70,4 +70,18 @@ form button.submit:hover {
 #map {
   width: 100%;
   height: 100%;
+}
+
+@media screen and (max-device-width: 480px) {
+  form input.text {
+    width: 80%;
+  }
+
+  header {
+    width: 90%;
+  }
+
+  form input.text {
+    width: 90%;  
+  }
 }
