@@ -57,6 +57,8 @@ if (typeof SH === 'undefined' || !SH) {
             lat,
             lng,
             latlng,
+            options,
+            icon,
             sheltersLength = shelters.result.length;
 
         _self.removeMarkers(needMarkerCollection);
@@ -66,23 +68,35 @@ if (typeof SH === 'undefined' || !SH) {
           lng = shelters.result[i].Longitude;
           latlng = new google.maps.LatLng(lat, lng);
 
-          var options;
-        
-          if (shelters.result[i].HasMeals === "Y") {
-            options = {icon: '/img/food.png', shadow: markerShadow};
-          } 
-          if (shelters.result[i].IsShelter === "Y") {
-            options = {icon: '/img/shelter.png', shadow: markerShadow};
-          }
-          if (shelters.result[i].IsShelter === "Y" && shelters.result[i].HasMeals === "Y") {
-            options = {icon: '/img/shelter_food.png', shadow: markerShadow};
-          }
-          if (shelters.result[i].IsIntake === "Y") {
-            options = {icon: '/img/intake.png', shadow: markerShadow};
-          }
+          icon = _self.selectMarkerIcon(shelters.result[i]);
+
+          options = {icon: icon, shadow: markerShadow};
 
           _self.createMarker(latlng, shelters.result[i].Name + "<br>" + shelters.result[i].Address1, options);
         }
+      },
+
+      selectMarkerIcon: function(need) {
+
+        var icon
+        
+        if (need.HasMeals === "Y") {
+          icon = '/img/food.png';
+        } 
+        if (need.IsShelter === "Y") {
+          icon = '/img/shelter.png';
+        }
+        if (need.IsShelter === "Y" && need.HasMeals === "Y") {
+          icon = '/img/shelter_food.png';
+        }
+        if (need.IsIntake === "Y") {
+          icon = '/img/intake.png';
+        } else {
+          icon = '/img/shelter.png'; //Mill Creek Baptist Church currently doesn't meet any of these conditions. This will give it the shelter icon (I'm assuming its a shelter).
+        }
+        
+        return icon;
+
       },
 
       createMarker: function (latlng, description, options) {
@@ -109,7 +123,7 @@ if (typeof SH === 'undefined' || !SH) {
             _self.updateMapCenter(marker.getPosition());
           });
           
-           _self.removeMarkers(youMarkerCollection)
+          _self.removeMarkers(youMarkerCollection)
           youMarkerCollection.push(marker); 
         } else {
           needMarkerCollection.push(marker);
