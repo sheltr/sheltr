@@ -60,6 +60,7 @@ if (typeof SH === 'undefined' || !SH) {
             latlng,
             options,
             icon,
+            description,
             sheltersLength = shelters.result.length;
 
         _self.removeMarkers(needMarkerCollection);
@@ -69,11 +70,12 @@ if (typeof SH === 'undefined' || !SH) {
           lng = shelters.result[i].Longitude;
           latlng = new google.maps.LatLng(lat, lng);
 
-          icon = SH.map.prototype.selectMarkerIcon(shelters.result[i]);
+          description = shelters.result[i].Name + "<br>" + shelters.result[i].Address1 + "<br><a href='http://www.google.com/maps?q=to:" + shelters.result[i].Address1 + ",+Philadelphia,+PA'>Get Directions</a>"
 
+          icon = SH.map.prototype.selectMarkerIcon(shelters.result[i]);
           options = {icon: icon, shadow: markerShadow};
 
-          _self.createMarker(latlng, shelters.result[i].Name + "<br>" + shelters.result[i].Address1, options, shelters.result[i].id);
+          _self.createMarker(latlng, description, options, shelters.result[i].id);
         }
       },
 
