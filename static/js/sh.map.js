@@ -159,6 +159,8 @@ if (typeof SH === 'undefined' || !SH) {
               icon: '/img/you.png',
               shadow: markerShadow
             });
+            
+            _self.getShelters(results[0].geometry.location,false);
           }
         });
       },
