@@ -31,6 +31,7 @@ SH.needs = (function ($) {
         needsHTML = needsHTML + buildNeedsHTML(needs.result[i]);
       }
 
+      settings.listRoot.empty();
       settings.listRoot.addClass('visible');
       settings.listRoot.append(needsHTML);
     }
