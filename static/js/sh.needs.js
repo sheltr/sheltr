@@ -17,9 +17,10 @@ SH.needs = (function ($) {
         addr = need.Address1,
         liClass = getClass(need),
         id =  need.id,
+        icon = SH.map.prototype.selectMarkerIcon(need);
         url = 'l/' + need.id;
 
-    return '<li class="' + liClass + '"><img src="/img/shelter.png" /><h2><a href="' + url + '">' + name + '</a></h2><address>' + addr + '</address><a href="#map" id="' + id + '">View on map</span></li>';
+    return '<li class="' + liClass + '"><img src="' + icon + '" /><h2><a href="' + url + '">' + name + '</a></h2><address>' + addr + '</address><a href="#map" id="' + id + '">View on map</span></li>';
   }
 
   _self = {
