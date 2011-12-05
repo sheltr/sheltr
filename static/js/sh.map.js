@@ -148,15 +148,21 @@ if (typeof SH === 'undefined' || !SH) {
         }, function (results, status) {
 
           if (status === google.maps.GeocoderStatus.OK) {
-            _self.createMarker(results[0].geometry.location, 'Your Location',  {
-              animation: google.maps.Animation.DROP,
-              draggable: true,
-              icon: '/img/you.png',
-              shadow: markerShadow
-            });
             
-            _self.updateMapCenter(results[0].geometry.location);
-            _self.getShelters(results[0].geometry.location,false);
+            if (boundingBox.contains(results[0].geometry.location)) {
+              _self.createMarker(results[0].geometry.location, 'Your Location',  {
+                animation: google.maps.Animation.DROP,
+                draggable: true,
+                icon: '/img/you.png',
+                shadow: markerShadow
+              });
+              _self.updateMapCenter(results[0].geometry.location);
+              _self.getShelters(results[0].geometry.location,false);
+            } else {
+              alert("Please restrict your search to the Philadelphia area.")
+            }
+          } else {
+            alert("Search was not successful for the following reason: " + status);
           }
         });
       },
