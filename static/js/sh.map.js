@@ -41,7 +41,7 @@ if (typeof SH === 'undefined' || !SH) {
         $.ajax({
           url: '_map?lat=' + lat + '&long=' + lng,
           success: function(data) {
-            console.log('in getShelters success');
+            
             SH.state.needs = data;
             if (plot === true) {
               _self.addSheltersToMap(data);
@@ -150,7 +150,7 @@ if (typeof SH === 'undefined' || !SH) {
             latlng;
 
         geocoder.geocode({
-          'address': addr,
+          'address': addr + 'Philadelphia, PA',
         }, function (results, status) {
           if (status === google.maps.GeocoderStatus.OK) {
             _self.createMarker(results[0].geometry.location, 'Your Location',  {
@@ -160,6 +160,7 @@ if (typeof SH === 'undefined' || !SH) {
               shadow: markerShadow
             });
             
+            _self.updateMapCenter(results[0].geometry.location);
             _self.getShelters(results[0].geometry.location,false);
           }
         });
