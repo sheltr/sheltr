@@ -16,9 +16,10 @@ SH.needs = (function ($) {
     var name = need.Name ? need.Name : '',
         addr = need.Address1,
         liClass = getClass(need),
+        id =  need.id,
         url = 'l/' + need.id;
 
-    return '<li class="' + liClass + '"><img src="/img/shelter.png" /><h2><a href="' + url + '">' + name + '</a></h2><address>' + addr + '</address><a href="#map">View on map</a></li>';
+    return '<li class="' + liClass + '"><img src="/img/shelter.png" /><h2><a href="' + url + '">' + name + '</a></h2><address>' + addr + '</address><a href="#map" id="' + id + '">View on map</span></li>';
   }
 
   _self = {
@@ -34,6 +35,10 @@ SH.needs = (function ($) {
       settings.listRoot.empty();
       settings.listRoot.addClass('visible');
       settings.listRoot.append(needsHTML);
+
+      $('ul.needs > li > a').click(function(){
+        SH.map.prototype.zoomToNeedMarker($(this).attr('id'));
+      });
     }
 
   };
