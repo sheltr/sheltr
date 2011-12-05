@@ -4,7 +4,7 @@
       <button class="submit">Submit</button>
     </form>
     <ul class="needs"></ul>
-    <div class="map-container">
+    <div class="map-container"><a href="map"></a>
       <div id="map"></div>
     </div>
     {>footer}
@@ -26,6 +26,7 @@
           map.geocode($('input.addr').val());
           return false;
         });
+
       });
     </script>
   </body>
