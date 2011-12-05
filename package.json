@@ -6,7 +6,7 @@
 , "main": "app"
 , "repository":
   { "type": "git"
-  , "url": "http://github.com/PhillyShelter/sheltr.git"
+  , "url": "http://github.com/sheltr/sheltr.git"
   }
 , "dependencies":
   { "connect": ">=1.8.2"
