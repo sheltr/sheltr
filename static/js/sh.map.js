@@ -72,7 +72,7 @@ if (typeof SH === 'undefined' || !SH) {
 
           options = {icon: icon, shadow: markerShadow};
 
-          _self.createMarker(latlng, shelters.result[i].Name + "<br>" + shelters.result[i].Address1, options);
+          _self.createMarker(latlng, shelters.result[i].Name + "<br>" + shelters.result[i].Address1, options, shelters.result[i].id);
         }
       },
 
@@ -99,7 +99,7 @@ if (typeof SH === 'undefined' || !SH) {
 
       },
 
-      createMarker: function (latlng, description, options) {
+      createMarker: function (latlng, description, options, id) {
         var settings = {
               position: latlng,
               map: map,
@@ -126,7 +126,7 @@ if (typeof SH === 'undefined' || !SH) {
           _self.removeMarkers(youMarkerCollection)
           youMarkerCollection.push(marker); 
         } else {
-          needMarkerCollection.push(marker);
+          needMarkerCollection.push({"id": id, "marker": marker});
         }
       },
 
@@ -181,16 +181,34 @@ if (typeof SH === 'undefined' || !SH) {
       },
 
       removeMarkers: function(markerArray) {
+        var i;
+
         if (markerArray) {
           for (i in markerArray) {
             markerArray[i].setMap(null);
           }
           markerArray.length = 0;
         }
+      },
+
+      zoomToNeedMarker: function(needID) {
+
+        var i,
+        needsLength = needMarkerCollection.length;
+
+        for (i = 0; i < needsLength; i++) {
+          if(needID == needMarkerCollection[i].id) {
+            map.setCenter(needMarkerCollection[i].marker.getPosition());
+            map.setZoom(18)
+            break;
+          }
+        }
+
       }
 
     };
 
     return _self;
   };
+
 })(jQuery);
