@@ -18,7 +18,7 @@ SH.needs = (function ($) {
         liClass = getClass(need),
         url = 'l/' + need.id;
 
-    return '<li class="' + liClass + '"><img src="/img/shelter.png" /><h2><a href="' + url + '">' + name + '</a></h2><address>' + addr + '</address><a href="">View on map</a></li>';
+    return '<li class="' + liClass + '"><img src="/img/shelter.png" /><h2><a href="' + url + '">' + name + '</a></h2><address>' + addr + '</address><a href="#map">View on map</a></li>';
   }
 
   _self = {
