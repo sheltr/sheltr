@@ -124,7 +124,7 @@ if (typeof SH === 'undefined' || !SH) {
           });
           
           _self.removeMarkers(youMarkerCollection)
-          youMarkerCollection.push(marker); 
+          youMarkerCollection.push({"id": 'you', "marker": marker}); 
         } else {
           needMarkerCollection.push({"id": id, "marker": marker});
         }
@@ -185,7 +185,7 @@ if (typeof SH === 'undefined' || !SH) {
 
         if (markerArray) {
           for (i in markerArray) {
-            markerArray[i].setMap(null);
+            markerArray[i].marker.setMap(null);
           }
           markerArray.length = 0;
         }
