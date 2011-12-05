@@ -191,7 +191,9 @@ if (typeof SH === 'undefined' || !SH) {
         }
       },
 
-      zoomToNeedMarker: function(needID) {
+    };
+
+    SH.map.prototype.zoomToNeedMarker = function(needID) {
 
         var i,
         needsLength = needMarkerCollection.length;
@@ -204,9 +206,7 @@ if (typeof SH === 'undefined' || !SH) {
           }
         }
 
-      }
-
-    };
+    }
 
     return _self;
   };
