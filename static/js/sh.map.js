@@ -10,6 +10,7 @@ if (typeof SH === 'undefined' || !SH) {
         youMarkerCollection = new Array(),
         needMarkerCollection = new Array(),
         userLocation,
+        boundingBox = new google.maps.LatLngBounds(new google.maps.LatLng(39.8480851,-75.395736), new google.maps.LatLng(40.15211,-74.863586)),
         _self;
 
     var markerShadow = new google.maps.MarkerImage('/img/marker_shadow.png',
@@ -140,9 +141,12 @@ if (typeof SH === 'undefined' || !SH) {
             lng,
             latlng;
 
+        addr = addr + ', Philadelphia, PA'  
+
         geocoder.geocode({
-          'address': addr + 'Philadelphia, PA',
+          'address': addr, 'bounds': boundingBox
         }, function (results, status) {
+
           if (status === google.maps.GeocoderStatus.OK) {
             _self.createMarker(results[0].geometry.location, 'Your Location',  {
               animation: google.maps.Animation.DROP,
