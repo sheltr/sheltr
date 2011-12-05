@@ -68,35 +68,12 @@ if (typeof SH === 'undefined' || !SH) {
           lng = shelters.result[i].Longitude;
           latlng = new google.maps.LatLng(lat, lng);
 
-          icon = _self.selectMarkerIcon(shelters.result[i]);
+          icon = SH.map.prototype.selectMarkerIcon(shelters.result[i]);
 
           options = {icon: icon, shadow: markerShadow};
 
           _self.createMarker(latlng, shelters.result[i].Name + "<br>" + shelters.result[i].Address1, options, shelters.result[i].id);
         }
-      },
-
-      selectMarkerIcon: function(need) {
-
-        var icon
-        
-        if (need.HasMeals === "Y") {
-          icon = '/img/food.png';
-        } 
-        if (need.IsShelter === "Y") {
-          icon = '/img/shelter.png';
-        }
-        if (need.IsShelter === "Y" && need.HasMeals === "Y") {
-          icon = '/img/shelter_food.png';
-        }
-        if (need.IsIntake === "Y") {
-          icon = '/img/intake.png';
-        } else {
-          icon = '/img/shelter.png'; //Mill Creek Baptist Church currently doesn't meet any of these conditions. This will give it the shelter icon (I'm assuming its a shelter).
-        }
-        
-        return icon;
-
       },
 
       createMarker: function (latlng, description, options, id) {
@@ -194,18 +171,37 @@ if (typeof SH === 'undefined' || !SH) {
     };
 
     SH.map.prototype.zoomToNeedMarker = function(needID) {
+      var i,
+      needsLength = needMarkerCollection.length;
 
-        var i,
-        needsLength = needMarkerCollection.length;
-
-        for (i = 0; i < needsLength; i++) {
-          if(needID == needMarkerCollection[i].id) {
-            map.setCenter(needMarkerCollection[i].marker.getPosition());
-            map.setZoom(18)
-            break;
-          }
+      for (i = 0; i < needsLength; i++) {
+        if(needID == needMarkerCollection[i].id) {
+          map.setCenter(needMarkerCollection[i].marker.getPosition());
+          map.setZoom(18)
+          break;
         }
+      }
+    }
 
+    SH.map.prototype.selectMarkerIcon = function(need) {
+      var icon
+      
+      if (need.HasMeals === "Y") {
+        icon = '/img/food.png';
+      } 
+      if (need.IsShelter === "Y") {
+        icon = '/img/shelter.png';
+      }
+      if (need.IsShelter === "Y" && need.HasMeals === "Y") {
+        icon = '/img/shelter_food.png';
+      }
+      if (need.IsIntake === "Y") {
+        icon = '/img/intake.png';
+      } else {
+        icon = '/img/shelter.png'; //Mill Creek Baptist Church currently doesn't meet any of these conditions. This will give it the shelter icon (I'm assuming its a shelter).
+      }
+      
+      return icon;
     }
 
     return _self;
