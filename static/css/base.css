@@ -1,7 +1,3 @@
-* {
-  margin: 0;
-  padding: 0;
-}
 html {
   height: 100%;
 }
@@ -10,7 +6,7 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   font: normal 100%/1.28571429 Helvetica, Arial, sans-serif;
   color: #313131;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 20px;
   height: 100%;
   margin: 0;
@@ -34,14 +30,14 @@ article {
   width: 85%;  
 }
 
-ul {
-  list-style: none;
+h1 {
+  margin-bottom: 15px;
 }
 
 header {
-  width: 85%;  
   margin: 0 auto;
   padding-top: 30px;
+  width: 960px;  
 }
 
 header h1 {
@@ -59,23 +55,21 @@ header h1 a {
 }
 
 footer {
-  width: 85%;  
+  margin: 20px auto;
+  width: 960px;
 }
 
-footer p {
+.details {
   float: right;
 }
 
 .container {
-  width: 100%;
+  margin: 0 auto;
+  width: 960px;
 }
 
 .edit {
   float: right;
-}
-
-h1 {
-  margin-bottom: 15px;
 }
 
 table {
@@ -98,13 +92,14 @@ table tr:nth-child(even) {
   background-color: #fff;
 }
 
-.user {
-  float: right;
-}
-
 .user li {
   float: left;
-  margin: 0 0 0 20px;
+  margin: 0 20px 0 0;
+}
+
+.user ul {
+  list-style: none;
+  padding: 0;
 }
 
 form {
@@ -122,10 +117,12 @@ textarea {
 }
 
 ul.needs {
-  margin: 0 auto;  
-  width: 55%;
   display: none;
+  list-style: none;
+  margin: 0 auto;  
   margin-bottom: 20px;
+  padding: 0;
+  width: 55%;
 }
 
 ul.needs.visible {
@@ -147,7 +144,7 @@ form input.text {
   margin-bottom: 5px;
   width: 55%;  
   border: 1px solid #bbb;
-  font-size: 2em;
+  font-size: 1.8em;
   padding: .5em .25em;
   text-align: center;
   display: block;
@@ -155,7 +152,7 @@ form input.text {
 }
 
 form button.submit {
-  font-size: 22px;
+  font-size: 1.4em;
   padding: .5em .25em;
   font-family: inherit;
   display: block;
@@ -176,8 +173,9 @@ form button.submit:hover {
 
 @media screen and (max-device-width: 480px) {
   header {
-    padding-top: 5%;
     margin-bottom: 0;
+    padding-top: 5%;
+    width: 100%;
   }
 
   header h1 {
@@ -193,6 +191,10 @@ form button.submit:hover {
     margin-bottom: 0;
   }
 
+  footer {
+    width: 100%;
+  }
+
   form {
     margin-top: -20px; /*because we can't seem to change the h1 margin-bottom for mobile*/
     margin-bottom: 5%;
@@ -200,7 +202,7 @@ form button.submit:hover {
   }
 
   form input.text {
-    font-size: 1.8em;
+    font-size: 1.6em;
     width: 95%;
     padding: .15em 0 .15em .15em;
   }
@@ -208,7 +210,7 @@ form button.submit:hover {
   form button.submit {
     width: 50%;
     padding: 0;
-    font-size: 1.25em;
+    font-size: 1.2em;
     padding: 0;
   }
 
@@ -231,7 +233,7 @@ form button.submit:hover {
 
   }
 
-  footer {
-    display: none;
+  .container{
+    width: 100%;
   }
 }

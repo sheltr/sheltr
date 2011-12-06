@@ -36,7 +36,7 @@ exports.route = function(app) {
         loc.raw = JSON.stringify(loc);
         loc.isShelterAndNotIntake = (loc.isShelter && !loc.isIntake);
         var context = {
-          edit: true, // TODO move to req.user.edit
+          //edit: true, // TODO move to req.user.edit
           loc: loc
         };
         res.render(templates.location, context);
@@ -99,7 +99,7 @@ exports.renderer = function() {
   return function(req, res, next) {
     res.render = function(template, context) {
       context = connect.utils.merge({
-        user: true, // to be populated by req.user,
+        //user: true, // to be populated by req.user,
         gaAccount: process.env.GA
       }, context);
       res.writeHead(200, {'Content-Type': 'text/html'});
