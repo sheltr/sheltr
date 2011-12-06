@@ -41,15 +41,7 @@ connect(
   ),
   connect.vhost('sheltr.org|www.sheltr.org', 
     connect(
-      nowww(),
-      connect.static(__dirname+'/static'),
-      connect.logger(),
-      renderer(),
-      connect.router(function(app) {
-        app.get('/', function(req, res, next) {
-          res.render(templates.aboutSheltr);
-        });
-      })
+      phillyRedirect()
     )
   )
 ).listen(port);
@@ -155,6 +147,14 @@ function nowww() {
       return res.end();
     }
     next();
+  };
+};
+
+// temporary redirect from sheltr.org to philly.sheltr.org
+function phillyRedirect() {
+  return function(req, res, next) {
+    res.writeHead(301, {'Location': 'http://philly.sheltr.org'});
+    return res.end();
   };
 };
 
