@@ -13,7 +13,7 @@ if (typeof SH === 'undefined' || !SH) {
         _self;
 
     var localSettings = {
-      "boundingBox" : boundingBox = new google.maps.LatLngBounds(new google.maps.LatLng(39.8480851,-75.395736), new google.maps.LatLng(40.15211,-74.863586))  ,
+      "boundingBox" : boundingBox = new google.maps.LatLngBounds(new google.maps.LatLng(39.8480851,-75.395736), new google.maps.LatLng(40.15211,-74.863586)),
       "minZoom": 12,
       "mapCenter" : new google.maps.LatLng(39.95240, -75.16362)
     };   
@@ -38,6 +38,11 @@ if (typeof SH === 'undefined' || !SH) {
         map = new google.maps.Map(document.getElementById(settings.mapId), settings);
 
         map.minZoom = localSettings.minZoom;
+
+        google.maps.event.addListener(map, "drag", function() {
+          _self.boundingBoxCheck(localSettings.boundingBox);
+        });
+
       },
 
       getShelters: function (userLocation, plot) {
@@ -186,6 +191,28 @@ if (typeof SH === 'undefined' || !SH) {
           markerArray.length = 0;
         }
       },
+
+      boundingBoxCheck: function(boundingBox) {
+        if (boundingBox.contains(map.getCenter())) {
+          return;
+        } else {
+          var c = map.getCenter();
+          var x = c.lng();
+          var y = c.lat();
+          
+          var boundMaxX = boundingBox.getNorthEast().lng()
+          var boundMaxY = boundingBox.getNorthEast().lat()
+          var boundMinX = boundingBox.getSouthWest().lng()
+          var boundMinY = boundingBox.getSouthWest().lat()
+          
+          if (x < boundMinX) {x = boundMinX;}
+          if (x > boundMaxX) {x = boundMaxX;}
+          if (y < boundMinY) {y = boundMinY;}
+          if (y > boundMaxY) {y = boundMaxY;}
+
+          map.setCenter(new google.maps.LatLng(y,x));
+        }
+      }
 
     };
 
