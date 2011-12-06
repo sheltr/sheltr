@@ -1,5 +1,4 @@
 var connect = require('connect');
-var https = require('https');
 var routes = require('./routes');
 var url = require('url');
 var RedisStore = require('connect-redis')(connect);
