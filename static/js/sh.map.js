@@ -10,8 +10,13 @@ if (typeof SH === 'undefined' || !SH) {
         youMarkerCollection = new Array(),
         needMarkerCollection = new Array(),
         userLocation,
-        boundingBox = new google.maps.LatLngBounds(new google.maps.LatLng(39.8480851,-75.395736), new google.maps.LatLng(40.15211,-74.863586)),
         _self;
+
+    var localSettings = {
+      "boundingBox" : boundingBox = new google.maps.LatLngBounds(new google.maps.LatLng(39.8480851,-75.395736), new google.maps.LatLng(40.15211,-74.863586))  ,
+      "minZoom": 12,
+      "mapCenter" : new google.maps.LatLng(39.95240, -75.16362)
+    };   
 
     var markerShadow = new google.maps.MarkerImage('/img/marker_shadow.png',
       new google.maps.Size(51, 37),
@@ -23,7 +28,7 @@ if (typeof SH === 'undefined' || !SH) {
         var settings = {
               mapId: 'map',
               zoom: 14,
-              center: new google.maps.LatLng(39.95240, -75.16362),
+              center: localSettings.mapCenter,
               mapTypeId: google.maps.MapTypeId.ROADMAP
             };
 
@@ -31,6 +36,8 @@ if (typeof SH === 'undefined' || !SH) {
           $.extend(settings, options);
         }
         map = new google.maps.Map(document.getElementById(settings.mapId), settings);
+
+        map.minZoom = localSettings.minZoom;
       },
 
       getShelters: function (userLocation, plot) {
@@ -146,7 +153,7 @@ if (typeof SH === 'undefined' || !SH) {
         addr = addr + ', Philadelphia, PA'  
 
         geocoder.geocode({
-          'address': addr, 'bounds': boundingBox
+          'address': addr, 'bounds': localSettings.boundingBox
         }, function (results, status) {
 
           if (status === google.maps.GeocoderStatus.OK) {
