@@ -57,13 +57,13 @@ connect(
 console.log('Running on port '+port);
 
 function route(app) {
-  app.get('/', function(req, res, next) {
+  app.get('/', function(req, res) {
     res.render(templates.index);
   });
-  app.get('/about', function(req, res, next) {
+  app.get('/about', function(req, res) {
     res.render(templates.about);
   });
-  app.get('/admin', function(req, res, next) {
+  app.get('/admin', function(req, res) {
     res.render(templates.admin);
   });
   app.get('/l/:id', function(req, res, next) {
@@ -126,7 +126,7 @@ function route(app) {
       next();
     });
   });
-  app.get('/_map', function(req, res, next) {
+  app.get('/_map', function(req, res) {
     https.get({
       host: 'api.cloudmine.me',
       path: '/v1/app/60ecdcdd9fd6433297924f75c1c07b13/text?f=shelters_near&params={"center":['+req.query.lat+','+req.query.long+']}',
@@ -139,8 +139,8 @@ function route(app) {
         res.end();
       });
     }).on('error', function(e) {
-      console.log(e);
-      next();
+      res.writeHead(500, {'Content-Type': 'application/json'});
+      res.end('{"error":"'+e+'"}');
     });
   });
 };
