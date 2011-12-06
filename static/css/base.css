@@ -88,6 +88,7 @@ table td, table th {
 table tr:nth-child(odd) {
   background-color: #eee;
 }
+
 table tr:nth-child(even) {
   background-color: #fff;
 }
@@ -99,6 +100,7 @@ table tr:nth-child(even) {
 
 .user ul {
   list-style: none;
+  overflow: auto;
   padding: 0;
 }
 
