@@ -93,13 +93,13 @@ table tr:nth-child(even) {
   background-color: #fff;
 }
 
-.user li {
-  float: left;
+.menu li {
+  float: right;
   margin: 0 20px 0 0;
 }
 
-.user ul {
-  list-style: none;
+.menu ul {
+  list-style: none outside none;
   overflow: auto;
   padding: 0;
 }
