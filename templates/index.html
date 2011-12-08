@@ -18,8 +18,7 @@
 
       sheltr.state = {}; //global object through which we can share data
       $(document).ready(function() {
-        var map = new sheltr.map(); 
-        map.orientUser();
+        sheltr.map.orientUser();
 
         var submitButton = $('button.submit');
         $('button.submit').bind('click', function () {

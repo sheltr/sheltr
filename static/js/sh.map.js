@@ -2,8 +2,7 @@ if (typeof sheltr === 'undefined' || !sheltr) {
   var sheltr = {};
 }
 
-(function($) {
-  sheltr.map = function () {
+  sheltr.map = (function ($) {
     var map,
         infoWindow = new google.maps.InfoWindow(),
         geocoder = new google.maps.Geocoder(),
@@ -54,12 +53,13 @@ if (typeof sheltr === 'undefined' || !sheltr) {
         $.ajax({
           url: '_map?lat=' + lat + '&long=' + lng,
           success: function(data) {
-            
-            sheltr.state.needs = data;
-            if (plot === true) {
-              _self.addSheltersToMap(data);
+            if (!data.error || data.error !== 'Unauthorized') { // NOTE: what other error scenarios do we need to consider?
+              sheltr.state.needs = data;
+              if (plot === true && data.error !== 'Unauthorized') {
+                _self.addSheltersToMap(data);
+              }
+              sheltr.needs.list(data);
             }
-            sheltr.needs.list(sheltr.state.needs);
           },
           error: function() {
             if (window.console) {
@@ -217,45 +217,42 @@ if (typeof sheltr === 'undefined' || !sheltr) {
 
           map.setCenter(new google.maps.LatLng(y,x));
         }
-      }
+      },
 
+      zoomToNeedMarker: function (needID) {
+        var i,
+        needsLength = needMarkerCollection.length;
+
+        for (i = 0; i < needsLength; i++) {
+          if(needID == needMarkerCollection[i].id) {
+            map.setCenter(needMarkerCollection[i].marker.getPosition());
+            map.setZoom(18)
+            break;
+          }
+        }    
+      },
+
+      selectMarkerIcon: function(need) {
+        var icon
+        
+        if (need.HasMeals === "Y") {
+          icon = '/img/food.png';
+        } 
+        if (need.IsShelter === "Y") {
+          icon = '/img/shelter.png';
+        }
+        if (need.IsShelter === "Y" && need.HasMeals === "Y") {
+          icon = '/img/shelter_food.png';
+        }
+        if (need.IsIntake === "Y") {
+          icon = '/img/intake.png';
+        } else {
+          icon = '/img/shelter.png'; //Mill Creek Baptist Church currently doesn't meet any of these conditions. This will give it the shelter icon (I'm assuming its a shelter).
+        }
+        
+        return icon;
+      }
     };
 
-    sheltr.map.prototype.zoomToNeedMarker = function(needID) {
-      var i,
-      needsLength = needMarkerCollection.length;
-
-      for (i = 0; i < needsLength; i++) {
-        if(needID == needMarkerCollection[i].id) {
-          map.setCenter(needMarkerCollection[i].marker.getPosition());
-          map.setZoom(18)
-          break;
-        }
-      }
-    }
-
-    sheltr.map.prototype.selectMarkerIcon = function(need) {
-      var icon
-      
-      if (need.HasMeals === "Y") {
-        icon = '/img/food.png';
-      } 
-      if (need.IsShelter === "Y") {
-        icon = '/img/shelter.png';
-      }
-      if (need.IsShelter === "Y" && need.HasMeals === "Y") {
-        icon = '/img/shelter_food.png';
-      }
-      if (need.IsIntake === "Y") {
-        icon = '/img/intake.png';
-      } else {
-        icon = '/img/shelter.png'; //Mill Creek Baptist Church currently doesn't meet any of these conditions. This will give it the shelter icon (I'm assuming its a shelter).
-      }
-      
-      return icon;
-    }
-
     return _self;
-  };
-
-})(jQuery);
+  })(jQuery);
