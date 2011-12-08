@@ -54,11 +54,11 @@ if (typeof sheltr === 'undefined' || !sheltr) {
           url: '_map?lat=' + lat + '&long=' + lng,
           success: function(data) {
             if (!data.error || data.error !== 'Unauthorized') { // NOTE: what other error scenarios do we need to consider?
-              sheltr.state.needs = data;
+              sheltr.state.locations = data;
               if (plot === true && data.error !== 'Unauthorized') {
                 _self.addSheltersToMap(data);
               }
-              sheltr.needs.list(data);
+              sheltr.locations.list(data);
             }
           },
           error: function() {
