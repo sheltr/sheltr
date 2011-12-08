@@ -24,7 +24,6 @@ sheltr.needs = (function ($) {
 
   _self = {
     list: function (needs) {
-        alert('got here');
       var i,
           needsLength = needs.result.length,
           needsHTML = '';
