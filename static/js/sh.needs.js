@@ -16,7 +16,7 @@ sheltr.needs = (function ($) {
         addr = need.Address1,
         liClass = getClass(need),
         id =  need.id,
-        icon = sheltr.map.prototype.selectMarkerIcon(need);
+        icon = sheltr.map.selectMarkerIcon(need);
         url = 'l/' + need.id;
 
     return '<li class="' + liClass + '"><img src="' + icon + '" /><h2><a href="' + url + '">' + name + '</a></h2><address>' + addr + '</address><a href="#map" id="' + id + '">View on map</span></li>';

@@ -89,7 +89,7 @@ if (typeof sheltr === 'undefined' || !sheltr) {
 
           description = shelters.result[i].Name + "<br>" + shelters.result[i].Address1 + "<br><a href='http://www.google.com/maps?q=to:" + shelters.result[i].Address1 + ",+Philadelphia,+PA'>Get Directions</a>"
 
-          icon = sheltr.map.prototype.selectMarkerIcon(shelters.result[i]);
+          icon = sheltr.map.selectMarkerIcon(shelters.result[i]);
           options = {icon: icon, shadow: markerShadow};
 
           _self.createMarker(latlng, description, options, shelters.result[i].id);
