@@ -1,9 +1,9 @@
 if (typeof sheltr === 'undefined' || !sheltr) {
   var sheltr = {};
 }
-sheltr.needs = (function ($) {
+sheltr.locations = (function ($) {
   var settings = {
-        listRoot: $('ul.needs')
+        listRoot: $('ul.locations')
       },
       _self;
 
@@ -11,33 +11,33 @@ sheltr.needs = (function ($) {
     return 'test';
   }
 
-  function buildNeedsHTML(need) {
-    var name = need.Name ? need.Name : '',
-        addr = need.Address1,
-        liClass = getClass(need),
-        id =  need.id,
-        icon = sheltr.map.selectMarkerIcon(need);
-        url = 'l/' + need.id;
+  function buildLocationsHTML(location) {
+    var name = location.Name ? location.Name : '',
+        addr = location.Address1,
+        liClass = getClass(location),
+        id =  location.id,
+        icon = sheltr.map.selectMarkerIcon(location);
+        url = 'l/' + location.id;
 
     return '<li class="' + liClass + '"><img src="' + icon + '" /><h2><a href="' + url + '">' + name + '</a></h2><address>' + addr + '</address><a href="#map" id="' + id + '">View on map</span></li>';
   }
 
   _self = {
-    list: function (needs) {
+    list: function (locations) {
       var i,
-          needsLength = needs.result.length,
-          needsHTML = '';
+          locationsLength = locations.result.length,
+          locationsHTML = '';
 
-      for (i = 0; i < needsLength; i++) {
-        needsHTML = needsHTML + buildNeedsHTML(needs.result[i]);
+      for (i = 0; i < locationsLength; i++) {
+        locationsHTML = locationsHTML + buildLocationsHTML(locations.result[i]);
       }
 
       settings.listRoot.empty();
       settings.listRoot.addClass('visible');
-      settings.listRoot.append(needsHTML);
+      settings.listRoot.append(locationsHTML);
 
-      $('ul.needs > li > a').click(function(){
-        sheltr.map.prototype.zoomToNeedMarker($(this).attr('id'));
+      $('ul.locations > li > a').click(function(){
+        sheltr.map.zoomToNeedMarker($(this).attr('id'));
       });
     }
 
