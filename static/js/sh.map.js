@@ -6,8 +6,8 @@ if (typeof sheltr === 'undefined' || !sheltr) {
     var map,
         infoWindow = new google.maps.InfoWindow(),
         geocoder = new google.maps.Geocoder(),
-        youMarkerCollection = new Array(),
-        needMarkerCollection = new Array(),
+        youMarkerCollection = [],
+        needMarkerCollection = [],
         userLocation,
         _self;
 
