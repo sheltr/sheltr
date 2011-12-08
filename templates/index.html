@@ -12,13 +12,13 @@
     <script type="text/javascript" src="/js/sh.needs.js"></script>
     <script type="text/javascript" src="/js/sh.map.js"></script>
     <script type="text/javascript">
-      if (typeof SH === 'undefined' || !SH) {
-        SH = {};
+      if (typeof sheltr === 'undefined' || !sheltr) {
+        sheltr = {};
       }
 
-      SH.state = {}; //global object through which we can share data
+      sheltr.state = {}; //global object through which we can share data
       $(document).ready(function() {
-        var map = new SH.map(); 
+        var map = new sheltr.map(); 
         map.orientUser();
 
         var submitButton = $('button.submit');

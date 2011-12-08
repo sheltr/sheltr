@@ -1,9 +1,9 @@
-if (typeof SH === 'undefined' || !SH) {
-  var SH = {};
+if (typeof sheltr === 'undefined' || !sheltr) {
+  var sheltr = {};
 }
 
 (function($) {
-  SH.map = function () {
+  sheltr.map = function () {
     var map,
         infoWindow = new google.maps.InfoWindow(),
         geocoder = new google.maps.Geocoder(),
@@ -55,11 +55,16 @@ if (typeof SH === 'undefined' || !SH) {
           url: '_map?lat=' + lat + '&long=' + lng,
           success: function(data) {
             
-            SH.state.needs = data;
+            sheltr.state.needs = data;
             if (plot === true) {
               _self.addSheltersToMap(data);
             }
-            SH.needs.list(SH.state.needs);
+            sheltr.needs.list(sheltr.state.needs);
+          },
+          error: function() {
+            if (window.console) {
+              console.log('AJAX error!');
+            }
           }
         });
 
@@ -84,7 +89,7 @@ if (typeof SH === 'undefined' || !SH) {
 
           description = shelters.result[i].Name + "<br>" + shelters.result[i].Address1 + "<br><a href='http://www.google.com/maps?q=to:" + shelters.result[i].Address1 + ",+Philadelphia,+PA'>Get Directions</a>"
 
-          icon = SH.map.prototype.selectMarkerIcon(shelters.result[i]);
+          icon = sheltr.map.prototype.selectMarkerIcon(shelters.result[i]);
           options = {icon: icon, shadow: markerShadow};
 
           _self.createMarker(latlng, description, options, shelters.result[i].id);
@@ -216,7 +221,7 @@ if (typeof SH === 'undefined' || !SH) {
 
     };
 
-    SH.map.prototype.zoomToNeedMarker = function(needID) {
+    sheltr.map.prototype.zoomToNeedMarker = function(needID) {
       var i,
       needsLength = needMarkerCollection.length;
 
@@ -229,7 +234,7 @@ if (typeof SH === 'undefined' || !SH) {
       }
     }
 
-    SH.map.prototype.selectMarkerIcon = function(need) {
+    sheltr.map.prototype.selectMarkerIcon = function(need) {
       var icon
       
       if (need.HasMeals === "Y") {

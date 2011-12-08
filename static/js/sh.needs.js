@@ -1,8 +1,7 @@
-if (typeof SH === 'undefined' || !SH) {
-  var SH = {};
+if (typeof sheltr === 'undefined' || !sheltr) {
+  var sheltr = {};
 }
-
-SH.needs = (function ($) {
+sheltr.needs = (function ($) {
   var settings = {
         listRoot: $('ul.needs')
       },
@@ -17,7 +16,7 @@ SH.needs = (function ($) {
         addr = need.Address1,
         liClass = getClass(need),
         id =  need.id,
-        icon = SH.map.prototype.selectMarkerIcon(need);
+        icon = sheltr.map.prototype.selectMarkerIcon(need);
         url = 'l/' + need.id;
 
     return '<li class="' + liClass + '"><img src="' + icon + '" /><h2><a href="' + url + '">' + name + '</a></h2><address>' + addr + '</address><a href="#map" id="' + id + '">View on map</span></li>';
@@ -25,6 +24,7 @@ SH.needs = (function ($) {
 
   _self = {
     list: function (needs) {
+        alert('got here');
       var i,
           needsLength = needs.result.length,
           needsHTML = '';
@@ -38,7 +38,7 @@ SH.needs = (function ($) {
       settings.listRoot.append(needsHTML);
 
       $('ul.needs > li > a').click(function(){
-        SH.map.prototype.zoomToNeedMarker($(this).attr('id'));
+        sheltr.map.prototype.zoomToNeedMarker($(this).attr('id'));
       });
     }
 
