@@ -124,7 +124,7 @@ ul.needs {
   margin: 0 auto;  
   margin-bottom: 20px;
   padding: 0;
-  width: 55%;
+  width: 75%;
 }
 
 ul.needs.visible {
@@ -144,7 +144,7 @@ ul.needs li h2 {
 form input.text {
   margin: 0 auto;
   margin-bottom: 5px;
-  width: 55%;  
+  width: 75%;  
   border: 1px solid #bbb;
   font-size: 1.8em;
   padding: .5em .25em;
