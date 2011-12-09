@@ -14,7 +14,9 @@ if (typeof sheltr === 'undefined' || !sheltr) {
     var localSettings = {
       "boundingBox" : boundingBox = new google.maps.LatLngBounds(new google.maps.LatLng(39.8480851,-75.395736), new google.maps.LatLng(40.15211,-74.863586)),
       "minZoom": 12,
-      "mapCenter" : new google.maps.LatLng(39.95240, -75.16362)
+      "mapCenter" : new google.maps.LatLng(39.95240, -75.16362),
+      "city" : "Philadelphia",
+      "state" : "PA"
     };   
 
     var markerShadow = new google.maps.MarkerImage('/img/marker_shadow.png',
@@ -160,7 +162,7 @@ if (typeof sheltr === 'undefined' || !sheltr) {
             lng,
             latlng;
 
-        addr = addr + ', Philadelphia, PA'  
+        addr = addr + ", " + localSettings.city + ", " + localSettings.state; 
 
         geocoder.geocode({
           'address': addr, 'bounds': localSettings.boundingBox
@@ -178,7 +180,7 @@ if (typeof sheltr === 'undefined' || !sheltr) {
               _self.updateMapCenter(results[0].geometry.location);
               _self.getLocations(results[0].geometry.location,false);
             } else {
-              alert("Please restrict your search to the Philadelphia area.")
+              alert("Please restrict your search to the " + localSettings.city + " area.")
             }
           } else {
             alert("Search was not successful for the following reason: " + status);
