@@ -37,7 +37,7 @@ sheltr.locations = (function ($) {
       settings.listRoot.append(locationsHTML);
 
       $('ul.locations > li > a').click(function(){
-        sheltr.map.zoomToNeedMarker($(this).attr('id'));
+        sheltr.map.zoomToMarker($(this).attr('id'));
       });
     }
 
