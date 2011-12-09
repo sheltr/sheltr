@@ -118,7 +118,7 @@ textarea {
   height: 50px;
 }
 
-ul.needs {
+ul.locations {
   display: none;
   list-style: none;
   margin: 0 auto;  
@@ -127,17 +127,17 @@ ul.needs {
   width: 75%;
 }
 
-ul.needs.visible {
+ul.locations.visible {
   display: block;
 }
 
-ul.needs li {
+ul.locations li {
   border-top: 1px solid #ccc;
   padding: 5px 0;
   text-align: center;
 }
 
-ul.needs li h2 {
+ul.locations li h2 {
   font-size: 1.5em;  
 }
 
@@ -216,7 +216,7 @@ form button.submit:hover {
     padding: 0;
   }
 
-  ul.needs {
+  ul.locations {
     width: 90%;
     margin-left:5%;
   }

@@ -3,13 +3,13 @@
       <input class="addr text" placeholder="Enter a Philadelphia address to find homeless shelters" type="text" />
       <button class="submit">Submit</button>
     </form>
-    <ul class="needs"></ul>
+    <ul class="locations"></ul>
     <div class="map-container"><a href="map"></a>
       <div id="map"></div>
     </div>
     {>footer}
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
-    <script type="text/javascript" src="/js/sh.needs.js"></script>
+    <script type="text/javascript" src="/js/sh.locations.js"></script>
     <script type="text/javascript" src="/js/sh.map.js"></script>
     <script type="text/javascript">
       if (typeof sheltr === 'undefined' || !sheltr) {
@@ -22,7 +22,7 @@
 
         var submitButton = $('button.submit');
         $('button.submit').bind('click', function () {
-          map.geocode($('input.addr').val());
+          sheltr.map.geocode($('input.addr').val());
           return false;
         });
 
