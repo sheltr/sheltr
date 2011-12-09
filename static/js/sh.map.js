@@ -7,7 +7,7 @@ if (typeof sheltr === 'undefined' || !sheltr) {
         infoWindow = new google.maps.InfoWindow(),
         geocoder = new google.maps.Geocoder(),
         youMarkerCollection = [],
-        needMarkerCollection = [],
+        locationsMarkerCollection = [],
         userLocation,
         _self;
 
@@ -44,7 +44,7 @@ if (typeof sheltr === 'undefined' || !sheltr) {
 
       },
 
-      getShelters: function (userLocation, plot) {
+      getLocations: function (userLocation, plot) {
         plot = true || plot;
 
         var lat = parseFloat(userLocation.lat());
@@ -56,7 +56,7 @@ if (typeof sheltr === 'undefined' || !sheltr) {
             if (!data.error || data.error !== 'Unauthorized') { // NOTE: what other error scenarios do we need to consider?
               sheltr.state.locations = data;
               if (plot === true && data.error !== 'Unauthorized') {
-                _self.addSheltersToMap(data);
+                _self.addLocationsToMap(data);
               }
               sheltr.locations.list(data);
             }
@@ -70,7 +70,7 @@ if (typeof sheltr === 'undefined' || !sheltr) {
 
       },
 
-      addSheltersToMap: function (shelters) {
+      addLocationsToMap: function (locations) {
         var i,
             lat,
             lng,
@@ -78,21 +78,21 @@ if (typeof sheltr === 'undefined' || !sheltr) {
             options,
             icon,
             description,
-            sheltersLength = shelters.result.length;
+            locationsLength = locations.result.length;
 
-        _self.removeMarkers(needMarkerCollection);
+        _self.removeMarkers(locationsMarkerCollection);
 
-        for (i=0; i<sheltersLength; i++) {
-          lat = shelters.result[i].Latitude;
-          lng = shelters.result[i].Longitude;
+        for (i=0; i<locationsLength; i++) {
+          lat = locations.result[i].Latitude;
+          lng = locations.result[i].Longitude;
           latlng = new google.maps.LatLng(lat, lng);
 
-          description = shelters.result[i].Name + "<br>" + shelters.result[i].Address1 + "<br><a href='http://www.google.com/maps?q=to:" + shelters.result[i].Address1 + ",+Philadelphia,+PA'>Get Directions</a>"
+          description = locations.result[i].Name + "<br>" + locations.result[i].Address1 + "<br><a href='http://www.google.com/maps?q=to:" + locations.result[i].Address1 + ",+Philadelphia,+PA'>Get Directions</a>"
 
-          icon = sheltr.map.selectMarkerIcon(shelters.result[i]);
+          icon = sheltr.map.selectMarkerIcon(locations.result[i]);
           options = {icon: icon, shadow: markerShadow};
 
-          _self.createMarker(latlng, description, options, shelters.result[i].id);
+          _self.createMarker(latlng, description, options, locations.result[i].id);
         }
       },
 
@@ -116,14 +116,14 @@ if (typeof sheltr === 'undefined' || !sheltr) {
         
         if (description === 'Your Location') { //TODO: this is fragile.
           google.maps.event.addListener(marker, 'dragend', function () {
-            _self.getShelters(marker.getPosition(),false);
+            _self.getLocations(marker.getPosition(),false);
             _self.updateMapCenter(marker.getPosition());
           });
           
           _self.removeMarkers(youMarkerCollection)
           youMarkerCollection.push({"id": 'you', "marker": marker}); 
         } else {
-          needMarkerCollection.push({"id": id, "marker": marker});
+          locationsMarkerCollection.push({"id": id, "marker": marker});
         }
       },
 
@@ -135,7 +135,7 @@ if (typeof sheltr === 'undefined' || !sheltr) {
           navigator.geolocation.getCurrentPosition(function(position) {
             userLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
             _self.create({ center: userLocation });
-            _self.getShelters(userLocation,true);
+            _self.getLocations(userLocation,true);
             _self.updateMapCenter(userLocation);
             _self.createMarker(userLocation, 'Your Location', {
               animation: google.maps.Animation.DROP,
@@ -176,7 +176,7 @@ if (typeof sheltr === 'undefined' || !sheltr) {
                 shadow: markerShadow
               });
               _self.updateMapCenter(results[0].geometry.location);
-              _self.getShelters(results[0].geometry.location,false);
+              _self.getLocations(results[0].geometry.location,false);
             } else {
               alert("Please restrict your search to the Philadelphia area.")
             }
@@ -219,32 +219,32 @@ if (typeof sheltr === 'undefined' || !sheltr) {
         }
       },
 
-      zoomToNeedMarker: function (needID) {
+      zoomToMarker: function (locationID) {
         var i,
-        needsLength = needMarkerCollection.length;
+        locationsLength = locationsMarkerCollection.length;
 
-        for (i = 0; i < needsLength; i++) {
-          if(needID == needMarkerCollection[i].id) {
-            map.setCenter(needMarkerCollection[i].marker.getPosition());
+        for (i = 0; i < locationsLength; i++) {
+          if(locationID == locationsMarkerCollection[i].id) {
+            map.setCenter(locationsMarkerCollection[i].marker.getPosition());
             map.setZoom(18)
             break;
           }
         }    
       },
 
-      selectMarkerIcon: function(need) {
+      selectMarkerIcon: function(location) {
         var icon
         
-        if (need.HasMeals === "Y") {
+        if (location.HasMeals === "Y") {
           icon = '/img/food.png';
         } 
-        if (need.IsShelter === "Y") {
+        if (location.IsShelter === "Y") {
           icon = '/img/shelter.png';
         }
-        if (need.IsShelter === "Y" && need.HasMeals === "Y") {
+        if (location.IsShelter === "Y" && location.HasMeals === "Y") {
           icon = '/img/shelter_food.png';
         }
-        if (need.IsIntake === "Y") {
+        if (location.IsIntake === "Y") {
           icon = '/img/intake.png';
         } else {
           icon = '/img/shelter.png'; //Mill Creek Baptist Church currently doesn't meet any of these conditions. This will give it the shelter icon (I'm assuming its a shelter).
