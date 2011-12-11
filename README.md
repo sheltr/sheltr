@@ -10,8 +10,7 @@ Install
 -------
 1. Install the dependencies listed above.
 2. Run the [Redis](http://redis.io) server
-3. `git clone git@github.com:sheltr/sheltr.git`
+3. Clone the repository 
 4. `cd sheltr`
-5. Use [NPM](http://npmjs.org/) to run node.js v0.4.12
-6. `npm install`
-7. `node server.js`.
+5. `npm install`
+6. `node server.js`.
