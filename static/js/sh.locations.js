@@ -18,8 +18,9 @@ sheltr.locations = (function ($) {
         id =  location.id,
         icon = _self.selectMarkerIcon(location);
         url = 'l/' + location.id;
+        distance = _self.distanceFromUser(location);
 
-    return '<li class="' + liClass + '"><img src="' + icon + '" /><h2><a href="' + url + '">' + name + '</a></h2><address>' + addr + '</address><a href="#map" id="' + id + '">View on map</span></li>';
+    return '<li class="' + liClass + '"><img src="' + icon + '" /><h2><a href="' + url + '">' + name + '</a></h2><address>' + addr + '</address>Distance: ' + distance + ' miles <a href="#map" id="' + id + '">(View map)</span></li>';
   }
 
   _self = {
@@ -60,6 +61,27 @@ sheltr.locations = (function ($) {
       }
       
       return icon;
+    },
+
+    distanceFromUser: function(location) {
+      distance = _self.distance(sheltr.state.userLocation.lat(),sheltr.state.userLocation.lng(), location.Latitude, location.Longitude);
+
+      cleanDistance = Math.round(distance*10)/10
+
+      return cleanDistance;
+    },
+
+    /* Calculates distance between two points, original from: http://www.barattalo.it/examples/ruler.js */
+    distance: function(lat1,lon1,lat2,lon2) {
+      var R = 3959; // m (change this constant to get miles)
+      var dLat = (lat2-lat1) * Math.PI / 180;
+      var dLon = (lon2-lon1) * Math.PI / 180; 
+      var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.cos(lat1 * Math.PI / 180 ) * Math.cos(lat2 * Math.PI / 180 ) * 
+        Math.sin(dLon/2) * Math.sin(dLon/2); 
+      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+      var d = R * c;
+      return d;
     }
 
   };
