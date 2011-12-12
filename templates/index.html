@@ -17,60 +17,60 @@
       }
 
       sheltr.state = {}; //global object through which we can share data
-      
-      $(document).ready(function() {
 
-        sheltr.getUserLocation = function(){
+      sheltr.getUserLocation = function(){
 
-          // Try W3C Geolocation
-          if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-              userLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-              
-              //get locations based on user location
-              sheltr.getLocations(userLocation,true);
+        // Try W3C Geolocation
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            userLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            
+            //get locations based on user location
+            sheltr.getLocations(userLocation,true);
 
-              //setup map
-              sheltr.map.create({ center: userLocation });
-              sheltr.map.updateMapCenter(userLocation);
-              sheltr.map.createMarker(userLocation, 'Your Location', {
-                animation: google.maps.Animation.DROP,
-                draggable: true,
-                icon: '/img/you.png',
-                shadow: sheltr.map.markerShadow
-              });
-
-            }, function() {
-              sheltr.map.create();
+            //setup map
+            sheltr.map.create({ center: userLocation });
+            sheltr.map.updateMapCenter(userLocation);
+            sheltr.map.createMarker(userLocation, 'Your Location', {
+              animation: google.maps.Animation.DROP,
+              draggable: true,
+              icon: '/img/you.png',
+              shadow: sheltr.map.markerShadow
             });
-          }
-        }
 
-        sheltr.getLocations = function(userLocation, plot) {
-          plot = true || plot;
-
-          var lat = parseFloat(userLocation.lat());
-          var lng = parseFloat(userLocation.lng());
-
-          $.ajax({
-            url: '_map?lat=' + lat + '&long=' + lng,
-            success: function(data) {
-              if (!data.error || data.error !== 'Unauthorized') { // NOTE: what other error scenarios do we need to consider?
-                sheltr.state.locations = data;
-                if (plot === true && data.error !== 'Unauthorized') {
-                  sheltr.map.addLocationsToMap(data);
-                }
-                sheltr.locations.list(data);
-              }
-            },
-            error: function() {
-              if (window.console) {
-                console.log('AJAX error!');
-              }
-            }
+          }, function() {
+            sheltr.map.create();
           });
-
         }
+      }
+
+      sheltr.getLocations = function(userLocation, plot) {
+        plot = false || plot;
+
+        var lat = parseFloat(userLocation.lat());
+        var lng = parseFloat(userLocation.lng());
+
+        $.ajax({
+          url: '_map?lat=' + lat + '&long=' + lng,
+          success: function(data) {
+            if (!data.error || data.error !== 'Unauthorized') { // NOTE: what other error scenarios do we need to consider?
+              sheltr.state.locations = data;
+              if (plot === true && data.error !== 'Unauthorized') {
+                sheltr.map.addLocationsToMap(data);
+              }
+              sheltr.locations.list(data);
+            }
+          },
+          error: function() {
+            if (window.console) {
+              console.log('AJAX error!');
+            }
+          }
+        });
+
+      }
+
+      $(document).ready(function() {
 
         sheltr.getUserLocation();
 
