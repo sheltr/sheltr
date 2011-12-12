@@ -46,32 +46,6 @@ sheltr.map = (function ($) {
 
     },
 
-    getLocations: function (userLocation, plot) {
-      plot = true || plot;
-
-      var lat = parseFloat(userLocation.lat());
-      var lng = parseFloat(userLocation.lng());
-
-      $.ajax({
-        url: '_map?lat=' + lat + '&long=' + lng,
-        success: function(data) {
-          if (!data.error || data.error !== 'Unauthorized') { // NOTE: what other error scenarios do we need to consider?
-            sheltr.state.locations = data;
-            if (plot === true && data.error !== 'Unauthorized') {
-              _self.addLocationsToMap(data);
-            }
-            sheltr.locations.list(data);
-          }
-        },
-        error: function() {
-          if (window.console) {
-            console.log('AJAX error!');
-          }
-        }
-      });
-
-    },
-
     addLocationsToMap: function (locations) {
       var i,
           lat,
@@ -118,7 +92,7 @@ sheltr.map = (function ($) {
       
       if (description === 'Your Location') { //TODO: this is fragile.
         google.maps.event.addListener(marker, 'dragend', function () {
-          _self.getLocations(marker.getPosition(),false);
+          sheltr.getLocations(marker.getPosition(),false);
           _self.updateMapCenter(marker.getPosition());
         });
         
@@ -154,7 +128,7 @@ sheltr.map = (function ($) {
               shadow: markerShadow
             });
             _self.updateMapCenter(results[0].geometry.location);
-            _self.getLocations(results[0].geometry.location,false);
+            sheltr.getLocations(results[0].geometry.location,false);
           } else {
             alert("Please restrict your search to the " + localSettings.city + " area.")
           }
