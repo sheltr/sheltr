@@ -8,7 +8,6 @@ sheltr.map = (function ($) {
       geocoder = new google.maps.Geocoder(),
       youMarkerCollection = [],
       locationsMarkerCollection = [],
-      userLocation,
       _self;
 
   var localSettings = {

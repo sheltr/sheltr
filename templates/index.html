@@ -23,8 +23,11 @@
         // Try W3C Geolocation
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(function(position) {
-            userLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            var userLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
             
+            //save position
+            sheltr.state.userLocation = userLocation;
+
             //get locations based on user location
             sheltr.getLocations(userLocation,true);
 
@@ -45,6 +48,7 @@
       }
 
       sheltr.getLocations = function(userLocation, plot) {
+
         plot = false || plot;
 
         var lat = parseFloat(userLocation.lat());
