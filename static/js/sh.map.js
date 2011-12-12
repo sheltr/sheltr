@@ -91,7 +91,7 @@ sheltr.map = (function ($) {
 
         description = locations.result[i].Name + "<br>" + locations.result[i].Address1 + "<br><a href='http://www.google.com/maps?q=to:" + locations.result[i].Address1 + ",+Philadelphia,+PA'>Get Directions</a>"
 
-        icon = sheltr.map.selectMarkerIcon(locations.result[i]);
+        icon = sheltr.locations.selectMarkerIcon(locations.result[i]);
         options = {icon: icon, shadow: markerShadow};
 
         _self.createMarker(latlng, description, options, locations.result[i].id);
@@ -232,28 +232,8 @@ sheltr.map = (function ($) {
           break;
         }
       }    
-    },
-
-    selectMarkerIcon: function(location) {
-      var icon
-      
-      if (location.HasMeals === "Y") {
-        icon = '/img/food.png';
-      } 
-      if (location.IsShelter === "Y") {
-        icon = '/img/shelter.png';
-      }
-      if (location.IsShelter === "Y" && location.HasMeals === "Y") {
-        icon = '/img/shelter_food.png';
-      }
-      if (location.IsIntake === "Y") {
-        icon = '/img/intake.png';
-      } else {
-        icon = '/img/shelter.png'; //Mill Creek Baptist Church currently doesn't meet any of these conditions. This will give it the shelter icon (I'm assuming its a shelter).
-      }
-      
-      return icon;
     }
+
   };
 
   return _self;
