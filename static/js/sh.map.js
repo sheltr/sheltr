@@ -129,30 +129,6 @@ sheltr.map = (function ($) {
       }
     },
 
-    orientUser: function () {
-      //var userLocation = null;
-
-      // Try W3C Geolocation
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-          userLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-          _self.create({ center: userLocation });
-          _self.getLocations(userLocation,true);
-          _self.updateMapCenter(userLocation);
-          _self.createMarker(userLocation, 'Your Location', {
-            animation: google.maps.Animation.DROP,
-            draggable: true,
-            icon: '/img/you.png',
-            shadow: markerShadow
-          });
-        }, function() {
-          _self.create();
-        });
-      }
-
-      return userLocation;
-    },
-
     updateMapCenter: function (latLongObj) {
       map.setCenter(latLongObj);
     },

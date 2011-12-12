@@ -17,8 +17,36 @@
       }
 
       sheltr.state = {}; //global object through which we can share data
+      
       $(document).ready(function() {
-        sheltr.map.orientUser();
+
+        sheltr.getUserLocation = function(){
+
+          // Try W3C Geolocation
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+              userLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+              
+              //get locations based on user location
+              sheltr.map.getLocations(userLocation,true);
+
+              //setup map
+              sheltr.map.create({ center: userLocation });
+              sheltr.map.updateMapCenter(userLocation);
+              sheltr.map.createMarker(userLocation, 'Your Location', {
+                animation: google.maps.Animation.DROP,
+                draggable: true,
+                icon: '/img/you.png',
+                shadow: sheltr.map.markerShadow
+              });
+
+            }, function() {
+              sheltr.map.create();
+            });
+          }
+        }
+
+        sheltr.getUserLocation();
 
         var submitButton = $('button.submit');
         $('button.submit').bind('click', function () {
