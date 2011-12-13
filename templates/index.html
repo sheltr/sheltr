@@ -57,8 +57,8 @@
                 });
 
               } else {
-                 $('ul.locations').append("<div class='userMsg'>We detected that you are outside of the" + localSettings.region + " region.<br>Please search for a " + localSettings.region + " address.</div>");
-                 return;
+                 $('ul.locations').prepend("<div class='userMsg'>We detected that you are outside of the " + sheltr.state.localSettings.city + " region.<br>Please search for a " + sheltr.state.localSettings.city + " address.</div>");
+                return;
               }
 
             }, function() { 

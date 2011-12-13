@@ -123,7 +123,7 @@ sheltr.map = (function ($) {
             _self.updateMapCenter(results[0].geometry.location);
             sheltr.getLocations(results[0].geometry.location,true);
           } else {
-            alert("Please restrict your search to the " + sheltr.state.localSettings.city + " area.")
+             $('ul.locations').prepend("<div class='userMsg'>Please restrict your search to the " + sheltr.state.localSettings.city + " area.");
           }
         } else {
           alert("Search was not successful for the following reason: " + status);
