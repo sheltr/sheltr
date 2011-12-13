@@ -155,7 +155,6 @@ form input.text {
 
 form button.submit {
   font-size: 1em;
-  line-height: 2em;
   padding: .5em .25em;
   font-family: inherit;
   display: inline;
