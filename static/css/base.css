@@ -155,24 +155,26 @@ form input.text {
 
 form button.submit {
   font-size: 1em;
+  line-height: 2em;
   padding: .5em .25em;
   font-family: inherit;
   display: inline;
   margin: 0 auto;
   width: 25%;
+  height: 40px;
 }
 
-form button.submit:hover {
+form button.submit:hover, form checkbox {
   cursor: pointer;
 }
 
 form #checkbox-label-food {
-  padding-right: .5em;
+  margin-right: .5em;
   color: #72ac26;
 }
 
 form #checkbox-label-shelter {
-  padding-right: .5em;
+  margin-right: .5em;
   color: #188db8;
 }
 
@@ -240,12 +242,12 @@ form #checkbox-label-food:hover, #checkbox-label-shelter:hover {
 
   form #checkbox-label-food {
     font-size: 1.2em;
-    padding-right: 0em;
+    margin-right: 0em;
   }
 
   form #checkbox-label-shelter {
     font-size: 1.2em;
-    padding-right: 0em;
+    margin-right: 0em;
   }
 
   .buttons {
