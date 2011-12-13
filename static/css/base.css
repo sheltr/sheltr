@@ -104,12 +104,6 @@ table tr:nth-child(even) {
   padding: 0;
 }
 
-form {
-  width: 85%;  
-  margin: 0 auto;
-  margin-bottom: 30px;
-}
-
 textarea, input[type="text"] {
   width: 300px;
 }
@@ -141,6 +135,12 @@ ul.locations li h2 {
   font-size: 1.5em;  
 }
 
+form {
+  width: 85%;  
+  margin: 0 auto;
+  margin-bottom: 30px;
+}
+
 form input.text {
   margin: 0 auto;
   margin-bottom: 5px;
@@ -157,13 +157,24 @@ form button.submit {
   font-size: 1.4em;
   padding: .5em .25em;
   font-family: inherit;
-  display: block;
+  display: inline;
   margin: 0 auto;
   width: 25%;
 }
 
 form button.submit:hover {
   cursor: pointer;
+}
+
+form .checkbox {
+  font-size: 1.4em;
+  padding-right: .5em;
+}
+
+.buttons {
+  width: 75%;
+  margin: 0 auto;
+  text-align: center;
 }
 
 #map {
@@ -173,7 +184,8 @@ form button.submit:hover {
 }
 
 
-@media screen and (max-device-width: 480px) {
+@media screen and (max-width: 480px) {
+
   header {
     margin-bottom: 0;
     padding-top: 5%;
@@ -214,6 +226,16 @@ form button.submit:hover {
     padding: 0;
     font-size: 1.2em;
     padding: 0;
+  }
+
+  form .checkbox {
+    font-size: 1.2em;
+    padding-right: 0em;
+  }
+
+  .buttons {
+    width: 95%;
+    margin: 0 auto;
   }
 
   ul.locations {
