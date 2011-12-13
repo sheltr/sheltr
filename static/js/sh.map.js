@@ -10,14 +10,6 @@ sheltr.map = (function ($) {
       locationsMarkerCollection = [],
       _self;
 
-  var localSettings = {
-    "boundingBox" : boundingBox = new google.maps.LatLngBounds(new google.maps.LatLng(39.8480851,-75.395736), new google.maps.LatLng(40.15211,-74.863586)),
-    "minZoom": 12,
-    "mapCenter" : new google.maps.LatLng(39.95240, -75.16362),
-    "city" : "Philadelphia",
-    "state" : "PA"
-  };   
-
   var markerShadow = new google.maps.MarkerImage('/img/marker_shadow.png',
     new google.maps.Size(51, 37),
     new google.maps.Point(0, 0),
@@ -28,7 +20,7 @@ sheltr.map = (function ($) {
       var settings = {
             mapId: 'map',
             zoom: 14,
-            center: localSettings.mapCenter,
+            center: sheltr.state.localSettings.mapCenter,
             mapTypeId: google.maps.MapTypeId.ROADMAP
           };
 
@@ -37,10 +29,10 @@ sheltr.map = (function ($) {
       }
       map = new google.maps.Map(document.getElementById(settings.mapId), settings);
 
-      map.minZoom = localSettings.minZoom;
+      map.minZoom = sheltr.state.localSettings.minZoom;
 
       google.maps.event.addListener(map, "drag", function() {
-        _self.boundingBoxCheck(localSettings.boundingBox);
+        _self.boundingBoxCheck(sheltr.state.localSettings.boundingBox);
       });
 
     },
@@ -112,15 +104,15 @@ sheltr.map = (function ($) {
           lng,
           latlng;
 
-      addr = addr + ", " + localSettings.city + ", " + localSettings.state; 
+      addr = addr + ", " + sheltr.state.localSettings.city + ", " + sheltr.state.localSettings.state; 
 
       geocoder.geocode({
-        'address': addr, 'bounds': localSettings.boundingBox
+        'address': addr, 'bounds': sheltr.state.localSettings.boundingBox
       }, function (results, status) {
 
         if (status === google.maps.GeocoderStatus.OK) {
           
-          if (boundingBox.contains(results[0].geometry.location)) {
+          if (sheltr.state.localSettings.boundingBox.contains(results[0].geometry.location)) {
             _self.createMarker(results[0].geometry.location, 'Your Location',  {
               animation: google.maps.Animation.DROP,
               draggable: true,
@@ -131,7 +123,7 @@ sheltr.map = (function ($) {
             _self.updateMapCenter(results[0].geometry.location);
             sheltr.getLocations(results[0].geometry.location,true);
           } else {
-            alert("Please restrict your search to the " + localSettings.city + " area.")
+            alert("Please restrict your search to the " + sheltr.state.localSettings.city + " area.")
           }
         } else {
           alert("Search was not successful for the following reason: " + status);

@@ -34,7 +34,7 @@ sheltr.locations = (function ($) {
       }
 
       settings.listRoot.empty();
-      settings.listRoot.addClass('visible');
+      //settings.listRoot.addClass('visible');
       settings.listRoot.append(locationsHTML);
 
       $('ul.locations > li > a').click(function(){

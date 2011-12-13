@@ -22,32 +22,50 @@
 
       sheltr.state = {}; //global object through which we can share data
 
+      sheltr.state.localSettings = {
+        "boundingBox" : new google.maps.LatLngBounds(new google.maps.LatLng(39.8480851,-75.395736), new google.maps.LatLng(40.15211,-74.863586)),
+        "minZoom": 12,
+        "mapCenter" : new google.maps.LatLng(39.95240, -75.16362),
+        "city" : "Philadelphia",
+        "state" : "PA"
+      };   
+
       $(document).ready(function() {
 
         sheltr.getUserLocation = function(){
 
           // Try W3C Geolocation
-          if (navigator.geolocation) { //geolocation supported
+          if (navigator.geolocation) { 
+            //geolocation supported
             navigator.geolocation.getCurrentPosition(function(position) {
               var userLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-              
+
               //save position
               sheltr.state.userLocation = userLocation;
 
-              //get locations based on user location
-              sheltr.getLocations(userLocation,true);
+              if (sheltr.state.localSettings.boundingBox.contains(userLocation))  {
+                //get locations based on user location
+                sheltr.getLocations(userLocation,true);
 
-              //setup map
-              sheltr.map.updateMapCenter(userLocation);
-              sheltr.map.createMarker(userLocation, 'Your Location', {
-                animation: google.maps.Animation.DROP,
-                draggable: true,
-                icon: '/img/you.png',
-                shadow: sheltr.map.markerShadow
-              });
-            }, function() { //geolocation denied  
+                //setup map
+                sheltr.map.updateMapCenter(userLocation);
+                sheltr.map.createMarker(userLocation, 'Your Location', {
+                  animation: google.maps.Animation.DROP,
+                  draggable: true,
+                  icon: '/img/you.png',
+                  shadow: sheltr.map.markerShadow
+                });
+
+              } else {
+                 $('ul.locations').append("<div class='userMsg'>We detected that you are outside of the" + localSettings.region + " region.<br>Please search for a " + localSettings.region + " address.</div>");
+                 return;
+              }
+
+            }, function() { 
+              //geolocation denied  
             });
-          } else { //geolocation not supported
+          } else { 
+            //geolocation not supported
           }
         };
 
