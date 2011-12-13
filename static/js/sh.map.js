@@ -111,6 +111,8 @@ sheltr.map = (function ($) {
       }, function (results, status) {
 
         if (status === google.maps.GeocoderStatus.OK) {
+
+          $('#userMsg').empty().hide();
           
           if (sheltr.state.localSettings.boundingBox.contains(results[0].geometry.location)) {
             _self.createMarker(results[0].geometry.location, 'Your Location',  {
@@ -123,10 +125,10 @@ sheltr.map = (function ($) {
             _self.updateMapCenter(results[0].geometry.location);
             sheltr.getLocations(results[0].geometry.location,true);
           } else {
-             $('ul.locations').prepend("<div class='userMsg'>Please restrict your search to the " + sheltr.state.localSettings.city + " area.");
+             $('#userMsg').show().empty().prepend("Please restrict your search to the " + sheltr.state.localSettings.city + " area.");
           }
         } else {
-          alert("Search was not successful for the following reason: " + status);
+          $('#userMsg').show().empty().prepend("Search was not successful for the following reason: " + status);
         }
       });
     },

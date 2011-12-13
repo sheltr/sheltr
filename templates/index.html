@@ -7,6 +7,7 @@
         <button class="submit">Submit</button>
       </div>
     </form>
+    <div id="userMsg"></div>
     <ul class="locations"></ul>
     <div class="map-container"><a href="map"></a>
       <div id="map"></div>
@@ -57,7 +58,7 @@
                 });
 
               } else {
-                 $('ul.locations').prepend("<div class='userMsg'>We detected that you are outside of the " + sheltr.state.localSettings.city + " region.<br>Please search for a " + sheltr.state.localSettings.city + " address.</div>");
+                 $('#userMsg').show().empty().prepend("We detected that you are outside of the " + sheltr.state.localSettings.city + " region.<br>Please search for a " + sheltr.state.localSettings.city + " address.");
                 return;
               }
 

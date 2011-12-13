@@ -188,8 +188,9 @@ form #checkbox-label-food:hover, #checkbox-label-shelter:hover {
   text-align: center;
 }
 
-.userMsg {
-  width: 75%;  
+#userMsg {
+  display:none;
+  width: 65%;  
   margin: 0 auto 10px;
   background: #eceaea;
   border: 1px solid #bbb;
