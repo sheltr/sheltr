@@ -154,7 +154,7 @@ form input.text {
 }
 
 form button.submit {
-  font-size: 1.4em;
+  font-size: 1em;
   padding: .5em .25em;
   font-family: inherit;
   display: inline;
@@ -166,12 +166,18 @@ form button.submit:hover {
   cursor: pointer;
 }
 
-form .checkbox {
-  font-size: 1.4em;
+form .checkbox-label-food {
   padding-right: .5em;
+  color: #72ac26;
+}
+
+form .checkbox-label-shelter {
+  padding-right: .5em;
+  color: #188db8;
 }
 
 .buttons {
+  font-size: 1.4em;
   width: 75%;
   margin: 0 auto;
   text-align: center;
@@ -222,18 +228,24 @@ form .checkbox {
   }
 
   form button.submit {
-    width: 50%;
+    width: 45%;
     padding: 0;
     font-size: 1.2em;
     padding: 0;
   }
 
-  form .checkbox {
+  form .checkbox-label-food {
+    font-size: 1.2em;
+    padding-right: 0em;
+  }
+
+  form .checkbox-label-shelter {
     font-size: 1.2em;
     padding-right: 0em;
   }
 
   .buttons {
+    font-size: 1em;
     width: 95%;
     margin: 0 auto;
   }
