@@ -2,8 +2,8 @@
     <form class="submit">
       <input class="addr text" placeholder="Enter a Philadelphia address to find homeless shelters" type="text" />
       <div class="buttons"> 
-      <input type="checkbox" value="Food" checked="true" id="checkbox-food"/><span class="checkbox-label-food">Food</span>
-      <input type="checkbox" value="Shelter" checked="true" id="checkbox-shelter"/><span class="checkbox-label-shelter">Shelter</span>
+      <input type="checkbox" value="Food" checked="true" id="checkbox-food"/><span id="checkbox-label-food">Food</span>
+      <input type="checkbox" value="Shelter" checked="true" id="checkbox-shelter"/><span id="checkbox-label-shelter">Shelter</span>
       <button class="submit">Submit</button>
       </div>
     </form>
@@ -86,6 +86,22 @@
         $('button.submit').bind('click', function () {
           sheltr.map.geocode($('input.addr').val());
           return false;
+        });
+
+        $('#checkbox-label-food').bind('click', function() {
+          if ($('#checkbox-food').prop('checked') == false) {
+            $('#checkbox-food').prop('checked',true);
+          } else {
+            $('#checkbox-food').prop('checked',false);
+          }
+        });
+
+        $('#checkbox-label-shelter').bind('click', function() {
+          if ($('#checkbox-shelter').prop('checked') == false) {
+            $('#checkbox-shelter').prop('checked',true);
+          } else {
+            $('#checkbox-shelter').prop('checked',false);
+          }
         });
 
       });

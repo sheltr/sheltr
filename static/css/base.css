@@ -166,14 +166,18 @@ form button.submit:hover {
   cursor: pointer;
 }
 
-form .checkbox-label-food {
+form #checkbox-label-food {
   padding-right: .5em;
   color: #72ac26;
 }
 
-form .checkbox-label-shelter {
+form #checkbox-label-shelter {
   padding-right: .5em;
   color: #188db8;
+}
+
+form #checkbox-label-food:hover, #checkbox-label-shelter:hover {
+  cursor: pointer;
 }
 
 .buttons {
@@ -234,12 +238,12 @@ form .checkbox-label-shelter {
     padding: 0;
   }
 
-  form .checkbox-label-food {
+  form #checkbox-label-food {
     font-size: 1.2em;
     padding-right: 0em;
   }
 
-  form .checkbox-label-shelter {
+  form #checkbox-label-shelter {
     font-size: 1.2em;
     padding-right: 0em;
   }
