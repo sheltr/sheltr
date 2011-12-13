@@ -127,8 +127,9 @@ sheltr.map = (function ($) {
               icon: '/img/you.png',
               shadow: markerShadow
             });
+            sheltr.state.userLocation = results[0].geometry.location;
             _self.updateMapCenter(results[0].geometry.location);
-            sheltr.getLocations(results[0].geometry.location,false);
+            sheltr.getLocations(results[0].geometry.location,true);
           } else {
             alert("Please restrict your search to the " + localSettings.city + " area.")
           }

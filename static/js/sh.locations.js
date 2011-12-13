@@ -64,11 +64,13 @@ sheltr.locations = (function ($) {
     },
 
     distanceFromUser: function(location) {
+      var distance;
+
       distance = _self.distance(sheltr.state.userLocation.lat(),sheltr.state.userLocation.lng(), location.Latitude, location.Longitude);
 
       cleanDistance = Math.round(distance*10)/10
 
-      return cleanDistance;
+      return cleanDistance.toString();
     },
 
     /* Calculates distance between two points, original from: http://www.barattalo.it/examples/ruler.js */
