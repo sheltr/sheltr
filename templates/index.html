@@ -27,7 +27,7 @@
         sheltr.getUserLocation = function(){
 
           // Try W3C Geolocation
-          if (navigator.geolocation) {
+          if (navigator.geolocation) { //geolocation supported
             navigator.geolocation.getCurrentPosition(function(position) {
               var userLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
               
@@ -38,7 +38,6 @@
               sheltr.getLocations(userLocation,true);
 
               //setup map
-              sheltr.map.create({ center: userLocation });
               sheltr.map.updateMapCenter(userLocation);
               sheltr.map.createMarker(userLocation, 'Your Location', {
                 animation: google.maps.Animation.DROP,
@@ -46,16 +45,9 @@
                 icon: '/img/you.png',
                 shadow: sheltr.map.markerShadow
               });
-
-              console.log('geolocation shared.');
-
-            }, function() {
-              console.log('geolocation denied.');
-              sheltr.map.create();
+            }, function() { //geolocation denied  
             });
-          } else {
-            console.log('geolocation not supported.');
-            sheltr.map.create();
+          } else { //geolocation not supported
           }
         };
 
@@ -86,6 +78,7 @@
 
         };
 
+        sheltr.map.create();
         sheltr.getUserLocation();
 
         var submitButton = $('button.submit');
