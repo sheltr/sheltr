@@ -12,6 +12,9 @@ exports.route = function(app) {
   app.get('/about', function(req, res) {
     res.render(templates.about);
   });
+  app.get('/hotline', function(req, res) {
+    res.render(templates.hotline);
+  });
   app.get('/admin', function(req, res) {
     res.render(templates.admin);
   });
