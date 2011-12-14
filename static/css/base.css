@@ -167,12 +167,18 @@ form button.submit:hover, form checkbox {
   cursor: pointer;
 }
 
+form checkbox {
+  display: none;
+}
+
 form #checkbox-label-food {
+  display: none;
   margin-right: .5em;
   color: #72ac26;
 }
 
 form #checkbox-label-shelter {
+  display: none;
   margin-right: .5em;
   color: #188db8;
 }
