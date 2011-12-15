@@ -85,9 +85,9 @@
               if (!data.error || data.error !== 'Unauthorized') { // NOTE: what other error scenarios do we need to consider?
                 sheltr.state.locations = data;
                 if (plot === true && data.error !== 'Unauthorized') {
-                  sheltr.map.addLocationsToMap(data);
+                  sheltr.map.addLocationsToMap(sheltr.state.locations);
                 }
-                sheltr.locations.list(data);
+                sheltr.locations.list(sheltr.state.locations);
               }
             },
             error: function() {
