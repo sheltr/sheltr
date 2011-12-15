@@ -22,8 +22,8 @@
       }
 
       sheltr.state = {}; //global object through which we can share data
-      sheltr.state.show.shelter = true;
-      sheltr.state.show.food = true;
+      sheltr.state.showShelter = true;
+      sheltr.state.showFood = true;
 
       sheltr.state.localSettings = {
         "boundingBox" : new google.maps.LatLngBounds(new google.maps.LatLng(39.8480851,-75.395736), new google.maps.LatLng(40.15211,-74.863586)),
@@ -111,20 +111,20 @@
         $('#checkbox-label-food').bind('click', function() {
           if ($('#checkbox-food').prop('checked') == false) {
             $('#checkbox-food').prop('checked',true);
-            sheltr.state.show.food = true;
+            sheltr.state.showFood = true;
           } else {
             $('#checkbox-food').prop('checked',false);
-            sheltr.state.show.food = false;
+            sheltr.state.showFood = false;
           }
         });
 
         $('#checkbox-label-shelter').bind('click', function() {
           if ($('#checkbox-shelter').prop('checked') == false) {
             $('#checkbox-shelter').prop('checked',true);
-            sheltr.state.show.shelter = true;
+            sheltr.state.showShelter = true;
           } else {
             $('#checkbox-shelter').prop('checked',false);
-            sheltr.state.show.shelter = false;
+            sheltr.state.showShelter = false;
           }
         });
 
