@@ -39,21 +39,34 @@ sheltr.map = (function ($) {
 
     addLocationsToMap: function (locations) {
       var i,
-          lat,
-          lng,
-          latlng,
-          options,
-          icon,
-          description,
           locationsLength = locations.result.length;
 
       _self.removeMarkers(locationsMarkerCollection);
 
-      for (i=0; i<locationsLength; i++) {
-       
-        _self.setupMarker(locations.result[i]);
+      if (sheltr.state.showFood == true && sheltr.state.showShelter == true) { //NOTE: not the most elegant solution. setting this up for demo purposes
+
+        for (i = 0; i < locationsLength; i++) {
+          _self.setupMarker(locations.result[i]);
+        }
+
+      } else if (sheltr.state.showFood == false && sheltr.state.showShelter == true) {
         
-      }
+        for (i = 0; i < locationsLength; i++) {
+          if (locations.result[i].IsShelter == 'Y') {
+            _self.setupMarker(locations.result[i]);
+          }
+        }  
+
+      } else if (sheltr.state.showShelter == false && sheltr.state.showFood == true) {
+        
+        for (i = 0; i < locationsLength; i++) {
+          if (locations.result[i].IsFood == 'Y') {
+            _self.setupMarker(locations.result[i]);
+          }
+        }  
+
+      } 
+        
     },
 
     setupMarker: function(location) {

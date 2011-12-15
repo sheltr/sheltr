@@ -33,7 +33,7 @@ sheltr.locations = (function ($) {
       } else if (sheltr.state.showFood == false && sheltr.state.showShelter == true) {
         
         for (i = 0; i < locationsLength; i++) {
-          if (locations.isFood == 'N') {
+          if (locations.result[i].IsShelter == 'Y') {
             locationsHTML = locationsHTML + buildLocationsHTML(locations.result[i]);
           }
         }  
@@ -41,7 +41,7 @@ sheltr.locations = (function ($) {
       } else if (sheltr.state.showShelter == false && sheltr.state.showFood == true) {
         
         for (i = 0; i < locationsLength; i++) {
-          if (locations.isShelter == 'N') {
+          if (locations.result[i].IsFood == 'Y') {
             locationsHTML = locationsHTML + buildLocationsHTML(locations.result[i]);
           }
         }  
