@@ -1,3 +1,4 @@
+var argv = require('optimist').demand(1).argv;
 var csv = require('csv');
 var fs = require('fs');
 
@@ -9,7 +10,7 @@ function randomChar() {
   return alphabet.charAt(randomNum);
 }
 
-function generateID() {
+function generateId() {
   var id = '';
   for (var i=0; i<4; i++) {
     id += randomChar();
@@ -17,27 +18,48 @@ function generateID() {
   return id;
 }
 
-function merge(doc) {
-  var id = generateID();
-  if (merged[id]) {
+function newId() {
+  var id = generateId();
+  if (idBucket[id]) {
     // don't overwrite existing IDs
-    merge(doc);
+    newId();
   } else {
-    merged[id] = doc;
+    idBucket[id] = '';
+    return id;
   }
 }
 
-var merged = {};
+var idBucket = {};
 var loadedFile = fs.readFileSync('loaded.json');
 var loaded = JSON.parse(loadedFile);
-for (var key in loaded.success) {
-  merge(loaded.success[key]);
+for (var key in loaded) {
+  idBucket[key] = '';
 }
 
-var foodCupboardsFile = fs.readFileSync('food-cupboards.json');
-var foodCupboards = JSON.parse(foodCupboardsFile);
-for (var i=0, l=foodCupboards.length; i<l; i++) {
-  merge(foodCupboards[i]);
-}
+var count = 0;
+var out = fs.createWriteStream('out.json');
+out.write('{');
+csv().fromPath(argv._[0], {columns:true})
+.toStream(out, {end: false})
+.transform(function(data) {
+  data.Services = data.Type;
+  data.Type = 'location';
+  data.IsFood = 'Y';
+  // first key is not prepended with a comma
+  if (count) {
+    process.stdout.write('.');
+    count++;
+    return ',"'+newId()+'":'+JSON.stringify(data);
+  }
+  process.stdout.write('|');
+  count++;
+  return '"'+newId()+'":'+JSON.stringify(data);
+})
+.on('error', function(err) {
+  console.log(err.message);
+});
 
-fs.writeFile('merged.json', JSON.stringify(merged));
+process.on('exit', function() {
+  process.stdout.write(count+'\n');
+  out.end('}');
+});
