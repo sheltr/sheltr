@@ -50,17 +50,30 @@ sheltr.map = (function ($) {
       _self.removeMarkers(locationsMarkerCollection);
 
       for (i=0; i<locationsLength; i++) {
-        lat = locations.result[i].Latitude;
-        lng = locations.result[i].Longitude;
-        latlng = new google.maps.LatLng(lat, lng);
-
-        description = locations.result[i].Name + "<br>" + locations.result[i].Address1 + "<br><a href='http://www.google.com/maps?q=to:" + locations.result[i].Address1 + ",+Philadelphia,+PA'>Get Directions</a>"
-
-        icon = sheltr.locations.selectMarkerIcon(locations.result[i]);
-        options = {icon: icon, shadow: markerShadow};
-
-        _self.createMarker(latlng, description, options, locations.result[i].id);
+       
+        _self.setupMarker(locations.result[i]);
+        
       }
+    },
+
+    setupMarker: function(location) {
+      var lat,
+          lng,
+          latlng,
+          options,
+          icon,
+          description;
+      
+      lat = location.Latitude;
+      lng = location.Longitude;
+      latlng = new google.maps.LatLng(lat, lng);
+
+      description = location.Name + "<br>" + location.Address1 + "<br><a href='http://www.google.com/maps?q=to:" + location.Address1 + ",+Philadelphia,+PA'>Get Directions</a>"
+
+      icon = sheltr.locations.selectMarkerIcon(location);
+      options = {icon: icon, shadow: markerShadow};
+
+      _self.createMarker(latlng, description, options, location.id);
     },
 
     createMarker: function (latlng, description, options, id) {
