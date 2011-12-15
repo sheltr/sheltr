@@ -2,8 +2,8 @@
     <form class="submit">
       <input class="addr text" placeholder="Enter a Philadelphia address to find homeless shelters" type="text" />
       <div class="buttons"> 
-        <label id="checkbox-label-food"><input type="checkbox" value="Food" checked="true" id="checkbox-food"/>Food</label>
-        <label id="checkbox-label-shelter"><input type="checkbox" value="Shelter" checked="true" id="checkbox-shelter"/>Shelter</label>
+        <input type="checkbox" value="Food" checked="true" id="checkbox-food"/><label id="checkbox-label-food" for="checkbox-food">Food</label>
+        <input type="checkbox" value="Shelter" checked="true" id="checkbox-shelter"/><label id="checkbox-label-shelter" for="checkbox-shelter">Shelter</label>
         <button class="submit">Submit</button>
       </div>
     </form>
@@ -73,7 +73,7 @@
         };
 
         sheltr.getLocations = function(userLocation, plot) {
-
+          
           plot = false || plot;
 
           var lat = parseFloat(userLocation.lat());
@@ -109,21 +109,19 @@
         });
 
         $('#checkbox-label-food').bind('click', function() {
-          if ($('#checkbox-food').prop('checked') == false) {
-            $('#checkbox-food').prop('checked',true);
+          if ($('#checkbox-food').prop('checked') == true) {
             sheltr.state.showFood = true;
-          } else {
-            $('#checkbox-food').prop('checked',false);
+          }
+          if ($('#checkbox-food').prop('checked') == false) {
             sheltr.state.showFood = false;
           }
         });
 
         $('#checkbox-label-shelter').bind('click', function() {
-          if ($('#checkbox-shelter').prop('checked') == false) {
-            $('#checkbox-shelter').prop('checked',true);
+          if ($('#checkbox-shelter').prop('checked') == true) {
             sheltr.state.showShelter = true;
-          } else {
-            $('#checkbox-shelter').prop('checked',false);
+          } 
+          if ($('#checkbox-food').prop('checked') == false) {
             sheltr.state.showShelter = false;
           }
         });
