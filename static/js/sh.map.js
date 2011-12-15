@@ -110,7 +110,7 @@ sheltr.map = (function ($) {
       if (description === 'Your Location') { //TODO: this is fragile.
         google.maps.event.addListener(marker, 'dragend', function () {
           sheltr.state.userLocation = marker.getPosition();
-          sheltr.getLocations(marker.getPosition(),false);
+          sheltr.getLocations(marker.getPosition(),true);
           _self.updateMapCenter(marker.getPosition());
         });
         
