@@ -33,7 +33,7 @@ sheltr.locations = (function ($) {
       } else if (sheltr.state.showFood == false && sheltr.state.showShelter == true) {
         
         for (i = 0; i < locationsLength; i++) {
-          if (locations.result[i].IsShelter == 'Y') {
+          if (locations.result[i].isShelter == 'Y') {
             locationsHTML = locationsHTML + buildLocationsHTML(locations.result[i]);
           }
         }  
@@ -41,7 +41,7 @@ sheltr.locations = (function ($) {
       } else if (sheltr.state.showShelter == false && sheltr.state.showFood == true) {
         
         for (i = 0; i < locationsLength; i++) {
-          if (locations.result[i].IsFood == 'Y') {
+          if (locations.result[i].isFood == 'Y') {
             locationsHTML = locationsHTML + buildLocationsHTML(locations.result[i]);
           }
         }  
@@ -65,13 +65,13 @@ sheltr.locations = (function ($) {
       if (location.HasMeals === "Y") {
         icon = '/img/food.png';
       } 
-      if (location.IsShelter === "Y") {
+      if (location.isShelter === "Y") {
         icon = '/img/shelter.png';
       }
-      if (location.IsShelter === "Y" && location.HasMeals === "Y") {
+      if (location.isShelter === "Y" && location.HasMeals === "Y") {
         icon = '/img/shelter_food.png';
       }
-      if (location.IsIntake === "Y") {
+      if (location.isIntake === "Y") {
         icon = '/img/intake.png';
       } else {
         icon = '/img/shelter.png'; //Mill Creek Baptist Church currently doesn't meet any of these conditions. This will give it the shelter icon (I'm assuming its a shelter).

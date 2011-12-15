@@ -52,7 +52,7 @@ sheltr.map = (function ($) {
       } else if (sheltr.state.showFood == false && sheltr.state.showShelter == true) {
         
         for (i = 0; i < locationsLength; i++) {
-          if (locations.result[i].IsShelter == 'Y') {
+          if (locations.result[i].isShelter == 'Y') {
             _self.setupMarker(locations.result[i]);
           }
         }  
@@ -60,7 +60,7 @@ sheltr.map = (function ($) {
       } else if (sheltr.state.showShelter == false && sheltr.state.showFood == true) {
         
         for (i = 0; i < locationsLength; i++) {
-          if (locations.result[i].IsFood == 'Y') {
+          if (locations.result[i].isFood == 'Y') {
             _self.setupMarker(locations.result[i]);
           }
         }  
