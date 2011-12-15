@@ -15,4 +15,4 @@ Install
 5. `npm install`
 6. `node server.js`.
 
-sheltron test2.
+sheltron test3.
