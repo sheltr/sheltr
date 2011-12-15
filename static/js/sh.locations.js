@@ -24,8 +24,30 @@ sheltr.locations = (function ($) {
           locationsLength = locations.result.length,
           locationsHTML = '';
 
-      for (i = 0; i < locationsLength; i++) {
-        locationsHTML = locationsHTML + buildLocationsHTML(locations.result[i]);
+      if (sheltr.state.showFood == true && sheltr.state.showShelter == true) { //NOTE: not the most elegant solution. setting this up for demo purposes
+
+        for (i = 0; i < locationsLength; i++) {
+          locationsHTML = locationsHTML + buildLocationsHTML(locations.result[i]);
+        }
+
+      } else if (sheltr.state.showFood == false && sheltr.state.showShelter == true) {
+        
+        for (i = 0; i < locationsLength; i++) {
+          if (locations.isFood == 'N') {
+            locationsHTML = locationsHTML + buildLocationsHTML(locations.result[i]);
+          }
+        }  
+
+      } else if (sheltr.state.showShelter == false && sheltr.state.showFood == true) {
+        
+        for (i = 0; i < locationsLength; i++) {
+          if (locations.isShelter == 'N') {
+            locationsHTML = locationsHTML + buildLocationsHTML(locations.result[i]);
+          }
+        }  
+
+      }  else {
+        $('#userMsg').show().empty().prepend("Please select Shelter and/or Food to see nearby locations.");
       }
 
       settings.listRoot.empty();
