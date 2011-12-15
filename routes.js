@@ -81,7 +81,7 @@ exports.route = function(app) {
   app.get('/_map', function(req, res) {
     https.get({
       host: 'api.cloudmine.me',
-      path: '/v1/app/60ecdcdd9fd6433297924f75c1c07b13/text?f=shelters_near&params={"center":['+req.query.lat+','+req.query.long+']}',
+      path: '/v1/app/60ecdcdd9fd6433297924f75c1c07b13/text?f=shelters_near&result_only=true&params={"center":['+req.query.lat+','+req.query.long+']}',
       headers: {'X-CloudMine-ApiKey': process.env.CLOUDMINE}
     }, function(cmres) {
       res.writeHead(200, {'Content-Type': 'application/json'});
