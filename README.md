@@ -14,5 +14,3 @@ Install
 4. `cd sheltr`
 5. `npm install`
 6. `node server.js`.
-
-sheltron test3.
