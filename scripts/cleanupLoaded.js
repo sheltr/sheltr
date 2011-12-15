@@ -2,9 +2,19 @@ var fs = require('fs');
 
 var loadedFile = fs.readFileSync('loaded.json');
 var loaded = JSON.parse(loadedFile);
-var data, reloaded = {};
+var data, newData, reloaded = {};
 for (var key in loaded.success) {
   data = loaded.success[key];
+  newData = {};
+  for (var dataKey in data) {
+    if (dataKey == 'OSHReferralRequired') {
+      newData.oshReferralRequired = data[dataKey];
+    } else if (dataKey == 'OADReferralRequired') {
+      newData.oadReferralRequired = data[dataKey];
+    } else {
+      newData[deCap(dataKey)] = data[dataKey];
+    }
+  }
   //data.IsPublic = '';
   //data.IsPrivate = '';
   //if (data.Type == 'Public') {
@@ -18,8 +28,12 @@ for (var key in loaded.success) {
   //}
   //data.Latitude = Number(data.Latitude);
   //data.Longitude = Number(data.Longitude);
-  if (data.Services == 'Soup Kitchen') {
-    reloaded[key] = data;
-  }
+  //if (data.IsShelter) {
+  reloaded[key] = newData;
+  //}
 }
 fs.writeFile('reloaded.json', JSON.stringify(reloaded));
+
+function deCap(str) {
+  return str.charAt(0).toLowerCase() + str.substr(1);
+}

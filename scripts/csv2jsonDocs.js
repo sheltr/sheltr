@@ -3,7 +3,7 @@ var csv = require('csv');
 var fs = require('fs');
 
 // base32 according to http://www.crockford.com/wrmg/base32.html
-var alphabet = '0123456789abcdefghjkmnpqrstvwxyz'
+var alphabet = '0123456789abcdefghjkmnpqrstvwxyz';
 
 function randomChar() {
   var randomNum = Math.floor(Math.random() * 32);
@@ -32,7 +32,7 @@ function newId() {
 var idBucket = {};
 var loadedFile = fs.readFileSync('loaded.json');
 var loaded = JSON.parse(loadedFile);
-for (var key in loaded) {
+for (var key in loaded.success) {
   idBucket[key] = '';
 }
 
