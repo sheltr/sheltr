@@ -8,8 +8,8 @@ sheltr.locations = (function ($) {
       _self;
 
   function buildLocationsHTML(location) {
-    var name = location.Name ? location.Name : '',
-        addr = location.Address1,
+    var name = location.name ? location.name : '',
+        addr = location.address1,
         id =  location.id,
         icon = _self.selectMarkerIcon(location);
         url = 'l/' + location.id;
@@ -62,13 +62,13 @@ sheltr.locations = (function ($) {
     selectMarkerIcon: function(location) {
       var icon
       
-      if (location.HasMeals === "Y") {
+      if (location.hasMeals === "Y") {
         icon = '/img/food.png';
       } 
       if (location.isShelter === "Y") {
         icon = '/img/shelter.png';
       }
-      if (location.isShelter === "Y" && location.HasMeals === "Y") {
+      if (location.isShelter === "Y" && location.hasMeals === "Y") {
         icon = '/img/shelter_food.png';
       }
       if (location.isIntake === "Y") {
@@ -83,7 +83,7 @@ sheltr.locations = (function ($) {
     distanceFromUser: function(location) {
       var distance;
 
-      distance = _self.distance(sheltr.state.userLocation.lat(),sheltr.state.userLocation.lng(), location.Latitude, location.Longitude);
+      distance = _self.distance(sheltr.state.userLocation.lat(),sheltr.state.userLocation.lng(), location.latitude, location.longitude);
 
       cleanDistance = Math.round(distance*10)/10
 

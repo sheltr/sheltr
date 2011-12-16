@@ -77,11 +77,11 @@ sheltr.map = (function ($) {
           icon,
           description;
       
-      lat = location.Latitude;
-      lng = location.Longitude;
+      lat = location.latitude;
+      lng = location.longitude;
       latlng = new google.maps.LatLng(lat, lng);
 
-      description = location.Name + "<br>" + location.Address1 + "<br><a href='http://www.google.com/maps?q=to:" + location.Address1 + ",+Philadelphia,+PA'>Get Directions</a>"
+      description = location.name + "<br>" + location.address1 + "<br><a href='http://www.google.com/maps?q=to:" + location.address1 + ",+Philadelphia,+PA'>Get Directions</a>"
 
       icon = sheltr.locations.selectMarkerIcon(location);
       options = {icon: icon, shadow: markerShadow};
