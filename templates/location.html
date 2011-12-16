@@ -15,46 +15,46 @@
       <tr>
         <th>Address</th>
         <td>
-          {loc.Address1}
-          {if loc.Address2}
-            <br />{loc.Address2}
+          {loc.address1}
+          {if loc.address2}
+            <br />{loc.address2}
           {/if}
-          {loc.PostalCode}
+          {loc.postalCode}
         </td>
       </tr>
 
       <tr>
         <th>Phone</th>
         <td>
-          {loc.Phone}
+          {loc.phone}
         </td>
       </tr>
 
       <tr>
         <th>Hours Notes</th>
         <td>
-          {loc.HoursNotes}
+          {loc.hoursNotes}
         </td>
       </tr>
 
       <tr>
         <th>Other Notes</th>
         <td>
-          {loc.OtherNotes}
+          {loc.otherNotes}
         </td>
       </tr>
 
       <tr>
         <th>Other Services</th>
         <td>
-          {loc.OtherServices}
+          {loc.otherServices}
         </td>
       </tr>
 
       <tr>
         <th>Is Shelter</th>
         <td>
-          {if loc.IsShelter}
+          {if loc.isShelter}
             Yes
           {else}
             No
@@ -65,7 +65,7 @@
       <tr>
         <th>Is Intake Center</th>
         <td>
-          {if loc.IsIntake}
+          {if loc.isIntake}
             Yes
           {else}
             No
@@ -76,7 +76,7 @@
       <tr>
         <th>Provides Meals</th>
         <td>
-          {if loc.HasMeals}
+          {if loc.hasMeals}
             Yes
           {else}
             No
@@ -99,9 +99,9 @@
       $(document).ready(function() {
 
         var location = {
-          'lat': {loc.Latitude},
-          'lng': {loc.Longitude},
-          'desc': '{loc.Address1}'
+          'lat': {loc.latitude},
+          'lng': {loc.longitude},
+          'desc': '{loc.address1}'
         };
 
         var center = new google.maps.LatLng(location.lat, location.lng);
