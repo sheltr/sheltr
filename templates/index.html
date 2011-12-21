@@ -73,6 +73,19 @@
         };
 
         sheltr.getLocations = function(userLocation, plot) {
+
+          //filtering
+          if($('#checkbox-food').is(':checked')) {
+            sheltr.state.showFood = true;
+          } else {
+            sheltr.state.showFood = false;
+          }
+
+          if($('#checkbox-shelter').is(':checked')) {
+            sheltr.state.showShelter = true;
+          } else {
+            sheltr.state.showShelter = false;
+          }
           
           plot = false || plot;
 
@@ -106,24 +119,6 @@
         $('button.submit').bind('click', function () {
           sheltr.map.geocode($('input.addr').val());
           return false;
-        });
-
-        $('#checkbox-label-food').bind('click', function() {
-          if ($('#checkbox-food').prop('checked') == true) {
-            sheltr.state.showFood = true;
-          }
-          if ($('#checkbox-food').prop('checked') == false) {
-            sheltr.state.showFood = false;
-          }
-        });
-
-        $('#checkbox-label-shelter').bind('click', function() {
-          if ($('#checkbox-shelter').prop('checked') == true) {
-            sheltr.state.showShelter = true;
-          } 
-          if ($('#checkbox-food').prop('checked') == false) {
-            sheltr.state.showShelter = false;
-          }
         });
 
       });
