@@ -61,18 +61,15 @@ sheltr.locations = (function ($) {
 
     selectMarkerIcon: function(location) {
       var icon
-      
-      if (location.isFood === "Y") {
-        icon = '/img/food.png';
-      } 
-      if (location.isShelter === "Y") {
-        icon = '/img/shelter.png';
-      }
+
       if (location.isShelter === "Y" && location.isFood === "Y") {
         icon = '/img/shelter_food.png';
-      }
-      if (location.isIntake === "Y") {
+      } else if (location.isIntake === "Y") {
         icon = '/img/intake.png';
+      } else if (location.isShelter === "Y") {
+        icon = '/img/shelter.png';
+      } else if (location.isFood === "Y") {
+        icon = '/img/food.png';
       } else {
         icon = '/img/shelter.png'; //Mill Creek Baptist Church currently doesn't meet any of these conditions. This will give it the shelter icon (I'm assuming its a shelter).
       }
