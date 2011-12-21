@@ -62,13 +62,13 @@ sheltr.locations = (function ($) {
     selectMarkerIcon: function(location) {
       var icon
       
-      if (location.hasMeals === "Y") {
+      if (location.isFood === "Y") {
         icon = '/img/food.png';
       } 
       if (location.isShelter === "Y") {
         icon = '/img/shelter.png';
       }
-      if (location.isShelter === "Y" && location.hasMeals === "Y") {
+      if (location.isShelter === "Y" && location.isFood === "Y") {
         icon = '/img/shelter_food.png';
       }
       if (location.isIntake === "Y") {
