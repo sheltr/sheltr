@@ -13,6 +13,6 @@
   , "connect-redis": "1.2.0"
   , "paperboy": ">=0.0.2"
   , "snout": ">=0.0.5"
-  , "whiskers": ">=0.1.1"
+  , "whiskers": ">=0.1.3"
   }
 }
