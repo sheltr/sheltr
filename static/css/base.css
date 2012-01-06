@@ -188,6 +188,14 @@ form #checkbox-label-food:hover, #checkbox-label-shelter:hover {
   text-align: center;
 }
 
+.buttons ul {
+  list-style-type: none;  
+}
+
+.buttons ul li {
+  display: inline-block;
+}
+
 #userMsg {
   display:none;
   width: 65%;  

@@ -1,10 +1,18 @@
     {>header}
     <form class="submit">
       <input class="addr text" placeholder="Enter a Philadelphia address to find homeless shelters" type="text" />
-      <div class="buttons"> 
-        <input type="checkbox" value="Food" checked="true" id="checkbox-food"/><label id="checkbox-label-food" for="checkbox-food">Food</label>
-        <input type="checkbox" value="Shelter" checked="true" id="checkbox-shelter"/><label id="checkbox-label-shelter" for="checkbox-shelter">Shelter</label>
+      <div class="buttons">
         <button class="submit">Submit</button>
+        <ul class="form-controls">
+          <li>
+            <input type="checkbox" value="Food" checked="true" id="checkbox-food"/>
+            <label id="checkbox-label-food" for="checkbox-food">Food</label>
+          </li>
+          <li>
+            <input type="checkbox" value="Shelter" checked="true" id="checkbox-shelter"/>
+            <label id="checkbox-label-shelter" for="checkbox-shelter">Shelter</label>
+          </li>
+        </ul>
       </div>
     </form>
     <div id="userMsg"></div>
