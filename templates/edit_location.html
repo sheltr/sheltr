@@ -36,31 +36,15 @@
         <tr>
           <th>Phone</th>
           <td>
-            <input type="text" value="{loc.Phone}" name="loc[Phone]" />
+            <input type="text" value="{loc.phone}" name="loc[phone]" />
           </td>
         </tr>
-
         <tr>
-          <th>Hours Notes</th>
+          <th> Notes</th>
           <td>
-            <textarea name="loc[hoursNotes]">{loc.hoursNotes}</textarea>
+            <textarea name="loc[notes]">{loc.notes}</textarea>
           </td>
         </tr>
-
-        <tr>
-          <th>Other Notes</th>
-          <td>
-            <textarea name="loc[otherNotes]">{loc.otherNotes}</textarea>
-          </td>
-        </tr>
-
-        <tr>
-          <th>Other Services</th>
-          <td>
-            <textarea name="loc[otherServices]">{loc.otherServices}</textarea>
-          </td>
-        </tr>
-
         <tr>
           <th>Is Shelter</th>
           <td>
@@ -100,14 +84,14 @@
         <tr>
           <th>Provides Meals</th>
           <td>
-            <select name="loc[hasMeals]">
+            <select name="loc[isFood]">
               <option
-                {if loc.hasMeals}
+                {if loc.isFood}
                   selected="selected"
                 {/if}
                 value="Y">Yes</option>
               <option
-                {if not loc.hasMeals}
+                {if not loc.isFood}
                   selected="selected"
                 {/if}
                 value="N">No</option>
