@@ -1,0 +1,133 @@
+* {
+  margin:0;
+  padding:0;
+}
+
+html {
+  font-family:helvetica, arial, sans-serif;
+  font-size:12px;
+  color:#313131;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, img, address {display: block;}
+
+body {
+  background:whiteSmoke;  
+}
+
+address {
+  font-style:normal;
+}
+
+a {
+  color:#188db8;
+  text-decoration:none;
+}
+
+header {
+  background:red; /* TODO: find better color */
+  padding:0 0 20px 10px;
+}
+
+h1 a {
+  background: url('../img/sheltr-logo-desktop.png') no-repeat 0 0;  
+  display: block;
+  width: 315px;
+  height: 110px;
+  border: 1px solid red;
+  text-indent: -5000px;
+}
+
+form {
+  background:whiteSmoke;
+  border-bottom:1px solid #bbb;
+  padding:10px 10px 10px 8px;
+  overflow:hidden;
+  margin-bottom:10px;
+  z-index:2;
+  box-shadow: 0 4px 4px -2px #ccc;
+  -moz-box-shadow: 0 4px 4px -2px #ccc;
+  -webkit-box-shadow: 0 4px 4px -2px #ccc;
+}
+
+form input {
+  line-height:22px;
+  font-size:22px;
+  font-family:inherit;
+  padding:3px 5px;
+  border: 1px solid #ccc;
+  border-right:none;
+  border-radius:0;
+  float:left;
+}
+
+form button {
+  border:none;
+  padding:5px;
+  font-size:22px;
+  line-height:22px;
+  font-family:inherit;
+  display:block;
+  float:left;
+  border:1px solid #ccc;
+  background:#ccc;
+}
+
+form button:hover {
+  cursor:pointer;
+}
+
+ul.locations {
+  width:450px;  
+  float:left;
+  border-right:1px solid #bbb;
+  background:#fff;
+  margin-top:-10px;
+}
+
+ul.locations li {
+  border-bottom:1px solid #EBEBEB;
+  overflow:hidden;
+  padding:5px 5px 5px 45px;
+  clear:left;
+}
+
+ul.locations li img {
+  float:left;
+  margin-left:-38px;
+}
+
+ul.locations li h2 {
+  font-size:13px;
+  line-height:18px;
+}
+
+.map-container {
+  width:800px;
+  height:800px;
+  position: absolute;
+  left:460px; 
+}
+
+#map {
+  z-index:1;
+  width:100%;
+  height:100%;
+}
+
+footer {
+  clear:left;  
+}
+
+@media screen and (max-width: 480px) {
+  header {
+    display:none;
+  }
+
+  form input {
+    font-size:18px;
+  }
+  form button {
+    font-size:18px;
+  } 
+}
