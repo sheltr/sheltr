@@ -36,8 +36,7 @@ h1 {
 
 header {
   margin: 0 auto;
-  padding-top: 30px;
-  width: 960px;  
+  width: 100%;
 }
 
 header h1 {
@@ -52,6 +51,33 @@ header h1 a {
   margin: 0 auto;
   text-indent: -5000px;
   margin-bottom: 30px;
+}
+
+header .top-row {
+  width: 100%;
+  background-color: #666;
+}
+
+.menu {
+  background-color: #666;
+  height: 30px;
+  width: 960px;
+  margin: 0 auto;
+}
+
+.menu ul {
+  list-style: none outside none;
+  overflow: auto;
+  padding: 0;
+  margin: 0 auto;
+}
+
+.menu li a {
+  line-height: 30px;
+  font-size: 1em;
+  float: right;
+  margin: 0 0 0 30px;
+  color: white;
 }
 
 footer {
@@ -91,17 +117,6 @@ table tr:nth-child(odd) {
 
 table tr:nth-child(even) {
   background-color: #fff;
-}
-
-.menu li {
-  float: right;
-  margin: 0 20px 0 0;
-}
-
-.menu ul {
-  list-style: none outside none;
-  overflow: auto;
-  padding: 0;
 }
 
 textarea, input[type="text"] {
