@@ -5,6 +5,8 @@ var loaded = JSON.parse(loadedFile);
 var data, newData, reloaded = {};
 for (var key in loaded.success) {
   data = loaded.success[key];
+  console.log(data);
+  break;
   newData = {};
   for (var dataKey in data) {
     if (dataKey == 'OSHReferralRequired') {
@@ -32,8 +34,8 @@ for (var key in loaded.success) {
   reloaded[key] = newData;
   //}
 }
-fs.writeFile('reloaded.json', JSON.stringify(reloaded));
-
-function deCap(str) {
-  return str.charAt(0).toLowerCase() + str.substr(1);
-}
+//fs.writeFile('reloaded.json', JSON.stringify(reloaded));
+//
+//function deCap(str) {
+//  return str.charAt(0).toLowerCase() + str.substr(1);
+//}
