@@ -76,7 +76,7 @@ header .top-row {
   line-height: 30px;
   font-size: 1em;
   float: right;
-  margin: 0 0 0 30px;
+  margin: 0 0 0 35px;
   color: white;
 }
 
@@ -98,35 +98,7 @@ footer {
   float: right;
 }
 
-table {
-  border:  1px solid #666;
-  border-collapse: collapse;
-  margin-bottom: 15px;
-}
-
-table td, table th {
-  padding:  4px;
-  text-align: left;
-  border: 1px solid #ddd;
-  vertical-align: top;
-}
-
-table tr:nth-child(odd) {
-  background-color: #eee;
-}
-
-table tr:nth-child(even) {
-  background-color: #fff;
-}
-
-textarea, input[type="text"] {
-  width: 300px;
-}
-
-textarea {
-  height: 50px;
-}
-
+/* HOME */
 ul.locations {
   display: none;
   list-style: none;
@@ -223,7 +195,6 @@ form #checkbox-label-food:hover, #checkbox-label-shelter:hover {
   padding: .5em .25em;
 }
 
-
 #map {
   width: 960px;
   height: 800px;
@@ -238,13 +209,86 @@ form #checkbox-label-food:hover, #checkbox-label-shelter:hover {
   margin: 50px 20px 20px 20px;
 }
 
+/* LOCATION DETAILS */
+.location-details {
+  width: 700px;
+  margin: 0 auto;
+}
+
+.info-container {
+  width: 700px;
+  border: 1px solid gray;
+  margin: 0 auto;
+  padding: 10px;
+  background-color: #f3f3f5;
+  margin-bottom: 15px;
+}
+
+.location-map-container {
+  height: 400px;
+  width: 680px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid gray;
+  margin-bottom: 15px;
+}
+
+h2.location-title {
+  font-size: 1.1em;
+  color: #5c5c5e;
+}
+
+table {
+  border-collapse: collapse;
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+table td, table th {
+  padding: 0px 0px 4px 0px;
+  text-align: left;
+  vertical-align: top;
+  width: 50%;
+}
+
+table tr:nth-child(odd) {
+  background-color: #f3f3f5;
+}
+
+table tr:nth-child(even) {
+  background-color: #fff;
+}
+
+textarea, input[type="text"] {
+  width: 300px;
+}
+
+textarea {
+  height: 50px;
+}
+
+#location-map {
+  height: 100%;
+  width: 100%;
+}
 
 @media screen and (max-width: 480px) {
 
   header {
     margin-bottom: 0;
-    padding-top: 5%;
     width: 100%;
+  }
+
+  header .top-row {
+    width: 100%;
+  }
+
+  .menu {
+    width: 100%;
+  }
+
+  .menu ul {
+    margin: 0 auto;
   }
 
   header h1 {
@@ -319,6 +363,28 @@ form #checkbox-label-food:hover, #checkbox-label-shelter:hover {
   }
 
   .container{
+    width: 100%;
+  }
+
+  /* admin */
+  .location-details {
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .info-container {
+    width: 100%;
+  }
+
+  .location-map-container {
+    height: 95%;
+    width: 95%;
+    position: absolute;
+  }
+
+  #location-map {
+    margin: 0 auto;
+    height: 100%;
     width: 100%;
   }
 }

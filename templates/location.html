@@ -1,94 +1,94 @@
   {>header}
-  <article>
+  <article class='location-details'>
     {if edit}
       <div class="edit"><a href="/l/{loc.id}/edit">Edit</a></div>
     {/if}
 
-    <h1>{loc.Name}</h1>
+    <h1>{loc.name}</h1>
 
-    {if loc.isShelterAndNotIntake}
-      <p>Note:  Most shelters require residents to be preprocessed at an Intake Center.</p>
-    {/if}
+    <div class='info-container'>
+      <h2 class='location-title'>INFORMATION</h2>
+      <table>
 
-    <table>
+        <tr>
+          <th>Address</th>
+          <td>
+            {loc.address1}
+            {if loc.address2}
+              <br />{loc.address2}
+            {/if}
+            {loc.postalCode}
+          </td>
+        </tr>
 
-      <tr>
-        <th>Address</th>
-        <td>
-          {loc.address1}
-          {if loc.address2}
-            <br />{loc.address2}
-          {/if}
-          {loc.postalCode}
-        </td>
-      </tr>
+        <tr>
+          <th>Phone</th>
+          <td>
+            {loc.phone}
+          </td>
+        </tr>
 
-      <tr>
-        <th>Phone</th>
-        <td>
-          {loc.phone}
-        </td>
-      </tr>
+        <tr>
+          <th>Hours Notes</th>
+          <td>
+            {loc.hoursNotes}
+          </td>
+        </tr>
 
-      <tr>
-        <th>Hours Notes</th>
-        <td>
-          {loc.hoursNotes}
-        </td>
-      </tr>
+        <tr>
+          <th>Other Notes</th>
+          <td>
+            {loc.otherNotes}
+          </td>
+        </tr>
 
-      <tr>
-        <th>Other Notes</th>
-        <td>
-          {loc.otherNotes}
-        </td>
-      </tr>
+        <tr>
+          <th>Other Services</th>
+          <td>
+            {loc.otherServices}
+          </td>
+        </tr>
 
-      <tr>
-        <th>Other Services</th>
-        <td>
-          {loc.otherServices}
-        </td>
-      </tr>
+        <tr>
+          <th>Is Shelter</th>
+          <td>
+            {if loc.isShelter}
+              Yes
+            {else}
+              No
+            {/if}
+          </td>
+        </tr>
 
-      <tr>
-        <th>Is Shelter</th>
-        <td>
-          {if loc.isShelter}
-            Yes
-          {else}
-            No
-          {/if}
-        </td>
-      </tr>
+        <tr>
+          <th>Is Intake Center</th>
+          <td>
+            {if loc.isIntake}
+              Yes
+            {else}
+              No
+            {/if}
+          </td>
+        </tr>
 
-      <tr>
-        <th>Is Intake Center</th>
-        <td>
-          {if loc.isIntake}
-            Yes
-          {else}
-            No
-          {/if}
-        </td>
-      </tr>
+        <tr>
+          <th>Provides Meals</th>
+          <td>
+            {if loc.hasMeals}
+              Yes
+            {else}
+              No
+            {/if}
+          </td>
+        </tr>
+      </table>
+       {if loc.isShelterAndNotIntake}
+        <p>Note:  Most shelters require residents to be preprocessed at an Intake Center.</p>
+      {/if}
+    </div>
 
-      <tr>
-        <th>Provides Meals</th>
-        <td>
-          {if loc.hasMeals}
-            Yes
-          {else}
-            No
-          {/if}
-        </td>
-      </tr>
-
-
-    </table>
-
-    <div class="map-container">
-      <div id="map"></div>
+    <div class="location-map-container">
+      <div id="location-map"></div>
     </div>
 
   </article>
@@ -108,7 +108,7 @@
 
         var myOptions = { center: center, zoom: 18, mapTypeId: google.maps.MapTypeId.ROADMAP };
 
-        var map = new google.maps.Map(document.getElementById("map"),myOptions);
+        var map = new google.maps.Map(document.getElementById("location-map"),myOptions);
 
         var settings = {
           position: center,
