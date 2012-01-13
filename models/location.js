@@ -13,7 +13,10 @@ var currentSchema = {
   isShelter: {type: 'String'},
   isIntake: {type: 'String'},
   hasMeals: {type: 'String'},
+  isFood: {type: 'String'},
   isFamily: {type: 'String'},
+  isPublic: {type: 'String'},
+  isPrivate: {type: 'String'},
   isChildren: {type: 'String'},
   isWomen: {type: 'String'},
   isMen: {type: 'String'},
@@ -41,21 +44,28 @@ var OperatingHours = {
 
 var Statuses = {
   status: {type: 'String'},
+  username: {type: 'String'},
   created: {type: 'Date'}
 };
 
 /**
- * Removed type, hours, url, otherServices -- as these are now covered elsewhere in the schema
+ * Removed type, hours, url, otherServices, hasMeals, isPublic -- as these are now covered elsewhere in the schema
  */
 var proposedSchema = {
+  _intake: {type: 'ObjectId', ref: 'Location'},
   name: {type: 'String'},
-  address1: {type: 'String'},
-  address2: {type: 'String'},
-  city: {type: 'String'},
-  state: {type: 'String'},
-  postalCode: {type: 'Number'},
-  longitude: {type: 'Number'},
-  latitude: {type: 'Number'},
+  Address: { //added for organization
+    address1: {type: 'String'},
+    address2: {type: 'String'},
+    city: {type: 'String'},
+    state: {type: 'String'},
+    postalCode: {type: 'String'}
+  },
+  location: { //Cloudmine-specific formatting
+    "__type__": {type: 'String', "default": 'geopoint'},
+    longitude: {type: 'Number'},
+    latitude: {type: 'Number'}
+  },
   phone: {type: 'String'},
   website: {type: 'String'}, //added
   donate_url: {type: 'String'}, //added
@@ -69,16 +79,19 @@ var proposedSchema = {
   contact_name: {type: 'String'}, //added
   isShelter: {type: 'Boolean'}, //convert to boolean
   isIntake: {type: 'String'}, //migrate to Services, convert to service type
-  isServingMeals: {type: 'Boolean'}, //renamed from 'hasMeals', convert to Boolean
+  isFood: {type: 'Boolean'}, //convert to boolean
+  isPrivate: {type: 'Boolean'},
   isVolunteerNeeded: {type: 'Boolean'}, //added
-  oshReferralRequired: {type: 'Boolean'},
-  oadReferralRequired: {type: 'Boolean'},
+  isOshReferralRequired: {type: 'Boolean'}, //renamed
+  isOadReferralRequired: {type: 'Boolean'}, //renamed
   LegacyData: { //Embed for usused legacy data.  Convert appropriate fields to Booleans
     isFamily: {type: 'Boolean'},
     isChildren: {type: 'Boolean'},
     isWomen: {type: 'Boolean'},
     isMen: {type: 'Boolean'},
     isDayCenter: {type: 'Boolean'},
-    otherLimits: {type: 'String'}
+    otherLimits: {type: 'String'},
+    otherServices: {type: 'String'},
+    hours: {type: 'String'}
   }
 };
