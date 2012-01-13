@@ -123,10 +123,15 @@
         sheltr.map.create();
         sheltr.getUserLocation();
 
-        var submitButton = $('button.submit');
-        $('button.submit').bind('click', function () {
-          sheltr.map.geocode($('input.addr').val());
-          return false;
+        $('button.submit').bind('click', function(){
+          if (sheltr.state.userLocation && $('input.addr').val() == '') {
+            sheltr.getLocations(sheltr.state.userLocation, true);
+            return false;
+          } else {
+            sheltr.map.geocode($('input.addr').val());
+            return false;
+          }
+
         });
 
       });
