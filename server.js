@@ -16,7 +16,7 @@ if (redisUrl) {
 }
 
 connect(
-  connect.vhost('127.0.0.1|localhost|philly.sheltr.org|www.philly.sheltr.org', 
+  connect.vhost('127.0.0.1|localhost|philly.sheltr.org|www.philly.sheltr.org|', 
     connect(
       nowww(),
       connect.static(__dirname+'/static'),
