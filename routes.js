@@ -6,6 +6,23 @@ var whiskers = require('whiskers');
 var templates = snout.sniff(__dirname+'/templates');
 
 exports.route = function(app) {
+  app.get('/_map', function(req, res) {
+    https.get({
+      host: 'api.cloudmine.me',
+      path: '/v1/app/60ecdcdd9fd6433297924f75c1c07b13/text?f=shelters_near&result_only=true&params={"center":['+req.query.lat+','+req.query.long+']}',
+      headers: {'X-CloudMine-ApiKey': process.env.CLOUDMINE}
+    }, function(cmres) {
+      res.writeHead(200, {'Content-Type': 'application/json'});
+      cmres.on('data', function(chunk) {
+        res.write(chunk);
+      }).on('end', function() {
+        res.end();
+      });
+    }).on('error', function(e) {
+      res.writeHead(500, {'Content-Type': 'application/json'});
+      res.end('{"error":"'+e+'"}');
+    });
+  });
   app.get('/', function(req, res) {
     res.render(templates.index);
   });
@@ -21,8 +38,9 @@ exports.route = function(app) {
   app.get('/admin', function(req, res) {
     res.render(templates.admin);
   });
-  app.get('/l/:id', function(req, res, next) {
-    var id = req.params.id;
+  app.get(/^\/(\w{4})$/, function(req, res, next) {
+    var id = req.params[0];
+    console.log(id);
     https.get({
       host: 'api.cloudmine.me',
       path: '/v1/app/60ecdcdd9fd6433297924f75c1c07b13/text?keys='+id,
@@ -52,8 +70,8 @@ exports.route = function(app) {
       next();
     });
   });
-  app.get('/l/:id/edit', function(req, res, next) {
-    var id = req.params.id;
+  app.get(/^\/(\w{4})\/edit$/, function(req, res, next) {
+    var id = req.params[0];
     https.get({
       host: 'api.cloudmine.me',
       path: '/v1/app/60ecdcdd9fd6433297924f75c1c07b13/text?keys='+id,
@@ -79,23 +97,6 @@ exports.route = function(app) {
     }).on('error', function(e) {
       console.log(e);
       next();
-    });
-  });
-  app.get('/_map', function(req, res) {
-    https.get({
-      host: 'api.cloudmine.me',
-      path: '/v1/app/60ecdcdd9fd6433297924f75c1c07b13/text?f=shelters_near&result_only=true&params={"center":['+req.query.lat+','+req.query.long+']}',
-      headers: {'X-CloudMine-ApiKey': process.env.CLOUDMINE}
-    }, function(cmres) {
-      res.writeHead(200, {'Content-Type': 'application/json'});
-      cmres.on('data', function(chunk) {
-        res.write(chunk);
-      }).on('end', function() {
-        res.end();
-      });
-    }).on('error', function(e) {
-      res.writeHead(500, {'Content-Type': 'application/json'});
-      res.end('{"error":"'+e+'"}');
     });
   });
 };
