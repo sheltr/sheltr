@@ -1,125 +1,127 @@
   {>header}
-  <article>
+  <section>
 
     <form method="POST">
 
-      <table>
+      <div class="info-container">
+        <table>
 
-        <tr>
-          <th>Name</th>
-          <td>
-            <input type="text" value="{loc.name}" name="loc[name]" />
-          </td>
-        </tr>
+          <tr>
+            <th>Name</th>
+            <td>
+              <input type="text" value="{loc.name}" name="loc[name]" />
+            </td>
+          </tr>
 
-        <tr>
-          <th>Address1</th>
-          <td>
-            <input type="text" value="{loc.address1}" name="loc[address1]" />
-          </td>
-        </tr>
+          <tr>
+            <th>Address1</th>
+            <td>
+              <input type="text" value="{loc.address1}" name="loc[address1]" />
+            </td>
+          </tr>
 
-        <tr>
-          <th>Address2</th>
-          <td>
-            <input type="text" value="{loc.address2}" name="loc[address2]" />
-          </td>
-        </tr>
+          <tr>
+            <th>Address2</th>
+            <td>
+              <input type="text" value="{loc.address2}" name="loc[address2]" />
+            </td>
+          </tr>
 
-        <tr>
-          <th>Postal Code</th>
-          <td>
-            <input type="text" value="{loc.postalCode}" name="loc[postalCode]" />
-          </td>
-        </tr>
+          <tr>
+            <th>Postal Code</th>
+            <td>
+              <input type="text" value="{loc.postalCode}" name="loc[postalCode]" />
+            </td>
+          </tr>
 
-        <tr>
-          <th>Phone</th>
-          <td>
-            <input type="text" value="{loc.phone}" name="loc[phone]" />
-          </td>
-        </tr>
-        <tr>
-          <th> Notes</th>
-          <td>
-            <textarea name="loc[notes]">{loc.notes}</textarea>
-          </td>
-        </tr>
-        <tr>
-          <th>Is Shelter</th>
-          <td>
-            <select name="loc[isShelter]">
-              <option
-                {if loc.isShelter}
-                  selected="selected"
-                {/if}
-                value="Y">Yes</option>
-              <option
-                {if not loc.isShelter}
-                  selected="selected"
-                {/if}
-                value="N">No</option>
-            </select>
-          </td>
-        </tr>
+          <tr>
+            <th>Phone</th>
+            <td>
+              <input type="text" value="{loc.phone}" name="loc[phone]" />
+            </td>
+          </tr>
+          <tr>
+            <th> Notes</th>
+            <td>
+              <textarea name="loc[notes]">{loc.notes}</textarea>
+            </td>
+          </tr>
+          <tr>
+            <th>Is Shelter</th>
+            <td>
+              <select name="loc[isShelter]">
+                <option
+                  {if loc.isShelter}
+                    selected="selected"
+                  {/if}
+                  value="Y">Yes</option>
+                <option
+                  {if not loc.isShelter}
+                    selected="selected"
+                  {/if}
+                  value="N">No</option>
+              </select>
+            </td>
+          </tr>
 
-        <tr>
-          <th>Is Intake Center</th>
-          <td>
-            <select name="loc[isIntake]">
-              <option
-                {if loc.isIntake}
-                  selected="selected"
-                {/if}
-                value="Y">Yes</option>
-              <option
-                {if not loc.isIntake}
-                  selected="selected"
-                {/if}
-                value="N">No</option>
-            </select>
-          </td>
-        </tr>
+          <tr>
+            <th>Is Intake Center</th>
+            <td>
+              <select name="loc[isIntake]">
+                <option
+                  {if loc.isIntake}
+                    selected="selected"
+                  {/if}
+                  value="Y">Yes</option>
+                <option
+                  {if not loc.isIntake}
+                    selected="selected"
+                  {/if}
+                  value="N">No</option>
+              </select>
+            </td>
+          </tr>
 
-        <tr>
-          <th>Provides Meals</th>
-          <td>
-            <select name="loc[isFood]">
-              <option
-                {if loc.isFood}
-                  selected="selected"
-                {/if}
-                value="Y">Yes</option>
-              <option
-                {if not loc.isFood}
-                  selected="selected"
-                {/if}
-                value="N">No</option>
-            </select>
-          </td>
-        </tr>
+          <tr>
+            <th>Provides Meals</th>
+            <td>
+              <select name="loc[isFood]">
+                <option
+                  {if loc.isFood}
+                    selected="selected"
+                  {/if}
+                  value="Y">Yes</option>
+                <option
+                  {if not loc.isFood}
+                    selected="selected"
+                  {/if}
+                  value="N">No</option>
+              </select>
+            </td>
+          </tr>
 
-        <tr>
-          <th>Hours</th>
-          <td>
-            <tr><td>Sunday</td><td>{loc.sunday}</td></tr>
-            <tr><td>Monday</td><td>{loc.monday}</td></tr>
-            <tr><td>Tuesday</td><td>{loc.tuesday}</td></tr>
-            <tr><td>Wednesday</td><td>{loc.wedneday}</td></tr>
-            <tr><td>Thursday</td><td>{loc.thursday}</td></tr>
-            <tr><td>Friday</td><td>{loc.friday}</td></tr>
-            <tr><td>Saturday</td><td>{loc.saturday}</td></tr>
-          </td>
-        </tr>
+          <tr>
+            <th>Hours</th>
+            <td>
+              <tr><td>Sunday</td><td>{loc.sunday}</td></tr>
+              <tr><td>Monday</td><td>{loc.monday}</td></tr>
+              <tr><td>Tuesday</td><td>{loc.tuesday}</td></tr>
+              <tr><td>Wednesday</td><td>{loc.wedneday}</td></tr>
+              <tr><td>Thursday</td><td>{loc.thursday}</td></tr>
+              <tr><td>Friday</td><td>{loc.friday}</td></tr>
+              <tr><td>Saturday</td><td>{loc.saturday}</td></tr>
+            </td>
+          </tr>
 
 
-      </table>
+        </table>
+      </div>
 
       <input type="submit" value="Save Changes" />
 
     </form>
 
-  </article>
+  </section>
   {>footer}
   </body>
 </html>
