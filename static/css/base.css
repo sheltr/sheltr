@@ -243,12 +243,6 @@ form #checkbox-label-food:hover, #checkbox-label-shelter:hover {
   margin-bottom: 15px;
 }
 
-h2.location-title {
-  font-size: 1.1em;
-  color: #5c5c5e;
-  text-transform: uppercase;
-}
-
 table {
   border-collapse: collapse;
   margin-bottom: 15px;
