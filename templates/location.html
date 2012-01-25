@@ -28,33 +28,41 @@
           </td>
         </tr>
 
-        <tr>
-          <th>Phone</th>
-          <td>
-            {loc.phone}
-          </td>
-        </tr>
+        {if loc.phone}
+          <tr>
+            <th>Phone</th>
+            <td>
+              {loc.phone}
+            </td>
+          </tr>
+        {/if}
 
-        <tr>
-          <th>Hours Notes</th>
-          <td>
-            {loc.hoursNotes}
-          </td>
-        </tr>
+        {if loc.hoursNotes}
+          <tr>
+            <th>Hours Notes</th>
+            <td>
+              {loc.hoursNotes}
+            </td>
+          </tr>
+        {/if}
 
-        <tr>
-          <th>Notes</th>
-          <td>
-            {loc.notes}
-          </td>
-        </tr>
+        {if loc.notes}
+          <tr>
+            <th>Notes</th>
+            <td>
+              {loc.notes}
+            </td>
+          </tr>
+        {/if}
 
-        <tr>
-          <th>Other Services</th>
-          <td>
-            {loc.otherServices}
-          </td>
-        </tr>
+        {if loc.otherServices}
+          <tr>
+            <th>Other Services</th>
+            <td>
+              {loc.otherServices}
+            </td>
+          </tr>
+        {/if}
 
         <tr>
           <th>Is Shelter</th>
@@ -90,7 +98,7 @@
         </tr>
       </table>
        {if loc.isShelterAndNotIntake}
-        <p>Note:  Most shelters require residents to be preprocessed at an Intake Center.</p>
+        <p>Note: Most shelters require residents to be preprocessed at an Intake Center.</p>
       {/if}
     </div>
 
