@@ -267,6 +267,10 @@ table tr:nth-child(even) {
   background-color: #fff;
 }
 
+.edit-location form {
+  width: 700px;  
+}
+
 textarea, input[type="text"] {
   width: 300px;
   font-size: 12px;
