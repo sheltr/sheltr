@@ -236,6 +236,7 @@ form #checkbox-label-food:hover, #checkbox-label-shelter:hover {
 h2.location-title {
   font-size: 1.1em;
   color: #5c5c5e;
+  text-transform: uppercase;
 }
 
 table {
