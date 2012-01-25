@@ -227,7 +227,7 @@ form #checkbox-label-food:hover, #checkbox-label-shelter:hover {
 
 .info-container {
   width: 700px;
-  border: 1px solid gray;
+  border: 1px solid #d4d4d4;
   margin: 0 auto;
   padding: 10px;
   background-color: #f3f3f5;
@@ -239,7 +239,7 @@ form #checkbox-label-food:hover, #checkbox-label-shelter:hover {
   width: 680px;
   margin: 0 auto;
   padding: 20px;
-  border: 1px solid gray;
+  border: 1px solid #d4d4d4;
   margin-bottom: 15px;
 }
 
