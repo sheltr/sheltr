@@ -210,9 +210,18 @@ form #checkbox-label-food:hover, #checkbox-label-shelter:hover {
 }
 
 /* LOCATION DETAILS */
-.location-details {
+.location {
   width: 700px;
   margin: 0 auto;
+}
+
+.location-header h1 {
+  font-weight: normal;
+}
+
+.location-header h1 span.subtitle {
+  color: #505050;  
+  display: block;
 }
 
 .info-container {
@@ -368,7 +377,7 @@ textarea {
   }
 
   /* admin */
-  .location-details {
+  .location {
     width: 100%;
     margin: 0 auto;
   }

@@ -1,13 +1,20 @@
   {>header}
-  <section class='location-details'>
+  <section class="location">
     {if edit}
       <div class="edit"><a href="/l/{loc.id}/edit">Edit</a></div>
     {/if}
 
-    <h1>{loc.name}</h1>
-
+    <div class="location-header">
+      <h1>
+        {loc.name}
+        <span class="subtitle"></span>
+      </h1>
+    </div>
+    <div class="location-overview">
+    </div>
     <div class="info-container">
       <h2 class="location-title">Information</h2>
+
       <table>
 
         <tr>
