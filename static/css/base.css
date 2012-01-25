@@ -222,6 +222,7 @@ form #checkbox-label-food:hover, #checkbox-label-shelter:hover {
 .location-header h1 span.subtitle {
   color: #505050;  
   display: block;
+  font-size: 14px;
 }
 
 .info-container {
