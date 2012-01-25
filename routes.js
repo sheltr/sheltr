@@ -36,7 +36,30 @@ exports.route = function(app) {
     res.render(templates.partners);
   });
   app.get('/admin', function(req, res) {
+    console.log(JSON.stringify(req.session));
+    // uncomment once auth is going on
+    //if (!req.session.user) {
+    //  res.writeHead(302, {'Location': '/login'});
+    //  return res.end();
+    //}
     res.render(templates.admin);
+  });
+  app.get('/login', function(req, res) {
+    res.render(templates.login);
+  });
+  app.post('/login', function(req, res) {
+    //req.body.user
+    //req.body.pass
+    // TODO check db for user/pass
+    // TODO also attach perms to user
+    req.session.user = {name: req.body.user};
+    res.writeHead(302, {'Location': '/admin'});
+    res.end();
+  });
+  app.get('/logout', function(req, res) {
+    req.session.destroy();
+    console.log(JSON.stringify(req.session));
+    res.render(templates.logout);
   });
   app.get(/^\/(\w{4})$/, function(req, res, next) {
     var id = req.params[0];

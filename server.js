@@ -29,6 +29,7 @@ connect(
       connect.query(),
       // uncomment when we have users
       //authCheck, 
+      connect.bodyParser(),
       routes.renderer(),
       connect.router(function(app) {
         routes.route(app);
