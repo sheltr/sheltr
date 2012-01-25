@@ -269,6 +269,11 @@ table tr:nth-child(even) {
 
 textarea, input[type="text"] {
   width: 300px;
+  font-size: 12px;
+}
+
+select option {
+  font-size: 12px;  
 }
 
 textarea {
