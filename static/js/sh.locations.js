@@ -11,8 +11,8 @@ sheltr.locations = (function ($) {
     var name = location.name ? location.name : '',
         addr = location.address1,
         id =  location.id,
-        icon = _self.selectMarkerIcon(location);
-        url = location.id;
+        icon = _self.selectMarkerIcon(location),
+        url = location.id,
         distance = _self.distanceFromUser(location);
 
     return '<li><img src="' + icon + '" /><h2><a href="' + url + '">' + name + '</a></h2><address>' + addr + '</address>Distance: ' + distance + ' miles <a href="#map" id="' + id + '">(View map)</span></li>';
