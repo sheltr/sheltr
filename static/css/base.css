@@ -120,6 +120,7 @@ ul.locations li {
 
 ul.locations li h2 {
   font-size: 1.5em;  
+  margin: 0;
 }
 
 ul.locations li p {
