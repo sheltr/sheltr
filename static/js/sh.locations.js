@@ -65,6 +65,7 @@ sheltr.locations = (function ($) {
 
       $('ul.locations > li > a').click(function(){
         sheltr.map.zoomToMarker($(this).attr('id'));
+        return false;
       });
     },
 
