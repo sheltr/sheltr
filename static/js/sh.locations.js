@@ -7,15 +7,24 @@ sheltr.locations = (function ($) {
       },
       _self;
 
+  function hasStatus(stat) {
+    if (stat) {
+      return '<p>Status: ' + stat + '</p>';
+    } else {
+      return '';
+    }
+  }
+
   function buildLocationsHTML(location) {
     var name = location.name ? location.name : '',
         addr = location.address1,
         id =  location.id,
         icon = _self.selectMarkerIcon(location),
         url = location.id,
+        stat = location.status ? location.status : '',
         distance = _self.distanceFromUser(location);
 
-    return '<li><img src="' + icon + '" /><h2><a href="' + url + '">' + name + '</a></h2><address>' + addr + '</address>Distance: ' + distance + ' miles <a href="#map" id="' + id + '">(View map)</span></li>';
+    return '<li><img src="' + icon + '" /><h2><a href="' + url + '">' + name + '</a></h2><address>' + addr + '</address><p>Distance: ' + distance + ' miles</p>' + hasStatus(stat) + '<a href="#map" id="' + id + '">(View map)</span></li>';
   }
 
   _self = {
