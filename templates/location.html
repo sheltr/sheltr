@@ -1,7 +1,7 @@
   {>header}
   <section class="location">
     {if edit}
-      <div class="edit"><a href="/l/{loc.id}/edit">Edit</a></div>
+      <div class="edit"><a href="/{loc.id}/edit">Edit</a></div>
     {/if}
 
     <div class="location-header">
@@ -87,7 +87,7 @@
         <tr>
           <th>Provides Meals</th>
           <td>
-            {if loc.hasMeals}
+            {if loc.isFood}
               Yes
             {else}
               No

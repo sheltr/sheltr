@@ -1,7 +1,9 @@
   {>header}
   <section class="edit-location">
+    
+    <p>{submitted}</p>
 
-    <form method="POST">
+    <form method="post">
 
       <div class="info-container">
         <table>
@@ -10,6 +12,13 @@
             <th>Name</th>
             <td>
               <input type="text" value="{loc.name}" name="loc[name]" />
+            </td>
+          </tr>
+
+          <tr>
+            <th>Slug</th>
+            <td>
+              <input type="text" value="{loc.slug}" name="loc[slug]" />
             </td>
           </tr>
 
@@ -59,7 +68,7 @@
                   {if not loc.isShelter}
                     selected="selected"
                   {/if}
-                  value="N">No</option>
+                  value="">No</option>
               </select>
             </td>
           </tr>
@@ -77,7 +86,7 @@
                   {if not loc.isIntake}
                     selected="selected"
                   {/if}
-                  value="N">No</option>
+                  value="">No</option>
               </select>
             </td>
           </tr>
@@ -95,7 +104,7 @@
                   {if not loc.isFood}
                     selected="selected"
                   {/if}
-                  value="N">No</option>
+                  value="">No</option>
               </select>
             </td>
           </tr>

@@ -1,9 +1,10 @@
 {>header}
   <article>
+    {if message}<p>{message}</p>{/if}
     <h1>Login</h1>
     <form method="post">
       <p><label for="user">Username/email: </label><input id="user" name="user" type="text"/></p>
-      <p><label for="pass">Password: </label><input id="pass" name="pass" type="text"/></p>
+      <p><label for="pass">Password: </label><input id="pass" name="pass" type="password"/></p>
       <p><input type="submit"/>
     </form>
   </article>
