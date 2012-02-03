@@ -143,6 +143,7 @@ form input.text {
   text-align: center;
   display: block;
   font-family: inherit;
+  color: #999;
 }
 
 form button.submit {
