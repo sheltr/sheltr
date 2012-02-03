@@ -35,6 +35,33 @@
           </tr>
         {/if}
 
+        {if loc.website}
+          <tr>
+            <th>Website</th>
+            <td>
+              <a href="{loc.website}">{loc.website}</a>
+            </td>
+          </tr>
+        {/if}
+
+        {if loc.donate_url}
+          <tr>
+            <th>Donate</th>
+            <td>
+              <a href="{loc.donate_url}">Donate here</a>
+            </td>
+          </tr>
+        {/if}
+
+        {if loc.status}
+          <tr>
+            <th>Status</th>
+            <td>
+              {loc.status}
+            </td>
+          </tr>
+        {/if}
+
         {if loc.hoursNotes}
           <tr>
             <th>Hours Notes</th>
