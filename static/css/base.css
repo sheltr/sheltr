@@ -122,6 +122,10 @@ ul.locations li h2 {
   font-size: 1.5em;  
 }
 
+ul.locations li p {
+  margin: 0;
+}
+
 form {
   width: 85%;  
   margin: 0 auto;
