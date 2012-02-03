@@ -203,7 +203,7 @@ exports.route = function(app) {
       });
     });
     var postdata = {};
-    postdata[id] = req.body.loc;
+    postdata[id] = req.body;
     cmreq.end(JSON.stringify(postdata));
     // TODO validation -- show following?
     //var id = req.params[0];
