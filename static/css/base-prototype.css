@@ -157,9 +157,15 @@ ul.locations li h2 {
 }
 
 footer {
+  line-height: 30px;
   clear:left;  
   background: #2d2d2d;
   height: 30px;
+  color: #ccc;
+}
+
+footer p {
+  margin-left: 8px;  
 }
 
 footer a {
