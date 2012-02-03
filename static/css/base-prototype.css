@@ -11,6 +11,10 @@ html {
 
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, img, address {display: block;}
 
+ul li {
+  list-style-type: none;  
+}
+
 body {
   background:whiteSmoke;  
 }
@@ -25,23 +29,46 @@ a {
 }
 
 header {
-  background:red; /* TODO: find better color */
-  padding:0 0 20px 10px;
+  background: #2D2D2D;
+  height: 30px;
 }
 
-h1 a {
-  background: url('../img/sheltr-logo-desktop.png') no-repeat 0 0;  
+.menu ul {
+  margin-left: 8px;  
+}
+
+.menu ul li {
+  float: left;
+  margin-right: 7px;
+}
+
+.menu ul li a {
+  font-weight: bold;
+  color: #ccc;
   display: block;
-  width: 315px;
-  height: 110px;
-  border: 1px solid red;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 3px;
+}
+
+.menu ul li a:hover {
+  background: #666;
+}
+
+h1 {display:none;} /*TODO: hiding this for now*/
+
+h1 a {
+  background: url('../img/sheltr-logo-mobile.png') no-repeat 0 0;  
+  display: block;
+  width: 200px;
+  height: 69px;
   text-indent: -5000px;
 }
 
 form {
   background:whiteSmoke;
   border-bottom:1px solid #bbb;
-  padding:10px 10px 10px 8px;
+  padding:15px 10px 10px 8px;
   overflow:hidden;
   margin-bottom:10px;
   z-index:2;
@@ -75,6 +102,20 @@ form button {
 
 form button:hover {
   cursor:pointer;
+}
+
+ul.form-controls {
+  clear: left;
+  padding-top: 10px;
+}
+
+ul.form-controls li {
+  float: left;  
+  margin-right: 10px;
+}
+
+ul.form-controls li label {
+  margin-left: 3px;
 }
 
 ul.locations {
@@ -117,6 +158,12 @@ ul.locations li h2 {
 
 footer {
   clear:left;  
+  background: #2d2d2d;
+  height: 30px;
+}
+
+footer a {
+  color: #ccc;  
 }
 
 @media screen and (max-width: 480px) {
