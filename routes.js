@@ -283,7 +283,7 @@ exports.renderer = function() {
         //user: true, // to be populated by req.user,
         gaAccount: process.env.GA
       }, context);
-      res.writeHead(200, {'Content-Type': 'text/html'});
+      res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'});
       res.end(whiskers.render(template, context, templates.partials));
     };
     next();
