@@ -45,7 +45,7 @@ sheltr.locations = (function ($) {
           if (locations.result[i].isShelter == 'Y') {
             locationsHTML = locationsHTML + buildLocationsHTML(locations.result[i]);
           }
-        }  
+        }
 
       } else if (sheltr.state.showShelter == false && sheltr.state.showFood == true) {
         
