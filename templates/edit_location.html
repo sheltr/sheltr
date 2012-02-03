@@ -11,54 +11,54 @@
           <tr>
             <th>Name</th>
             <td>
-              <input type="text" value="{loc.name}" name="loc[name]" />
+              <input type="text" value="{loc.name}" name="name" />
             </td>
           </tr>
 
           <tr>
             <th>Slug</th>
             <td>
-              <input type="text" value="{loc.slug}" name="loc[slug]" />
+              <input type="text" value="{loc.slug}" name="slug" />
             </td>
           </tr>
 
           <tr>
             <th>Address1</th>
             <td>
-              <input type="text" value="{loc.address1}" name="loc[address1]" />
+              <input type="text" value="{loc.address1}" name="address1" />
             </td>
           </tr>
 
           <tr>
             <th>Address2</th>
             <td>
-              <input type="text" value="{loc.address2}" name="loc[address2]" />
+              <input type="text" value="{loc.address2}" name="address2" />
             </td>
           </tr>
 
           <tr>
             <th>Postal Code</th>
             <td>
-              <input type="text" value="{loc.postalCode}" name="loc[postalCode]" />
+              <input type="text" value="{loc.postalCode}" name="postalCode" />
             </td>
           </tr>
 
           <tr>
             <th>Phone</th>
             <td>
-              <input type="text" value="{loc.phone}" name="loc[phone]" />
+              <input type="text" value="{loc.phone}" name="phone" />
             </td>
           </tr>
           <tr>
             <th> Notes</th>
             <td>
-              <textarea name="loc[notes]">{loc.notes}</textarea>
+              <textarea name="notes">{loc.notes}</textarea>
             </td>
           </tr>
           <tr>
             <th>Is Shelter</th>
             <td>
-              <select name="loc[isShelter]">
+              <select name="isShelter">
                 <option
                   {if loc.isShelter}
                     selected="selected"
@@ -76,7 +76,7 @@
           <tr>
             <th>Is Intake Center</th>
             <td>
-              <select name="loc[isIntake]">
+              <select name="isIntake">
                 <option
                   {if loc.isIntake}
                     selected="selected"
@@ -94,7 +94,7 @@
           <tr>
             <th>Provides Meals</th>
             <td>
-              <select name="loc[isFood]">
+              <select name="isFood">
                 <option
                   {if loc.isFood}
                     selected="selected"
