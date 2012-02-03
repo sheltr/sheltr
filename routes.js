@@ -39,14 +39,14 @@ exports.route = function(app) {
   app.get('/admin', function(req, res) {
     console.log(JSON.stringify(req.session));
     if (!req.session.user) {
-      res.writeHead(302, {'Location': '/login'});
+      res.writeHead(302, {'Location': '/login?ref=/admin'});
       return res.end();
     }
     res.render(templates.admin);
   });
   app.post('/admin', function(req, res) {
     if (!req.session.user) {
-      res.writeHead(302, {'Location': '/login'});
+      res.writeHead(302, {'Location': '/login?ref=/admin'});
       return res.end();
     }
     var cmreq = https.request({
