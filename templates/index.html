@@ -54,6 +54,8 @@
               //save position
               sheltr.state.userLocation = userLocation;
 
+              $('.addr.text').val('Your Location');
+
               if (sheltr.state.localSettings.boundingBox.contains(userLocation))  {
                 //get locations based on user location
                 sheltr.getLocations(userLocation,true);
@@ -124,7 +126,7 @@
         sheltr.getUserLocation();
 
         $('button.submit').bind('click', function(){
-          if (sheltr.state.userLocation && $('input.addr').val() == '') {
+          if (sheltr.state.userLocation && $('input.addr').val() == 'Your Location') {
             sheltr.getLocations(sheltr.state.userLocation, true);
             return false;
           } else {
