@@ -2,7 +2,9 @@
 , "description": "Locate nearby homeless shelters"
 , "version": "0.0.1"
 , "author": "Gabriel Farrell <g@grrawr.com>"
-, "engines": { "node": ">=0.4.0" }
+, "engines": { "node": ">=0.6.14" 
+  , "npm": ">=1.1.9"
+  }
 , "main": "app"
 , "repository":
   { "type": "git"
