@@ -14,22 +14,32 @@ var CM_KEY = process.env.CLOUDMINE;
 */
 
 function queryCM(name) {
-  //query cloudmine based off Program/name
-  //return id
-  //pass id to function that will do a PUT to update bed count
+  var query = 'q=[name="' + name + '"]';
+  console.log(query);
+
+  request({
+    uri: 'https://api.cloudmine.me/v1/app/' + CM_APP + '/search?' + query,
+    headers: {'X-CloudMine-ApiKey': CM_KEY},
+  }, function (err, cmres, body) {
+    if (!err && cmres.statusCode === 200) {
+      console.log(cmres.success);
+    } else {
+      console.log(body);
+    }
+  });
 }
 
 csv()
 .fromPath(__dirname+'/../data/nj.csv', {columns:true})
 .on('data', function(data, index){
   var beds = {
-    occupiedBeds = data.Occupied;
-    openBeds = data.Open;
-    otherLimits = data.Population;
+    occupiedBeds: data.Occupied,
+    openBeds: data.Open,
+    otherLimits: data.Population
   };
 
   var id = queryCM(data.Program);
-  syncBeds(id, beds);
+  //syncBeds(id, beds);
 })
 .on('end',function(){
 })
