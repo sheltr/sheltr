@@ -15,16 +15,17 @@ var CM_KEY = process.env.CLOUDMINE;
 
 function queryCM(name) {
   var query = 'q=[name="' + escape(name) + '"]';
+  var url = 'https://api.cloudmine.me/v1/app/' + CM_APP + '/search?' + query;
+  console.log(url);
 
   request({
-    uri: 'https://api.cloudmine.me/v1/app/' + CM_APP + '/search?' + query,
+    uri: url,
     headers: {'X-CloudMine-ApiKey': CM_KEY},
   }, function (err, cmres, body) {
     if (!err && cmres.statusCode === 200) {
       console.log(cmres.success);
     } else {
       console.log(body);
-      console.log(uri);
     }
   });
 }
