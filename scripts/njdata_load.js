@@ -35,8 +35,6 @@ function newId() {
 }
 
 function pushToCloudMine(data) {
-  //var s = JSON.stringify(data);
-  //console.log(s);
   request.put({
     uri: 'https://api.cloudmine.me/v1/app/' + CM_APP + '/text',
     headers: {'X-CloudMine-ApiKey': CM_KEY},
