@@ -14,8 +14,7 @@ var CM_KEY = process.env.CLOUDMINE;
 */
 
 function queryCM(name) {
-  var query = 'q=[].[name="' + name + '"]';
-  console.log(query);
+  var query = 'q=[name="' + escape(name) + '"]';
 
   request({
     uri: 'https://api.cloudmine.me/v1/app/' + CM_APP + '/search?' + query,
@@ -25,6 +24,7 @@ function queryCM(name) {
       console.log(cmres.success);
     } else {
       console.log(body);
+      console.log(uri);
     }
   });
 }
