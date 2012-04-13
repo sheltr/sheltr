@@ -14,7 +14,7 @@ var CM_KEY = process.env.CLOUDMINE;
 */
 
 function queryCM(name) {
-  var query = 'q=[name="' + name + '"]';
+  var query = 'q=[].[name="' + name + '"]';
   console.log(query);
 
   request({

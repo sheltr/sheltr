@@ -54,44 +54,35 @@ csv()
 .fromPath(__dirname+'/../data/nj.csv', {columns:true})
 .on('data', function(data, index){
   var output = {};
+  var id = newId();
+  output[id] = {};
 
   //get the phone number
   if (data.Contact) {
     if (data.Contact.search(':: ') === -1) {
-      data.phone = data.Contact;
+      output[id].phone = data.Contact;
     } else {
       var contact = data.Contact.split(':: ');
-      data.phone = contact[1];
+      output[id].phone = contact[1];
     }
   }
 
-  data.name = data.Program;
-  data.county = data.County;
-  data.state = 'NJ';
-  data.type = 'location';
-  data.isSheltr = 'Y';
-  data.totalBeds = data['Units/Beds'];
-  data.occupiedBeds = data.Occupied;
-  data.openBeds = data.Open;
-  data.otherLimits = data.Population;
-  data.notes = data.Agency;
-  data.location = {
+  output[id].name = data.Program;
+  output[id].county = data.County;
+  output[id].state = 'NJ';
+  output[id].type = 'location';
+  output[id].isSheltr = 'Y';
+  output[id].totalBeds = data['Units/Beds'];
+  output[id].occupiedBeds = data.Occupied;
+  output[id].openBeds = data.Open;
+  output[id].otherLimits = data.Population;
+  output[id].notes = data.Agency;
+  output[id].location = {
       "__type__": "geopoint",
       "longitude": 0,
       "latitude": 0
   };
 
-  delete data['Units/Beds'];
-  delete data.Occupied;
-  delete data.Open;
-  delete data.Population;
-  delete data.Contact;
-  delete data.Agency;
-  delete data.Program;
-  delete data.County;
-
-  var id = newId();
-  output[id] = data;
   pushToCloudMine(output);
 })
 .on('end',function(){
