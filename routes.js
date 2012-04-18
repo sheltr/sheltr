@@ -14,11 +14,11 @@ module.exports = function(app) {
     res.render('layout.html', {partials: {body: 'about.html'}});
   });
   app.get('/api', function(req, res, next) {
-    //console.log(process.env);
     if (req.query.lat && req.query.long) {
       request({
-        url: 'https://api.cloudmine.me/v1/app/60ecdcdd9fd6433297924f75c1c07b13/text?f=shelters_near&result_only=true&params={"center":['+req.query.lat+','+req.query.long+']}',
-        headers: {'X-CloudMine-ApiKey': process.env.CLOUDMINE}
+        url: 'https://api.cloudmine.me/v1/app/60ecdcdd9fd6433297924f75c1c07b13/text?f=shelters_near&result_only=true&params={%22center%22:['+req.query.lat+','+req.query.long+']}',
+        headers: {'X-CloudMine-ApiKey': process.env.CLOUDMINE},
+        json: true
       }, function(err, cmres, body) {
         if (err) return res.send(err);
         res.send(body);
@@ -34,7 +34,6 @@ module.exports = function(app) {
     res.render('layout.html', {partials: {body: 'partners.html'}});
   });
   app.get('/admin', function(req, res) {
-    console.log(JSON.stringify(req.session));
     if (!req.session.user) {
       res.writeHead(302, {'Location': '/login?ref=/admin'});
       return res.end();
@@ -101,13 +100,10 @@ module.exports = function(app) {
   });
   app.get('/logout', function(req, res) {
     req.session.destroy();
-    console.log(JSON.stringify(req.session));
     res.render('layout.html', {partials: {body: 'logout.html'}});
   });
   app.get(/^\/(\w{4})$/, function(req, res, next) {
     var id = req.params[0];
-    console.log(id);
-    console.log(req.session);
     https.get({
       host: 'api.cloudmine.me',
       path: '/v1/app/60ecdcdd9fd6433297924f75c1c07b13/text?keys='+id,
@@ -183,7 +179,6 @@ module.exports = function(app) {
     }
     var id = req.params[0];
     // TODO check for user permissions
-    console.log(JSON.stringify(req.body));
     var cmreq = https.request({
       host: 'api.cloudmine.me',
       path: '/v1/app/60ecdcdd9fd6433297924f75c1c07b13/text',
@@ -195,7 +190,6 @@ module.exports = function(app) {
       cmres.on('data', function(chunk) {
         data += chunk;
       }).on('end', function() {
-        console.log(data);
         var parsed = JSON.parse(data);
         // TODO what to do with errors
         if (_.isEmpty(parsed.errors)) {
@@ -240,7 +234,6 @@ module.exports = function(app) {
   });
   app.get(/^\/(\w+)$/, function(req, res, next) {
     var slug = req.params[0];
-    console.log(slug);
     https.get({
       host: 'api.cloudmine.me',
       path: '/v1/app/60ecdcdd9fd6433297924f75c1c07b13/search?q=[slug="'+slug+'"]',
@@ -250,7 +243,6 @@ module.exports = function(app) {
       cmres.on('data', function(chunk) {
         data += chunk;
       }).on('end', function() {
-        console.log(data);
         var parsed = JSON.parse(data);
         // XXX this is kinda fragile says Mike
         var id = Object.keys(parsed.success)[0];
