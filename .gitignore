@@ -4,3 +4,4 @@ node_modules
 static/.DS_Store
 loaded.json
 reloaded.json
+data/
