@@ -1,48 +1,44 @@
-var connect = require('connect');
-var https = require('https');
-var snout = require('snout');
-var whiskers = require('whiskers');
+var request = require('request');
 var _ = require('underscore');
 
-var templates = snout.sniff(__dirname+'/templates');
-
-exports.route = function(app) {
-  app.get('/_map', function(req, res) {
-    https.get({
-      host: 'api.cloudmine.me',
-      path: '/v1/app/60ecdcdd9fd6433297924f75c1c07b13/text?f=shelters_near&result_only=true&params={"center":['+req.query.lat+','+req.query.long+']}',
-      headers: {'X-CloudMine-ApiKey': process.env.CLOUDMINE}
-    }, function(cmres) {
-      res.writeHead(200, {'Content-Type': 'application/json'});
-      cmres.on('data', function(chunk) {
-        res.write(chunk);
-      }).on('end', function() {
-        res.end();
-      });
-    }).on('error', function(e) {
-      res.writeHead(500, {'Content-Type': 'application/json'});
-      res.end('{"error":"'+e+'"}');
+module.exports = function(app) {
+  app.get('/', function(req, res) {
+    res.render('layout.html', {
+      partials: {
+        body: 'index.html',
+        scripts: 'index-scripts.html'
+      }
     });
   });
-  app.get('/', function(req, res) {
-    res.render(templates.index);
-  });
   app.get('/about', function(req, res) {
-    res.render(templates.about);
+    res.render('layout.html', {partials: {body: 'about.html'}});
+  });
+  app.get('/api', function(req, res, next) {
+    if (req.query.lat && req.query.long) {
+      request({
+        url: 'https://api.cloudmine.me/v1/app/60ecdcdd9fd6433297924f75c1c07b13/text?f=shelters_near&result_only=true&params={%22center%22:['+req.query.lat+','+req.query.long+']}',
+        headers: {'X-CloudMine-ApiKey': process.env.CLOUDMINE},
+        json: true
+      }, function(err, cmres, body) {
+        if (err) return res.send(err);
+        res.send(body);
+      });
+    } else {
+      next();
+    }
   });
   app.get('/hotline', function(req, res) {
-    res.render(templates.hotline);
+    res.render('layout.html', {partials: {body: 'hotline.html'}});
   });
   app.get('/partners', function(req, res) {
-    res.render(templates.partners);
+    res.render('layout.html', {partials: {body: 'partners.html'}});
   });
   app.get('/admin', function(req, res) {
-    console.log(JSON.stringify(req.session));
     if (!req.session.user) {
       res.writeHead(302, {'Location': '/login?ref=/admin'});
       return res.end();
     }
-    res.render(templates.admin);
+    res.render('layout.html', {partials: {body: 'admin.html'}});
   });
   app.post('/admin', function(req, res) {
     if (!req.session.user) {
@@ -61,7 +57,7 @@ exports.route = function(app) {
         data += chunk;
       }).on('end', function() {
         var parsed = JSON.parse(data);
-        res.render(templates.admin, {response: data});
+        res.render('layout.html', {partials: {body: 'admin.html'}});
       });
     });
     var postdata = {};
@@ -73,7 +69,7 @@ exports.route = function(app) {
     cmreq.end(JSON.stringify(postdata));
   });
   app.get('/login', function(req, res) {
-    res.render(templates.login);
+    res.render('layout.html', {partials: {body: 'login.html'}});
   });
   app.post('/login', function(req, res) {
     // TODO also attach perms to user
@@ -95,19 +91,19 @@ exports.route = function(app) {
             return res.end();
           }
         } 
-        res.render(templates.login, {message: 'No user found with that username and password.'});
+        res.render('layout.html', {
+          message: 'No user found with that username and password.',
+          partials: {body: 'login.html'}
+        });
       });
     });
   });
   app.get('/logout', function(req, res) {
     req.session.destroy();
-    console.log(JSON.stringify(req.session));
-    res.render(templates.logout);
+    res.render('layout.html', {partials: {body: 'logout.html'}});
   });
   app.get(/^\/(\w{4})$/, function(req, res, next) {
     var id = req.params[0];
-    console.log(id);
-    console.log(req.session);
     https.get({
       host: 'api.cloudmine.me',
       path: '/v1/app/60ecdcdd9fd6433297924f75c1c07b13/text?keys='+id,
@@ -127,13 +123,14 @@ exports.route = function(app) {
         loc.raw = JSON.stringify(loc);
         loc.isShelterAndNotIntake = (loc.isShelter && !loc.isIntake);
         var context = {
-          loc: loc
+          loc: loc,
+          partials: {body: 'location.html'}
         };
         // TODO check permissions
         if (req.session.user) {
-          context['edit'] = true;
+          context.edit = true;
         }
-        res.render(templates.location, context);
+        res.render('layout.html', context);
       });
     }).on('error', function(e) {
       console.log(e);
@@ -165,9 +162,10 @@ exports.route = function(app) {
         loc.id = id;
         loc.raw = JSON.stringify(loc);
         var context = {
-          loc: loc
+          loc: loc,
+          partials: {body: 'edit_location.html'}
         };
-        res.render(templates.edit_location, context);
+        res.render('layout.html', context);
       });
     }).on('error', function(e) {
       console.log(e);
@@ -181,7 +179,6 @@ exports.route = function(app) {
     }
     var id = req.params[0];
     // TODO check for user permissions
-    console.log(JSON.stringify(req.body));
     var cmreq = https.request({
       host: 'api.cloudmine.me',
       path: '/v1/app/60ecdcdd9fd6433297924f75c1c07b13/text',
@@ -193,7 +190,6 @@ exports.route = function(app) {
       cmres.on('data', function(chunk) {
         data += chunk;
       }).on('end', function() {
-        console.log(data);
         var parsed = JSON.parse(data);
         // TODO what to do with errors
         if (_.isEmpty(parsed.errors)) {
@@ -226,9 +222,10 @@ exports.route = function(app) {
     //    loc.raw = JSON.stringify(loc);
     //    var context = {
     //      loc: loc,
-    //      submitted: JSON.stringify(req.body)
+    //      submitted: JSON.stringify(req.body),
+    //      partials: {body: 'edit_location.html'}
     //    };
-    //    res.render(templates.edit_location, context);
+    //    res.render('layout.html', context);
     //  });
     //}).on('error', function(e) {
     //  console.log(e);
@@ -237,7 +234,6 @@ exports.route = function(app) {
   });
   app.get(/^\/(\w+)$/, function(req, res, next) {
     var slug = req.params[0];
-    console.log(slug);
     https.get({
       host: 'api.cloudmine.me',
       path: '/v1/app/60ecdcdd9fd6433297924f75c1c07b13/search?q=[slug="'+slug+'"]',
@@ -247,7 +243,6 @@ exports.route = function(app) {
       cmres.on('data', function(chunk) {
         data += chunk;
       }).on('end', function() {
-        console.log(data);
         var parsed = JSON.parse(data);
         // XXX this is kinda fragile says Mike
         var id = Object.keys(parsed.success)[0];
@@ -260,13 +255,14 @@ exports.route = function(app) {
         loc.raw = JSON.stringify(loc);
         loc.isShelterAndNotIntake = (loc.isShelter && !loc.isIntake);
         var context = {
-          loc: loc
+          loc: loc,
+          partials: {body: 'location.html'}
         };
         // TODO check permissions
         if (req.session.user) {
-          context['edit'] = true;
+          context.edit = true;
         }
-        res.render(templates.location, context);
+        res.render('layout.html', context);
       });
     }).on('error', function(e) {
       console.log(e);
@@ -274,19 +270,3 @@ exports.route = function(app) {
     });
   });
 };
-
-// easy rendering with whiskers
-exports.renderer = function() {
-  return function(req, res, next) {
-    res.render = function(template, context) {
-      context = connect.utils.merge({
-        //user: true, // to be populated by req.user,
-        gaAccount: process.env.GA
-      }, context);
-      res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'});
-      res.end(whiskers.render(template, context, templates.partials));
-    };
-    next();
-  };
-};
-
