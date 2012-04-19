@@ -1,3 +1,7 @@
+return console.log('Run "node app.js" instead.');
+
+// Legacy code kept around for reference for now -- gsf
+
 var connect = require('connect');
 var routes = require('./routes');
 var url = require('url');
