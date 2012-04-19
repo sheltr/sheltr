@@ -51,25 +51,19 @@ function pushToCloudMine(data) {
 var idBucket = {};
 
 csv()
-.fromPath(__dirname+'/../data/nj.csv', {columns:true})
+.fromPath(__dirname+'/../data/nj_initial.csv', {columns:true})
 .on('data', function(data, index){
   var output = {};
   var id = newId();
   output[id] = {};
 
-  //get the phone number
-  if (data.Contact) {
-    if (data.Contact.search(':: ') === -1) {
-      output[id].phone = data.Contact;
-    } else {
-      var contact = data.Contact.split(':: ');
-      output[id].phone = contact[1];
-    }
-  }
-
   output[id].name = data.Program;
   output[id].county = data.County;
+  output[id].address1 = data.Address1;
+  output[id].address2 = data.Address2;
+  output[id].city = data.City;
   output[id].state = 'NJ';
+  output[id].zip = data.Zip;
   output[id].type = 'location';
   output[id].isSheltr = 'Y';
   output[id].totalBeds = data['Units/Beds'];
@@ -79,8 +73,8 @@ csv()
   output[id].notes = data.Agency;
   output[id].location = {
       "__type__": "geopoint",
-      "longitude": 0,
-      "latitude": 0
+      "longitude": data.Lat,
+      "latitude": data.Lng
   };
 
   pushToCloudMine(output);
