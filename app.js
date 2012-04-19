@@ -1,5 +1,6 @@
 var express = require('express');
 var RedisStore = require('connect-redis')(express);
+var api = require('./routes/api');
 var routes = require('./routes');
 var url = require('url');
 var whiskers = require('whiskers');
@@ -17,8 +18,8 @@ var app = express();
 app.engine('.html', whiskers.__express);
 app.set('views', __dirname + '/templates');
 
-app.use('/api', express.query());
 app.use(express.logger());
+app.use(express.query());
 app.use(express.cookieParser('walrus'));
 app.use(express.session({
   store: new RedisStore(redisOptions), 
@@ -28,6 +29,7 @@ app.use(app.router);
 app.use(express.staticCache());
 app.use(express.static(__dirname + '/static', {maxAge: 86400000}));
 
+api(app);
 routes(app);
 
 app.listen(port);

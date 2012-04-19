@@ -13,20 +13,6 @@ module.exports = function(app) {
   app.get('/about', function(req, res) {
     res.render('layout.html', {partials: {body: 'about.html'}});
   });
-  app.get('/api', function(req, res, next) {
-    if (req.query.lat && req.query.long) {
-      request({
-        url: 'https://api.cloudmine.me/v1/app/60ecdcdd9fd6433297924f75c1c07b13/text?f=shelters_near&result_only=true&params={%22center%22:['+req.query.lat+','+req.query.long+']}',
-        headers: {'X-CloudMine-ApiKey': process.env.CLOUDMINE},
-        json: true
-      }, function(err, cmres, body) {
-        if (err) return res.send(err);
-        res.send(body);
-      });
-    } else {
-      next();
-    }
-  });
   app.get('/hotline', function(req, res) {
     res.render('layout.html', {partials: {body: 'hotline.html'}});
   });
@@ -102,41 +88,41 @@ module.exports = function(app) {
     req.session.destroy();
     res.render('layout.html', {partials: {body: 'logout.html'}});
   });
-  app.get(/^\/(\w{4})$/, function(req, res, next) {
-    var id = req.params[0];
-    https.get({
-      host: 'api.cloudmine.me',
-      path: '/v1/app/60ecdcdd9fd6433297924f75c1c07b13/text?keys='+id,
-      headers: {'X-CloudMine-ApiKey': process.env.CLOUDMINE}
-    }, function(cmres) {
-      var data = '';
-      cmres.on('data', function(chunk) {
-        data += chunk;
-      }).on('end', function() {
-        var parsed = JSON.parse(data);
-        if (parsed.success && parsed.success[id]) {
-          var loc = parsed.success[id];
-        } else {
-          return next();
-        }
-        loc.id = id;
-        loc.raw = JSON.stringify(loc);
-        loc.isShelterAndNotIntake = (loc.isShelter && !loc.isIntake);
-        var context = {
-          loc: loc,
-          partials: {body: 'location.html'}
-        };
-        // TODO check permissions
-        if (req.session.user) {
-          context.edit = true;
-        }
-        res.render('layout.html', context);
-      });
-    }).on('error', function(e) {
-      console.log(e);
-      next();
-    });
-  });
+  //app.get(/^\/(\w{4})$/, function(req, res, next) {
+  //  var id = req.params[0];
+  //  https.get({
+  //    host: 'api.cloudmine.me',
+  //    path: '/v1/app/60ecdcdd9fd6433297924f75c1c07b13/text?keys='+id,
+  //    headers: {'X-CloudMine-ApiKey': process.env.CLOUDMINE}
+  //  }, function(cmres) {
+  //    var data = '';
+  //    cmres.on('data', function(chunk) {
+  //      data += chunk;
+  //    }).on('end', function() {
+  //      var parsed = JSON.parse(data);
+  //      if (parsed.success && parsed.success[id]) {
+  //        var loc = parsed.success[id];
+  //      } else {
+  //        return next();
+  //      }
+  //      loc.id = id;
+  //      loc.raw = JSON.stringify(loc);
+  //      loc.isShelterAndNotIntake = (loc.isShelter && !loc.isIntake);
+  //      var context = {
+  //        loc: loc,
+  //        partials: {body: 'location.html'}
+  //      };
+  //      // TODO check permissions
+  //      if (req.session.user) {
+  //        context.edit = true;
+  //      }
+  //      res.render('layout.html', context);
+  //    });
+  //  }).on('error', function(e) {
+  //    console.log(e);
+  //    next();
+  //  });
+  //});
   app.get(/^\/(\w{4})\/edit$/, function(req, res, next) {
     if (!req.session.user) {
       res.writeHead(302, {'Location': '/login'});
@@ -233,40 +219,64 @@ module.exports = function(app) {
     //});
   });
   app.get(/^\/(\w+)$/, function(req, res, next) {
-    var slug = req.params[0];
-    https.get({
-      host: 'api.cloudmine.me',
-      path: '/v1/app/60ecdcdd9fd6433297924f75c1c07b13/search?q=[slug="'+slug+'"]',
-      headers: {'X-CloudMine-ApiKey': process.env.CLOUDMINE}
-    }, function(cmres) {
-      var data = '';
-      cmres.on('data', function(chunk) {
-        data += chunk;
-      }).on('end', function() {
-        var parsed = JSON.parse(data);
-        // XXX this is kinda fragile says Mike
-        var id = Object.keys(parsed.success)[0];
-        if (parsed.success && parsed.success[id]) {
-          var loc = parsed.success[id];
-        } else {
-          return next();
-        }
-        loc.id = id;
-        loc.raw = JSON.stringify(loc);
-        loc.isShelterAndNotIntake = (loc.isShelter && !loc.isIntake);
-        var context = {
-          loc: loc,
-          partials: {body: 'location.html'}
-        };
-        // TODO check permissions
-        if (req.session.user) {
-          context.edit = true;
-        }
-        res.render('layout.html', context);
-      });
-    }).on('error', function(e) {
-      console.log(e);
-      next();
+    // first param could be ID or slug
+    // XXX replace ID in the db with slug when slug created?
+    request('/api/loc/'+req.params[0], function(err, res, body) {
+      if (err) return res.send(err);
+      var parsed = JSON.parse(data);
+      // XXX this is kinda fragile says Mike
+      var id = Object.keys(parsed.success)[0];
+      if (parsed.success && parsed.success[id]) {
+        var loc = parsed.success[id];
+      } else {
+        return next();
+      }
+      loc.id = id;
+      loc.raw = JSON.stringify(loc);
+      loc.isShelterAndNotIntake = (loc.isShelter && !loc.isIntake);
+      var context = {
+        loc: loc,
+        partials: {body: 'location.html'}
+      };
+      // TODO check permissions
+      if (req.session.user) {
+        context.edit = true;
+      }
+      res.render('layout.html', context);
     });
+    //https.get({
+    //  host: 'api.cloudmine.me',
+    //  path: '/v1/app/60ecdcdd9fd6433297924f75c1c07b13/search?q=[slug="'+slug+'"]',
+    //  headers: {'X-CloudMine-ApiKey': process.env.CLOUDMINE}
+    //}, function(cmres) {
+    //  var data = '';
+    //  cmres.on('data', function(chunk) {
+    //    data += chunk;
+    //  }).on('end', function() {
+    //    var parsed = JSON.parse(data);
+    //    // XXX this is kinda fragile says Mike
+    //    var id = Object.keys(parsed.success)[0];
+    //    if (parsed.success && parsed.success[id]) {
+    //      var loc = parsed.success[id];
+    //    } else {
+    //      return next();
+    //    }
+    //    loc.id = id;
+    //    loc.raw = JSON.stringify(loc);
+    //    loc.isShelterAndNotIntake = (loc.isShelter && !loc.isIntake);
+    //    var context = {
+    //      loc: loc,
+    //      partials: {body: 'location.html'}
+    //    };
+    //    // TODO check permissions
+    //    if (req.session.user) {
+    //      context.edit = true;
+    //    }
+    //    res.render('layout.html', context);
+    //  });
+    //}).on('error', function(e) {
+    //  console.log(e);
+    //  next();
+    //});
   });
 };

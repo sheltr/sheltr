@@ -80,7 +80,7 @@
           var lng = parseFloat(userLocation.lng());
 
           $.ajax({
-            url: 'api?lat=' + lat + '&long=' + lng,
+            url: 'api/near?lat=' + lat + '&lng=' + lng,
             success: function(data) {
               if (!data.error || data.error !== 'Unauthorized') { // NOTE: what other error scenarios do we need to consider?
                 sheltr.state.locations = data;
