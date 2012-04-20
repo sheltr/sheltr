@@ -35,7 +35,7 @@ exports.locById = function(id, fn) {
     headers: {'X-CloudMine-ApiKey': process.env.CMKEY}
   }, function(err, res, body) {
     if (err) return fn(err);
-    if (_.isEmpty(JSON.parse(body).success)) return fn(err);
+    if (_.isEmpty(JSON.parse(body).success)) return fn(body);
     fn(null, body);
   });
 };
@@ -46,7 +46,7 @@ exports.locBySlug = function(slug, fn) {
     headers: {'X-CloudMine-ApiKey': process.env.CMKEY}
   }, function(err, res, body) {
     if (err) return fn(err);
-    if (_.isEmpty(JSON.parse(body).success)) return fn(err);
+    if (_.isEmpty(JSON.parse(body).success)) return fn(body);
     fn(null, body);
   });
 };

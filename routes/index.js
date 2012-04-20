@@ -222,8 +222,8 @@ module.exports = function(app) {
     // first param could be ID or slug
     // XXX replace ID in the db with slug when slug created?
     request('http://'+req.headers.host+'/api/loc/'+req.params.idOrSlug, function(err, apiRes, body) {
-      if (err) return res.send(err);
-      console.log(body);
+      if (err) throw err;
+      if (apiRes.statusCode != 200) return next();
       var parsed = JSON.parse(body);
       // XXX this is kinda fragile says Mike
       var id = Object.keys(parsed.success)[0];

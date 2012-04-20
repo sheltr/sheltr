@@ -25,9 +25,9 @@ app.use(express.session({
   store: new RedisStore(redisOptions), 
   secret: process.env.SECRET || 'walrus'
 }));
-app.use(app.router);
 app.use(express.staticCache());
 app.use(express.static(__dirname + '/static', {maxAge: 86400000}));
+app.use(app.router);
 
 api(app);
 routes(app);
