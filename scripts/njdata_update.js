@@ -1,37 +1,55 @@
 //njdata_update.js
 var request = require('request');
 var csv = require('csv');
-var fs = require('fs');
 
 // cloudmine env variables
 var CM_APP = 'b74254d53d5b44f094cea522c204ffca';
 var CM_KEY = process.env.CLOUDMINE;
 
-function getLocations() {
+// Get the latest shelter data from NJ Agency
+// Pass it along to getCMData
+function getUpdatedData() {
+  request('https://hmis.njhmfaserv.org/lst/pol.php?id=24',
+    function (err, res, body) {
+      if (!err && res.statusCode === 200) {
+        getCMData(body);
+      } else {
+        console.log(err, body);
+      }
+    }
+  );
+}
+
+// Get the existing shelter data from CloudMine
+// Call syncBeds() and pass along agency data and CloudMine data
+function getCMData(data) {
   request({
     uri: 'https://api.cloudmine.me/v1/app/' + CM_APP + '/text?&limit=-1',
     headers: {'X-CloudMine-ApiKey': CM_KEY},
   }, function (err, cmres, body) {
     if (!err && cmres.statusCode === 200) {
-      syncBeds(JSON.parse(body).success);
+      syncBeds(JSON.parse(body).success, data);
     } else {
       console.log(body);
     }
   });
 }
 
-function syncBeds(locations) {
+// Update the CloudMine data with the updated NJ Agency data
+// then POST the updated CloudMine data back to CloudMine
+// Just updatind bed numbers at the moment.
+function syncBeds(cmData, updatedData) {
   csv()
-    .fromPath(__dirname+'/../data/nj.csv', {columns:true})
+    .from(updatedData, {columns:true})
     .on('data', function(data, index){
       var location;
 
-      for(location in locations) {
-        if (locations.hasOwnProperty(location)) {
-          if (data.Program === locations[location].name) {
-            locations[location].occupiedBeds = data.Occupied;
-            locations[location].openBeds = data.Open;
-            locations[location].totalBeds = data['Units/Beds'];
+      for(location in cmData) {
+        if (cmData.hasOwnProperty(location)) {
+          if (updatedData.Program === cmData[location].name) {
+            cmData[location].occupiedBeds = updatedData.Occupied;
+            cmData[location].openBeds = updatedData.Open;
+            cmData[location].totalBeds = updatedData['Units/Beds'];
           }
         }
       }
@@ -40,12 +58,12 @@ function syncBeds(locations) {
       request.post({
         uri: 'https://api.cloudmine.me/v1/app/' + CM_APP + '/text',
         headers: {'X-CloudMine-ApiKey': CM_KEY},
-        json: locations
+        json: cmData
       }, function (err, cmres, body) {
         if (!err && cmres.statusCode === 200) {
-          console.log(locations);
+          console.log('success!');
         } else {
-          console.log(body);
+          console.log(err, body);
         }
       });
     })
@@ -54,4 +72,4 @@ function syncBeds(locations) {
     });
 }
 
-getLocations();
+getUpdatedData();
