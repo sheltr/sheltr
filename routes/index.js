@@ -218,12 +218,13 @@ module.exports = function(app) {
     //  next();
     //});
   });
-  app.get(/^\/(\w+)$/, function(req, res, next) {
+  app.get('/:idOrSlug', function(req, res, next) {
     // first param could be ID or slug
     // XXX replace ID in the db with slug when slug created?
-    request('/api/loc/'+req.params[0], function(err, res, body) {
+    request('http://'+req.headers.host+'/api/loc/'+req.params.idOrSlug, function(err, apiRes, body) {
       if (err) return res.send(err);
-      var parsed = JSON.parse(data);
+      console.log(body);
+      var parsed = JSON.parse(body);
       // XXX this is kinda fragile says Mike
       var id = Object.keys(parsed.success)[0];
       if (parsed.success && parsed.success[id]) {
@@ -236,7 +237,10 @@ module.exports = function(app) {
       loc.isShelterAndNotIntake = (loc.isShelter && !loc.isIntake);
       var context = {
         loc: loc,
-        partials: {body: 'location.html'}
+        partials: {
+          body: 'location.html',
+          scripts: 'location-scripts.html'
+        }
       };
       // TODO check permissions
       if (req.session.user) {

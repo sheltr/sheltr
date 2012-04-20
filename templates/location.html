@@ -1,4 +1,3 @@
-  {>header}
   <section class="location">
     {if edit}
       <div class="edit"><a href="/{loc.id}/edit">Edit</a></div>
@@ -132,33 +131,3 @@
     </div>
 
   </section>
-  {>footer}
-  <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
-    <script type="text/javascript" src="/js/sh.map.js"></script>
-    <script type="text/javascript">
-      $(document).ready(function() {
-
-        var location = {
-          'lat': {loc.latitude},
-          'lng': {loc.longitude},
-          'desc': '{loc.address1}'
-        };
-
-        var center = new google.maps.LatLng(location.lat, location.lng);
-
-        var myOptions = { center: center, zoom: 18, mapTypeId: google.maps.MapTypeId.ROADMAP };
-
-        var map = new google.maps.Map(document.getElementById("location-map"),myOptions);
-
-        var settings = {
-          position: center,
-          map: map,
-          icon: '../img/shelter.png'
-        };
-
-        var marker = new google.maps.Marker(settings);
-
-      });
-    </script>
-  </body>
-</html>
