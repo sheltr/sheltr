@@ -7,43 +7,51 @@ var fs = require('fs');
 var CM_APP = 'b74254d53d5b44f094cea522c204ffca';
 var CM_KEY = process.env.CLOUDMINE;
 
-/* workflow:
-1. parse updated Project Reach Dataset
-2. For each location, query cloudmine based on Program/name, to get unique id of location
-3. Now that we have the id, use that to update the bed count for that location
-*/
-
-function queryCM(name) {
-  var query = 'q=[name="' + escape(name) + '"]';
-  var url = 'https://api.cloudmine.me/v1/app/' + CM_APP + '/search?' + query;
-  console.log(url);
-
+function getLocations() {
   request({
-    uri: url,
+    uri: 'https://api.cloudmine.me/v1/app/' + CM_APP + '/text?&limit=-1',
     headers: {'X-CloudMine-ApiKey': CM_KEY},
   }, function (err, cmres, body) {
     if (!err && cmres.statusCode === 200) {
-      console.log(cmres.success);
+      syncBeds(JSON.parse(body).success);
     } else {
       console.log(body);
     }
   });
 }
 
-csv()
-.fromPath(__dirname+'/../data/nj.csv', {columns:true})
-.on('data', function(data, index){
-  var beds = {
-    occupiedBeds: data.Occupied,
-    openBeds: data.Open,
-    otherLimits: data.Population
-  };
+function syncBeds(locations) {
+  csv()
+    .fromPath(__dirname+'/../data/nj.csv', {columns:true})
+    .on('data', function(data, index){
+      var location;
 
-  var id = queryCM(data.Program);
-  //syncBeds(id, beds);
-})
-.on('end',function(){
-})
-.on('error',function(error){
-    console.log(error.message);
-});
+      for(location in locations) {
+        if (locations.hasOwnProperty(location)) {
+          if (data.Program === locations[location].name) {
+            locations[location].occupiedBeds = data.Occupied;
+            locations[location].openBeds = data.Open;
+            locations[location].totalBeds = data['Units/Beds'];
+          }
+        }
+      }
+    })
+    .on('end',function(){
+      request.post({
+        uri: 'https://api.cloudmine.me/v1/app/' + CM_APP + '/text',
+        headers: {'X-CloudMine-ApiKey': CM_KEY},
+        json: locations
+      }, function (err, cmres, body) {
+        if (!err && cmres.statusCode === 200) {
+          console.log(locations);
+        } else {
+          console.log(body);
+        }
+      });
+    })
+    .on('error',function(error){
+        console.log(error.message);
+    });
+}
+
+getLocations();
