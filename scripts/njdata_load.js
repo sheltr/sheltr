@@ -34,53 +34,48 @@ function newId() {
   }
 }
 
-function pushToCloudMine(data) {
-  request.put({
-    uri: 'https://api.cloudmine.me/v1/app/' + CM_APP + '/text',
-    headers: {'X-CloudMine-ApiKey': CM_KEY},
-    json: data
-  }, function (err, cmres, body) {
-    if (!err && cmres.statusCode === 200) {
-      console.log('posted!');
-    } else {
-      console.log(body);
-    }
-  });
-}
-
 var idBucket = {};
+var output = {};
 
 csv()
-.fromPath(__dirname+'/../data/nj_initial.csv', {columns:true})
-.on('data', function(data, index){
-  var output = {};
-  var id = newId();
-  output[id] = {};
+  .fromPath(__dirname+'/../data/nj_initial.csv', {columns:true})
+  .on('data', function(data, index){
+    var id = newId();
+    output[id] = {};
 
-  output[id].name = data.Program;
-  output[id].county = data.County;
-  output[id].address1 = data.Address1;
-  output[id].address2 = data.Address2;
-  output[id].city = data.City;
-  output[id].state = 'NJ';
-  output[id].zip = data.Zip;
-  output[id].type = 'location';
-  output[id].isSheltr = 'Y';
-  output[id].totalBeds = data['Units/Beds'];
-  output[id].occupiedBeds = data.Occupied;
-  output[id].openBeds = data.Open;
-  output[id].otherLimits = data.Population;
-  output[id].notes = data.Agency;
-  output[id].location = {
-      "__type__": "geopoint",
-      "longitude": data.Lat,
-      "latitude": data.Lng
-  };
-
-  pushToCloudMine(output);
-})
-.on('end',function(){
-})
-.on('error',function(error){
-    console.log(error.message);
-});
+    output[id].name = data.Program;
+    output[id].county = data.County;
+    output[id].address1 = data.Address1;
+    output[id].address2 = data.Address2;
+    output[id].city = data.City;
+    output[id].state = 'NJ';
+    output[id].zip = data.Zip;
+    output[id].type = 'location';
+    output[id].isSheltr = 'Y';
+    output[id].totalBeds = data['Units/Beds'];
+    output[id].occupiedBeds = data.Occupied;
+    output[id].openBeds = data.Open;
+    output[id].otherLimits = data.Population;
+    output[id].notes = data.Agency;
+    output[id].location = {
+        "__type__": "geopoint",
+        "longitude": parseFloat(data.Lat),
+        "latitude": parseFloat(data.Lng)
+    };
+  })
+  .on('end',function(){
+    request.put({
+      uri: 'https://api.cloudmine.me/v1/app/' + CM_APP + '/text',
+      headers: {'X-CloudMine-ApiKey': CM_KEY},
+      json: output
+    }, function (err, cmres, body) {
+      if (!err && cmres.statusCode === 200) {
+        console.log('posted!');
+      } else {
+        console.log(body);
+      }
+    });
+  })
+  .on('error',function(error){
+      console.log(error.message);
+  });
