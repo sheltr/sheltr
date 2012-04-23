@@ -296,6 +296,11 @@ textarea {
   width: 100%;
 }
 
+.settings textarea {
+  height: 200px;
+  width: 500px;
+}
+
 @media screen and (max-width: 480px) {
 
   header {

@@ -38,35 +38,14 @@ sheltr.map = (function ($) {
     },
 
     addLocationsToMap: function (locations) {
-      var i,
-          locationsLength = locations.result.length;
-
       _self.removeMarkers(locationsMarkerCollection);
-
-      if (sheltr.state.showFood == true && sheltr.state.showShelter == true) { //NOTE: not the most elegant solution. setting this up for demo purposes
-
-        for (i = 0; i < locationsLength; i++) {
-          _self.setupMarker(locations.result[i]);
+      _.each(locations, function(loc) {
+        // TODO convert 'Y' to true in data
+        if (sheltr.state.showFood == true && loc.isFood == 'Y' ||
+          sheltr.state.showShelter == true && loc.isSheltr == 'Y') {
+          _self.setupMarker(loc);
         }
-
-      } else if (sheltr.state.showFood == false && sheltr.state.showShelter == true) {
-        
-        for (i = 0; i < locationsLength; i++) {
-          if (locations.result[i].isShelter == 'Y') {
-            _self.setupMarker(locations.result[i]);
-          }
-        }  
-
-      } else if (sheltr.state.showShelter == false && sheltr.state.showFood == true) {
-        
-        for (i = 0; i < locationsLength; i++) {
-          if (locations.result[i].isFood == 'Y') {
-            _self.setupMarker(locations.result[i]);
-          }
-        }  
-
-      } 
-        
+      });
     },
 
     setupMarker: function(location) {

@@ -29,36 +29,17 @@ sheltr.locations = (function ($) {
 
   _self = {
     list: function (locations) {
-      var i,
-          locationsLength = locations.result.length,
-          locationsHTML = '';
-
-      if (sheltr.state.showFood == true && sheltr.state.showShelter == true) { //NOTE: not the most elegant solution. setting this up for demo purposes
-
-        for (i = 0; i < locationsLength; i++) {
-          locationsHTML = locationsHTML + buildLocationsHTML(locations.result[i]);
+      var locationsHTML = '';
+      _.each(locations, function(loc) {
+        // TODO convert 'Y' to true in data
+        if (sheltr.state.showFood == true && loc.isFood == 'Y' ||
+          sheltr.state.showShelter == true && loc.isSheltr == 'Y') {
+          locationsHTML += buildLocationsHTML(loc);
         }
-
-      } else if (sheltr.state.showFood == false && sheltr.state.showShelter == true) {
-        
-        for (i = 0; i < locationsLength; i++) {
-          if (locations.result[i].isShelter == 'Y') {
-            locationsHTML = locationsHTML + buildLocationsHTML(locations.result[i]);
-          }
-        }
-
-      } else if (sheltr.state.showShelter == false && sheltr.state.showFood == true) {
-        
-        for (i = 0; i < locationsLength; i++) {
-          if (locations.result[i].isFood == 'Y') {
-            locationsHTML = locationsHTML + buildLocationsHTML(locations.result[i]);
-          }
-        }  
-
-      }  else {
+      });
+      if (sheltr.state.showFood == false && sheltr.state.showShelter == false) {
         $('#userMsg').show().empty().prepend("Please select Shelter and/or Food to see nearby locations.");
       }
-
       settings.listRoot.empty();
       settings.listRoot.addClass('visible');
       settings.listRoot.append(locationsHTML);

@@ -54,6 +54,9 @@ module.exports = function(app) {
     };
     cmreq.end(JSON.stringify(postdata));
   });
+  app.get('/admin/settings', function(req, res) {
+    res.render('layout.html', {partials: {body: 'settings.html'}});
+  });
   app.get('/login', function(req, res) {
     res.render('layout.html', {partials: {body: 'login.html'}});
   });
