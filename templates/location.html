@@ -99,6 +99,18 @@
           </td>
         </tr>
 
+        {if loc.totalBeds}
+          <tr>
+            <th>Total Beds</th>
+            <td>{loc.totalBeds}</td>
+          </tr>
+
+           <tr>
+            <th>Available Beds</th>
+            <td>{loc.openBeds}</td>
+          </tr>
+        {/if}
+
         <tr>
           <th>Is Intake Center</th>
           <td>
