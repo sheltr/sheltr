@@ -55,13 +55,18 @@ sheltr.map = (function ($) {
           latlng,
           options,
           icon,
-          description;
+          description,
+          beds;
       
       lat = location.location.latitude;
       lng = location.location.longitude;
       latlng = new google.maps.LatLng(lat, lng);
 
-      description = '<a href="/' + (location.slug || location.id) + '">' + location.name + '</a><br>' + location.address1 + '<br><a href="http://www.google.com/maps?q=to:' + location.address1 +'">Get Directions</a>'
+      if (location.totalBeds) {
+        beds = '<p>Available Beds: ' + location.openBeds + '</p>';
+      }
+
+      description = '<a href="/' + (location.slug || location.id) + '">' + location.name + '</a><br>' + location.address1 + '<br>' + beds  + '<a href="http://www.google.com/maps?q=to:' + location.address1 +'">Get Directions</a>'
       icon = sheltr.locations.selectMarkerIcon(location);
       options = {icon: icon, shadow: markerShadow};
 
