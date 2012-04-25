@@ -229,9 +229,9 @@ module.exports = function(app) {
       if (apiRes.statusCode != 200) return next();
       var parsed = JSON.parse(body);
       // XXX this is kinda fragile says Mike
-      var id = Object.keys(parsed.success)[0];
-      if (parsed.success && parsed.success[id]) {
-        var loc = parsed.success[id];
+      var id = Object.keys(parsed)[0];
+      if (parsed && parsed[id]) {
+        var loc = parsed[id];
       } else {
         return next();
       }
