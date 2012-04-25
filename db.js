@@ -53,7 +53,7 @@ exports.near = function(lat, lng, fn) {
 
 exports.loc = function(idOrSlug, fn) {
   exports.get(idOrSlug, function(err, data) {
-    if (err) return exports.locBySlug(idOrSlug, fn);
+    if (err) return exports.getBySlug(idOrSlug, fn);
     fn(null, data);
   });
 };
