@@ -19,7 +19,7 @@ sheltr.map = (function ($) {
     create: function (options) {
       var settings = {
             mapId: 'map',
-            zoom: 14,
+            zoom: sheltr.state.localSettings.zoom || 10,
             center: sheltr.state.localSettings.mapCenter,
             mapTypeId: google.maps.MapTypeId.ROADMAP
           };
@@ -66,7 +66,7 @@ sheltr.map = (function ($) {
         beds = '<p>Available Beds: ' + location.openBeds + '</p>';
       }
 
-      description = '<a href="/' + (location.slug || location.id) + '">' + location.name + '</a><br>' + location.address1 + '<br>' + beds  + '<a href="http://www.google.com/maps?q=to:' + location.address1 +'">Get Directions</a>'
+      description = '<a href="/' + (location.slug || location.id) + '">' + location.name + '</a><br>' + location.address1 + '<br>' + beds + '<a href="http://www.google.com/maps?q=to:' + location.address1 +'">Get Directions</a>'
       icon = sheltr.locations.selectMarkerIcon(location);
       options = {icon: icon, shadow: markerShadow};
 
