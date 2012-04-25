@@ -5,6 +5,7 @@ if (typeof sheltr === 'undefined' || !sheltr) {
 sheltr.state = {}; //global object through which we can share data
 sheltr.state.showShelter = true;
 sheltr.state.showFood = true;
+sheltr.state.showMedical = true;
 
 $(document).ready(function() {
   $.ajax({
@@ -63,6 +64,12 @@ $(document).ready(function() {
       sheltr.state.showFood = true;
     } else {
       sheltr.state.showFood = false;
+    }
+
+    if($('#checkbox-medical').is(':checked')) {
+      sheltr.state.showMedical = true;
+    } else {
+      sheltr.state.showMedical = false;
     }
 
     if($('#checkbox-shelter').is(':checked')) {

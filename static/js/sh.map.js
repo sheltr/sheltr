@@ -42,7 +42,8 @@ sheltr.map = (function ($) {
       _.each(locations, function(loc) {
         // TODO convert 'Y' to true in data
         if (sheltr.state.showFood == true && loc.isFood == 'Y' ||
-          sheltr.state.showShelter == true && loc.isSheltr == 'Y') {
+          sheltr.state.showMedical == true && loc.isMedical == 'Y' ||
+          sheltr.state.showShelter == true && loc.isShelter == 'Y') {
           _self.setupMarker(loc);
         }
       });
@@ -60,8 +61,7 @@ sheltr.map = (function ($) {
       lng = location.location.longitude;
       latlng = new google.maps.LatLng(lat, lng);
 
-      description = location.name + "<br>" + location.address1 + "<br><a href='http://www.google.com/maps?q=to:" + location.address1 +"'>Get Directions</a>"
-
+      description = '<a href="/' + (location.slug || location.id) + '">' + location.name + '</a><br>' + location.address1 + '<br><a href="http://www.google.com/maps?q=to:' + location.address1 +'">Get Directions</a>'
       icon = sheltr.locations.selectMarkerIcon(location);
       options = {icon: icon, shadow: markerShadow};
 

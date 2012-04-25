@@ -33,7 +33,8 @@ sheltr.locations = (function ($) {
       _.each(locations, function(loc) {
         // TODO convert 'Y' to true in data
         if (sheltr.state.showFood == true && loc.isFood == 'Y' ||
-          sheltr.state.showShelter == true && loc.isSheltr == 'Y') {
+          sheltr.state.showMedical == true && loc.isMedical == 'Y' ||
+          sheltr.state.showShelter == true && loc.isShelter == 'Y') {
           locationsHTML += buildLocationsHTML(loc);
         }
       });
@@ -61,6 +62,8 @@ sheltr.locations = (function ($) {
         icon = '/img/shelter.png';
       } else if (location.isFood === "Y") {
         icon = '/img/food.png';
+      } else if (location.isMedical === "Y") {
+        icon = '/img/medical.png';
       } else {
         icon = '/img/shelter.png'; //Mill Creek Baptist Church currently doesn't meet any of these conditions. This will give it the shelter icon (I'm assuming its a shelter).
       }
