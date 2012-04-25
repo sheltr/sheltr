@@ -113,7 +113,7 @@ $(document).ready(function() {
 
   });
 
-  $('.addr.text').val('Enter an address in ' + sheltr.state.localSettings.region + ' to find homeless shelters').focus(function() {
+  $('.addr.text').val('Enter an address, zipcode or intersection.').focus(function() {
     $(this).select();
   });
 });
