@@ -56,7 +56,7 @@ sheltr.map = (function ($) {
           options,
           icon,
           description,
-          beds;
+          beds = '';
       
       lat = location.location.latitude;
       lng = location.location.longitude;
