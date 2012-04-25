@@ -14,14 +14,6 @@ $(document).ready(function() {
       data.boundingBox = data.boundingBox && new google.maps.LatLngBounds(new google.maps.LatLng(data.boundingBox[0][0], data.boundingBox[0][1]), new google.maps.LatLng(data.boundingBox[1][0], data.boundingBox[1][1]));
       data.mapCenter = data.mapCenter && new google.maps.LatLng(data.mapCenter[0], data.mapCenter[1]),
       sheltr.state.localSettings = data;
-      // old philly data for example use
-      //sheltr.state.localSettings = {
-      //  "boundingBox" : new google.maps.LatLngBounds(new google.maps.LatLng(39.8480851,-75.395736), new google.maps.LatLng(40.15211,-74.863586)),
-      //  "minZoom": 12,
-      //  "mapCenter" : new google.maps.LatLng(39.95240, -75.16362),
-      //  "city" : "Philadelphia",
-      //  "state" : "PA"
-      //};
     }
   });
 
