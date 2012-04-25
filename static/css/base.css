@@ -171,6 +171,11 @@ form #checkbox-label-shelter {
   color: #188db8;
 }
 
+form #checkbox-label-medical {
+margin-right: .5em;
+color: #7E2217;
+}
+
 form #checkbox-label-food:hover, #checkbox-label-shelter:hover {
   cursor: pointer;
 }
