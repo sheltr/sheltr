@@ -5,7 +5,7 @@ var fs = require('fs');
 
 // cloudmine env variables
 var CM_APP = 'b74254d53d5b44f094cea522c204ffca';
-var CM_KEY = process.env.CLOUDMINE;
+var CM_KEY = process.env.CMKEY;
 
 // base32 according to http://www.crockford.com/wrmg/base32.html
 var alphabet = '0123456789abcdefghjkmnpqrstvwxyz';
@@ -51,7 +51,7 @@ csv()
     output[id].state = 'NJ';
     output[id].zip = data.Zip;
     output[id].type = 'location';
-    output[id].isSheltr = 'Y';
+    output[id].isShelter = 'Y';
     output[id].totalBeds = data['Units/Beds'];
     output[id].occupiedBeds = data.Occupied;
     output[id].openBeds = data.Open;
@@ -59,8 +59,8 @@ csv()
     output[id].notes = data.Agency;
     output[id].location = {
         "__type__": "geopoint",
-        "longitude": parseFloat(data.Lat),
-        "latitude": parseFloat(data.Lng)
+        "longitude": parseFloat(data.Lng),
+        "latitude": parseFloat(data.Lat)
     };
   })
   .on('end',function(){
