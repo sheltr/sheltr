@@ -16,15 +16,20 @@ sheltr.locations = (function ($) {
   }
 
   function buildLocationsHTML(location) {
-    var name = location.name ? location.name : '',
+    var name = location.name || '',
         addr = location.address1,
         id =  location.id,
         icon = _self.selectMarkerIcon(location),
         url = location.id,
-        stat = location.status ? location.status : '',
-        distance = _self.distanceFromUser(location);
+        stat = location.status || '',
+        distance = _self.distanceFromUser(location),
+        beds = '';
+  
+    if (location.totalBeds) {
+      beds = '<p>Available beds: ' + location.openBeds + '</p>';
+    }
 
-    return '<li><img src="' + icon + '" /><h2><a href="' + url + '">' + name + '</a></h2><address>' + addr + '</address><p>Distance: ' + distance + ' miles</p>' + hasStatus(stat) + '<a href="#map" id="' + id + '">(View map)</span></li>';
+    return '<li><img src="' + icon + '" /><h2><a href="' + url + '">' + name + '</a></h2><address>' + addr + '</address>'+ beds + '<p>Distance: ' + distance + ' miles</p>' + hasStatus(stat) + '<a href="#map" id="' + id + '">(View map)</span></li>';
   }
 
   _self = {
