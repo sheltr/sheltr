@@ -44,7 +44,7 @@ $(document).ready(function() {
           });
 
         } else {
-           $('#userMsg').show().empty().prepend("We detected that you are outside of the " + sheltr.state.localSettings.city + " region.<br>Please search for a " + sheltr.state.localSettings.city + " address.");
+           $('#userMsg').show().empty().prepend("We detected that you are outside of the " + sheltr.state.localSettings.region + " region.<br>Please search for a " + sheltr.state.localSettings.region + " address.");
           return;
         }
 
@@ -106,5 +106,7 @@ $(document).ready(function() {
 
   });
 
+  $('.addr.text').val('Enter an address in ' + sheltr.state.localSettings.region + ' to find homeless shelters').focus(function() {
+    $(this).select();
+  });
 });
-

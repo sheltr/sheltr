@@ -56,11 +56,11 @@ sheltr.map = (function ($) {
           icon,
           description;
       
-      lat = location.latitude;
-      lng = location.longitude;
+      lat = location.location.latitude;
+      lng = location.location.longitude;
       latlng = new google.maps.LatLng(lat, lng);
 
-      description = location.name + "<br>" + location.address1 + "<br><a href='http://www.google.com/maps?q=to:" + location.address1 + ",+Philadelphia,+PA'>Get Directions</a>"
+      description = location.name + "<br>" + location.address1 + "<br><a href='http://www.google.com/maps?q=to:" + location.address1 +"'>Get Directions</a>"
 
       icon = sheltr.locations.selectMarkerIcon(location);
       options = {icon: icon, shadow: markerShadow};
@@ -109,7 +109,7 @@ sheltr.map = (function ($) {
           lng,
           latlng;
 
-      addr = addr + ", " + sheltr.state.localSettings.city + ", " + sheltr.state.localSettings.state; 
+      addr = addr + ", " + sheltr.state.localSettings.region; 
 
       geocoder.geocode({
         'address': addr, 'bounds': sheltr.state.localSettings.boundingBox
@@ -130,7 +130,7 @@ sheltr.map = (function ($) {
             _self.updateMapCenter(results[0].geometry.location);
             sheltr.getLocations(results[0].geometry.location,true);
           } else {
-             $('#userMsg').show().empty().prepend("Please restrict your search to the " + sheltr.state.localSettings.city + " area.");
+             $('#userMsg').show().empty().prepend("Please restrict your search to the " + sheltr.state.localSettings.region + " area.");
           }
         } else {
           $('#userMsg').show().empty().prepend("Search was not successful for the following reason: " + status);
