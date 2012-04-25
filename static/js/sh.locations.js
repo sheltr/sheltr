@@ -38,8 +38,8 @@ sheltr.locations = (function ($) {
           locationsHTML += buildLocationsHTML(loc);
         }
       });
-      if (sheltr.state.showFood == false && sheltr.state.showShelter == false) {
-        $('#userMsg').show().empty().prepend("Please select Shelter and/or Food to see nearby locations.");
+      if (sheltr.state.showFood == false && sheltr.state.showShelter == false && sheltr.state.showMedical == false) {
+        $('#userMsg').show().empty().prepend("Please select Shelter, Food, or Medical to see nearby locations.");
       }
       settings.listRoot.empty();
       settings.listRoot.addClass('visible');
