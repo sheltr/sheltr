@@ -13,4 +13,4 @@ Install
 3. Clone the repository 
 4. `cd sheltr`
 5. `npm install`
-6. `node server.js`.
+6. `node app.js`
