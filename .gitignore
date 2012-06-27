@@ -5,3 +5,4 @@ static/.DS_Store
 loaded.json
 reloaded.json
 data/
+.env
