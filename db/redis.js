@@ -32,15 +32,31 @@ exports.post = function(docs, fn) {
   });
 };
 
-exports.near = function(lat, lng, fn) {
+exports.near = function(lat, lon, limit, fn) {
+  var _limit;
+  if (fn) {
+    _limit = limit || 20;
+  } else {
+    fn = limit;
+    _limit = 20;
+  }
   client.get(key, function(err, reply) {
     if (err) return fn(err);
     var db = JSON.parse(reply);
+    var doc, distance, distances = [];
     for (var id in db) {
-      locObj[id].id = id;
-      locations.push(locObj[id]);
+      doc = db[id];
+      if (doc.location) {
+        distance = getDistance(lat, doc.location.lat, lon, doc.location.lon)
+        distances.push(distance)
+        distances.sort()
+        // TODO link distances to IDs
+        if (distances.length > _limit) distances.pop();
+      }
+      //locObj[id].id = id;
+      //locations.push(locObj[id]);
     }
-    fn(null, locations);
+    fn(null, distances);
   });
 };
 
@@ -52,14 +68,14 @@ exports.loc = function(idOrSlug, fn) {
 };
 
 exports.getBySlug = function(slug, fn) {
-  request({
-    url: encodeURI('https://api.cloudmine.me/v1/app/'+process.env.CMID+'/search?q=[slug="'+slug+'"]'),
-    headers: {'X-CloudMine-ApiKey': process.env.CMKEY}
-  }, function(err, res, body) {
-    if (err) return fn(err);
-    if (_.isEmpty(JSON.parse(body).success)) return fn(body);
-    fn(null, body);
-  });
+  //request({
+  //  url: encodeURI('https://api.cloudmine.me/v1/app/'+process.env.CMID+'/search?q=[slug="'+slug+'"]'),
+  //  headers: {'X-CloudMine-ApiKey': process.env.CMKEY}
+  //}, function(err, res, body) {
+  //  if (err) return fn(err);
+  //  if (_.isEmpty(JSON.parse(body).success)) return fn(body);
+  //  fn(null, body);
+  //});
 };
 
 exports.settings = function(doc, fn) {
@@ -73,6 +89,11 @@ exports.settings = function(doc, fn) {
   }
   exports.post({settings: doc}, fn);
 };
+
+function getDistance(x1, y1, x2, y2) {
+  function sq(x) {return x*x}
+  return Math.sqrt(sq(x2-x1)+sq(y2-y1))
+}
 
 function merge(a, b) {
   if (a && b) {
