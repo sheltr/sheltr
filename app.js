@@ -15,6 +15,11 @@ var redisOptions = redisUrl && {
 };
 
 var app = express();
+
+var dbPath = './db/redis.js';
+if (process.env.CMID && process.env.CMKEY) dbPath = './db/cloudmine.js';
+app.db = require(dbPath);
+
 app.engine('.html', whiskers.__express);
 app.set('views', __dirname + '/templates');
 

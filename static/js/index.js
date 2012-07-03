@@ -81,10 +81,10 @@ $(document).ready(function() {
     plot = false || plot;
 
     var lat = parseFloat(userLocation.lat());
-    var lng = parseFloat(userLocation.lng());
+    var lon = parseFloat(userLocation.lon());
 
     $.ajax({
-      url: 'api/near?lat=' + lat + '&lng=' + lng,
+      url: 'api/near?lat=' + lat + '&lon=' + lon,
       success: function(data) {
         sheltr.state.locations = data;
         if (plot === true) {

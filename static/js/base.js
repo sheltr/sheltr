@@ -15,8 +15,15 @@ $(function() {
       }
     })
     form.on('submit', function() {
+      var data;
       submit.val('Submitting...').attr('disabled', true)
-      $.post('/api/settings', JSON.parse(box.val()), function() {
+      try {
+        data = JSON.parse(box.val());
+      } catch (e) {
+        submit.val('Invalid JSON');
+        return false
+      }
+      $.post('/api/settings', data, function() {
         submit.val('Submitted!')
       })
       return false
