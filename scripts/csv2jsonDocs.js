@@ -1,6 +1,7 @@
 var argv = require('optimist').demand(1).argv;
 var csv = require('csv');
 var fs = require('fs');
+var path = require('path');
 
 // base32 according to http://www.crockford.com/wrmg/base32.html
 var alphabet = '0123456789abcdefghjkmnpqrstvwxyz';
@@ -24,16 +25,19 @@ function newId() {
     // don't overwrite existing IDs
     newId();
   } else {
-    idBucket[id] = '';
+    idBucket[id] = true;
     return id;
   }
 }
 
 var idBucket = {};
-var loadedFile = fs.readFileSync('loaded.json');
-var loaded = JSON.parse(loadedFile);
-for (var key in loaded.success) {
-  idBucket[key] = '';
+
+if (path.existsSync('loaded.json')) {
+  var loadedFile = fs.readFileSync('loaded.json');
+  var loaded = JSON.parse(loadedFile);
+  for (var key in loaded.success) {
+    idBucket[key] = true;
+  }
 }
 
 var count = 0;
@@ -42,18 +46,18 @@ out.write('{');
 csv().fromPath(argv._[0], {columns:true})
 .toStream(out, {end: false})
 .transform(function(data) {
+  var doc;
   data.Services = data.Type;
   data.Type = 'location';
   data.IsFood = 'Y';
-  // first key is not prepended with a comma
+  doc = '"'+newId()+'":'+JSON.stringify(data);
+  // add comma to all but first doc
   if (count) {
-    process.stdout.write('.');
-    count++;
-    return ',"'+newId()+'":'+JSON.stringify(data);
+    doc = ','+doc;
   }
-  process.stdout.write('|');
+  process.stdout.write('.');
   count++;
-  return '"'+newId()+'":'+JSON.stringify(data);
+  return doc;
 })
 .on('error', function(err) {
   console.log(err.message);
