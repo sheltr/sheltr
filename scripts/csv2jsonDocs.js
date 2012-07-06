@@ -47,9 +47,8 @@ csv().fromPath(argv._[0], {columns:true})
 .toStream(out, {end: false})
 .transform(function(data) {
   var doc;
-  data.Services = data.Type;
-  data.Type = 'location';
-  data.IsFood = 'Y';
+  data.type = 'location';
+  data.isFood = true;
   doc = '"'+newId()+'":'+JSON.stringify(data);
   // add comma to all but first doc
   if (count) {
