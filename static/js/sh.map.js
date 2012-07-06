@@ -40,10 +40,9 @@ sheltr.map = (function ($) {
     addLocationsToMap: function (locations) {
       _self.removeMarkers(locationsMarkerCollection);
       _.each(locations, function(loc) {
-        // TODO convert 'Y' to true in data
-        if (sheltr.state.showFood == true && loc.isFood == 'Y' ||
-          sheltr.state.showMedical == true && loc.isMedical == 'Y' ||
-          sheltr.state.showShelter == true && loc.isShelter == 'Y') {
+        if (sheltr.state.showFood == true && loc.isFood ||
+          sheltr.state.showMedical == true && loc.isMedical ||
+          sheltr.state.showShelter == true && loc.isShelter) {
           _self.setupMarker(loc);
         }
       });
@@ -58,8 +57,8 @@ sheltr.map = (function ($) {
           description,
           beds = '';
       
-      lat = location.location.latitude;
-      lng = location.location.longitude;
+      lat = location.latitude;
+      lng = location.longitude;
       latlng = new google.maps.LatLng(lat, lng);
 
       if (location.totalBeds) {

@@ -36,10 +36,9 @@ sheltr.locations = (function ($) {
     list: function (locations) {
       var locationsHTML = '';
       _.each(locations, function(loc) {
-        // TODO convert 'Y' to true in data
-        if (sheltr.state.showFood == true && loc.isFood == 'Y' ||
-          sheltr.state.showMedical == true && loc.isMedical == 'Y' ||
-          sheltr.state.showShelter == true && loc.isShelter == 'Y') {
+        if (sheltr.state.showFood == true && loc.isFood ||
+          sheltr.state.showMedical == true && loc.isMedical ||
+          sheltr.state.showShelter == true && loc.isShelter) {
           locationsHTML += buildLocationsHTML(loc);
         }
       });
@@ -59,15 +58,15 @@ sheltr.locations = (function ($) {
     selectMarkerIcon: function(location) {
       var icon
 
-      if (location.isShelter === "Y" && location.isFood === "Y") {
+      if (location.isShelter && location.isFood) {
         icon = '/img/shelter_food.png';
-      } else if (location.isIntake === "Y") {
+      } else if (location.isIntake) {
         icon = '/img/intake.png';
-      } else if (location.isShelter === "Y") {
+      } else if (location.isShelter) {
         icon = '/img/shelter.png';
-      } else if (location.isFood === "Y") {
+      } else if (location.isFood) {
         icon = '/img/food.png';
-      } else if (location.isMedical === "Y") {
+      } else if (location.isMedical) {
         icon = '/img/medical.png';
       } else {
         icon = '/img/shelter.png'; //Mill Creek Baptist Church currently doesn't meet any of these conditions. This will give it the shelter icon (I'm assuming its a shelter).
@@ -75,10 +74,8 @@ sheltr.locations = (function ($) {
       return icon;
     },
 
-    distanceFromUser: function(location) {
-      var distance;
-      distance = _self.distance(sheltr.state.userLocation.lat(),sheltr.state.userLocation.lng(), location.location.latitude, location.location.longitude);
-      cleanDistance = Math.round(distance*10)/10
+    distanceFromUser: function(loc) {
+      var cleanDistance = Math.round(loc.distance*10)/10
       return cleanDistance.toString();
     },
 

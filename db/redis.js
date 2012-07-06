@@ -11,7 +11,7 @@ var key = process.env.DBKEY || __filename;
 exports.get = function(id, cb) {
   client.get(key, function(err, reply) {
     if (err) return cb(err);
-    console.log(reply);
+    //console.log(reply);
     reply = JSON.parse(reply);
     if (!reply || !reply[id]) return cb(new Error('Not found'));
     cb(null, reply[id]);
@@ -25,7 +25,7 @@ exports.post = function(docs, cb) {
     if (err) return cb(err);
     reply = JSON.parse(reply) || {};
     merge(reply, docs);
-    client.set(key, JSON.stringify(reply), function(err, setReply) {
+    client.set(key, reply, function(err, setReply) {
       if (err) return cb(err);
       cb(null, setReply);
     });
@@ -43,20 +43,36 @@ exports.near = function(lat, lon, limit, cb) {
   client.get(key, function(err, reply) {
     if (err) return cb(err);
     var db = JSON.parse(reply);
-    var doc, distance, distances = [];
+    var doc;
+    var distance;
+    var distances = [];
+    var docByDistance = {};
+    var limited;
+    var result = [];
     for (var id in db) {
       doc = db[id];
-      if (doc.location) {
-        distance = getDistance(lat, doc.location.lat, lon, doc.location.lon)
+      if (doc.latitude && doc.longitude) {
+        distance = getDistance(lat, lon, doc.latitude, doc.longitude)
         distances.push(distance)
-        distances.sort()
+        doc.distance = distance
+        doc.id = id
+        docByDistance[distance] = doc
+        //distances.sort()
         // TODO link distances to IDs
-        if (distances.length > _limit) distances.pop();
+        //if (distances.length > _limit) distances.pop();
       }
       //locObj[id].id = id;
       //locations.push(locObj[id]);
     }
-    cb(null, distances);
+    distances.sort()
+    limited = distances.slice(0,20)
+    for (var i=0; i < limited.length; i++) {
+      // reuse doc var
+      // we assume the distance is unique
+      doc = docByDistance[limited[i]]
+      result.push(doc)
+    }
+    cb(null, result);
   });
 };
 
@@ -90,9 +106,18 @@ exports.settings = function(doc, cb) {
   exports.post({settings: doc}, cb);
 };
 
-function getDistance(x1, y1, x2, y2) {
-  function sq(x) {return x*x}
-  return Math.sqrt(sq(x2-x1)+sq(y2-y1))
+function getDistance(lat1, lon1, lat2, lon2) {
+  //function sq(x) {return x*x}
+  //return Math.sqrt(sq(x2-x1)+sq(y2-y1))
+  var R = 3959; // miles
+  var dLat = (lat2-lat1) * Math.PI / 180;
+  var dLon = (lon2-lon1) * Math.PI / 180; 
+  var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(lat1 * Math.PI / 180 ) * Math.cos(lat2 * Math.PI / 180 ) * 
+    Math.sin(dLon/2) * Math.sin(dLon/2); 
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+  var d = R * c;
+  return d
 }
 
 function merge(a, b) {

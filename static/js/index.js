@@ -81,7 +81,7 @@ $(document).ready(function() {
     plot = false || plot;
 
     var lat = parseFloat(userLocation.lat());
-    var lon = parseFloat(userLocation.lon());
+    var lon = parseFloat(userLocation.lng());
 
     $.ajax({
       url: 'api/near?lat=' + lat + '&lon=' + lon,

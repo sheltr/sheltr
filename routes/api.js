@@ -3,7 +3,7 @@ var express = require('express');
 module.exports = function(app) {
   var db = app.db;
   app.get('/api/near', function(req, res, next) {
-    db.near(req.query.lat, req.query.lng, function(err, data) {
+    db.near(req.query.lat, req.query.lon, function(err, data) {
       if (err) return next();
       res.send(data);
     });
