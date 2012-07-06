@@ -26,4 +26,10 @@ module.exports = function(app) {
       res.send(data);
     });
   });
+  app.post('/api/', express.bodyParser(), function(req, res, next) {
+    db.post(req.body, function(err, data) {
+      if (err) console.error(err);
+      res.send(data);
+    });
+  });
 };
