@@ -2,7 +2,7 @@
       <input class="addr text" type="text" />
       <div class="buttons">
         <button class="submit">Submit</button>
-        <ul class="form-controls">
+        <ul class="form-controls{if appSettings.noFilters} hidden{/if}">
           <li>
             <input type="checkbox" value="Food" checked="true" id="checkbox-food"/>
             <label id="checkbox-label-food" for="checkbox-food">Food</label>

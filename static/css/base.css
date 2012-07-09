@@ -99,6 +99,10 @@ footer p {
   float: right;
 }
 
+.hidden {
+  display: none;
+}
+
 /* HOME */
 ul.locations {
   display: none;
