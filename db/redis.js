@@ -1,7 +1,9 @@
-var redis = require('redis'),
-    client = redis.createClient();
+var url = require('url')
+var redisUrl = url.parse(process.env.REDISTOGO_URL || 'redis://127.0.0.1:6379')
+var redis = require('redis').createClient(redisUrl.port, redisUrl.hostname)
+if (redisUrl.auth) redis.auth(redisUrl.auth.split(':')[1])
 
-client.on('error', function (err) {
+redis.on('error', function (err) {
     console.log('Error ' + err);
 });
 
@@ -9,7 +11,7 @@ client.on('error', function (err) {
 var key = process.env.DBKEY || __filename;
 
 exports.get = function(id, cb) {
-  client.get(key, function(err, reply) {
+  redis.get(key, function(err, reply) {
     var doc;
     if (err) return cb(err);
     //console.log(reply);
@@ -23,12 +25,12 @@ exports.get = function(id, cb) {
 
 exports.post = function(docs, cb) {
   // uncomment to reset
-  //client.del(key);
-  client.get(key, function(err, reply) {
+  //redis.del(key);
+  redis.get(key, function(err, reply) {
     if (err) return cb(err);
     reply = JSON.parse(reply) || {};
     merge(reply, docs);
-    client.set(key, JSON.stringify(reply), function(err, setReply) {
+    redis.set(key, JSON.stringify(reply), function(err, setReply) {
       if (err) return cb(err);
       cb(null, setReply);
     });
@@ -43,7 +45,7 @@ exports.near = function(lat, lon, limit, cb) {
     cb = limit;
     _limit = 20;
   }
-  client.get(key, function(err, reply) {
+  redis.get(key, function(err, reply) {
     if (err) return cb(err);
     var db = JSON.parse(reply);
     var doc;
