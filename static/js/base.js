@@ -15,16 +15,21 @@ $(function() {
       }
     })
     form.on('submit', function() {
-      var data;
+      var data = box.val();
       submit.val('Submitting...').attr('disabled', true)
       try {
-        data = JSON.parse(box.val());
+        JSON.parse(data);
       } catch (e) {
         submit.val('Invalid JSON');
         return false
       }
-      $.post('/api/settings', data, function() {
-        submit.val('Submitted!')
+      $.ajax('/api/settings', {
+        contentType: 'application/json',
+        type: 'POST',
+        data: data, 
+        success: function() {
+          submit.val('Submitted!')
+        }
       })
       return false
     })

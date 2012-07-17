@@ -3,11 +3,14 @@ var _ = require('underscore');
 
 module.exports = function(app) {
   app.get('/', function(req, res) {
-    res.render('layout.html', {
-      partials: {
-        body: 'index.html',
-        scripts: 'index-scripts.html'
-      }
+    app.db.settings(function(err, settings) {
+      res.render('layout.html', {
+        appSettings: settings,
+        partials: {
+          body: 'index.html',
+          scripts: 'index-scripts.html'
+        }
+      });
     });
   });
   app.get('/about', function(req, res) {

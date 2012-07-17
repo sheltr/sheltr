@@ -25,7 +25,7 @@ exports.post = function(docs, cb) {
     if (err) return cb(err);
     reply = JSON.parse(reply) || {};
     merge(reply, docs);
-    client.set(key, reply, function(err, setReply) {
+    client.set(key, JSON.stringify(reply), function(err, setReply) {
       if (err) return cb(err);
       cb(null, setReply);
     });
@@ -103,6 +103,7 @@ exports.settings = function(doc, cb) {
       cb(null, data);
     });
   }
+  //console.log(doc)
   exports.post({settings: doc}, cb);
 };
 
