@@ -1,5 +1,6 @@
 var request = require('request');
 var _ = require('underscore');
+var util = require('util');
 
 module.exports = function(app) {
   app.get('/', function(req, res) {
@@ -230,29 +231,25 @@ module.exports = function(app) {
     request('http://'+req.headers.host+'/api/loc/'+req.params.idOrSlug, function(err, apiRes, body) {
       if (err) throw err;
       if (apiRes.statusCode != 200) return next();
-      var parsed = JSON.parse(body);
-      // XXX this is kinda fragile says Mike
-      var id = Object.keys(parsed)[0];
-      if (parsed && parsed[id]) {
-        var loc = parsed[id];
-      } else {
-        return next();
-      }
-      loc.id = id;
-      loc.raw = JSON.stringify(loc);
+      var loc = JSON.parse(body);
+      loc.raw = body;
       loc.isShelterAndNotIntake = (loc.isShelter && !loc.isIntake);
-      var context = {
-        loc: loc,
-        partials: {
-          body: 'location.html',
-          scripts: 'location-scripts.html'
+      app.db.settings(function(err, settings) {
+        if (err) util.log(err);
+        var context = {
+          appSettings: settings,
+          loc: loc,
+          partials: {
+            body: 'location.html',
+            scripts: 'location-scripts.html'
+          }
+        };
+        // TODO check permissions
+        if (req.session.user) {
+          context.edit = true;
         }
-      };
-      // TODO check permissions
-      if (req.session.user) {
-        context.edit = true;
-      }
-      res.render('layout.html', context);
+        res.render('layout.html', context);
+      });
     });
     //https.get({
     //  host: 'api.cloudmine.me',

@@ -61,11 +61,20 @@
           </tr>
         {/if}
 
-        {if loc.hoursNotes}
+        {if loc.hours}
           <tr>
-            <th>Hours Notes</th>
+            <th>Hours</th>
             <td>
-              {loc.hoursNotes}
+              {loc.hours}
+            </td>
+          </tr>
+        {/if}
+
+        {if loc.activeDates}
+          <tr>
+            <th>Active Dates</th>
+            <td>
+              {loc.activeDates}
             </td>
           </tr>
         {/if}
@@ -79,59 +88,61 @@
           </tr>
         {/if}
 
-        {if loc.otherServices}
+        {if loc.otherlimits}
           <tr>
-            <th>Other Services</th>
+            <th>Restrictions</th>
             <td>
-              {loc.otherServices}
+              {loc.otherlimits}
             </td>
           </tr>
         {/if}
 
-        <tr>
-          <th>Is Shelter</th>
-          <td>
-            {if loc.isShelter}
-              Yes
-            {else}
-              No
-            {/if}
-          </td>
-        </tr>
-
-        {if loc.totalBeds}
+        {if not appSettings.noFilters}
           <tr>
-            <th>Total Beds</th>
-            <td>{loc.totalBeds}</td>
+            <th>Is Shelter</th>
+            <td>
+              {if loc.isShelter}
+                Yes
+              {else}
+                No
+              {/if}
+            </td>
           </tr>
 
-           <tr>
-            <th>Available Beds</th>
-            <td>{loc.openBeds}</td>
+          {if loc.totalBeds}
+            <tr>
+              <th>Total Beds</th>
+              <td>{loc.totalBeds}</td>
+            </tr>
+
+             <tr>
+              <th>Available Beds</th>
+              <td>{loc.openBeds}</td>
+            </tr>
+          {/if}
+
+          <tr>
+            <th>Is Intake Center</th>
+            <td>
+              {if loc.isIntake}
+                Yes
+              {else}
+                No
+              {/if}
+            </td>
+          </tr>
+
+          <tr>
+            <th>Provides Meals</th>
+            <td>
+              {if loc.isFood}
+                Yes
+              {else}
+                No
+              {/if}
+            </td>
           </tr>
         {/if}
-
-        <tr>
-          <th>Is Intake Center</th>
-          <td>
-            {if loc.isIntake}
-              Yes
-            {else}
-              No
-            {/if}
-          </td>
-        </tr>
-
-        <tr>
-          <th>Provides Meals</th>
-          <td>
-            {if loc.isFood}
-              Yes
-            {else}
-              No
-            {/if}
-          </td>
-        </tr>
       </table>
       {if loc.isShelterAndNotIntake}
         <p>Note: Most shelters require residents to be preprocessed at an Intake Center.</p>

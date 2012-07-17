@@ -10,11 +10,14 @@ var key = process.env.DBKEY || __filename;
 
 exports.get = function(id, cb) {
   client.get(key, function(err, reply) {
+    var doc;
     if (err) return cb(err);
     //console.log(reply);
     reply = JSON.parse(reply);
     if (!reply || !reply[id]) return cb(new Error('Not found'));
-    cb(null, reply[id]);
+    doc = reply[id];
+    doc.id = id; // assign id to id attribute of doc
+    cb(null, doc);
   });
 };
 
@@ -78,6 +81,7 @@ exports.near = function(lat, lon, limit, cb) {
 
 exports.loc = function(idOrSlug, cb) {
   exports.get(idOrSlug, function(err, data) {
+    //console.log('got:', data)
     if (err) return exports.getBySlug(idOrSlug, cb);
     cb(null, data);
   });
