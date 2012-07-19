@@ -10,7 +10,7 @@
     <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.0.6/modernizr.min.js"></script>
     <script type="text/javascript">
       var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', '{gaAccount}']);
+      _gaq.push(['_setAccount', '{appSettings.gaAccount}']);
       _gaq.push(['_trackPageview']);
 
       (function() {
@@ -32,7 +32,7 @@
           </ul>
         </div>
       </div>
-      <h1><a href="/">Sheltr</a></h1>
+      <h1><a href="/">{if appSettings.logo}<img src="{appSettings.logo}">{else}<img src="img/sheltr-logo-desktop.png">{/if}</a></h1>
     </header>
     <div class="container">
       {>body}

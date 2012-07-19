@@ -44,13 +44,16 @@ header h1 {
 }
 
 header h1 a {
+  margin-bottom: 30px;
+/*
+ * TODO make logo manageable by settings
   background: url('../img/sheltr-logo-desktop.png') no-repeat 0 0;  
   display: block;
   width: 315px;
   height: 110px;
   margin: 0 auto;
   text-indent: -5000px;
-  margin-bottom: 30px;
+*/
 }
 
 header .top-row {
