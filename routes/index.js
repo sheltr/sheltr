@@ -2,6 +2,8 @@ var request = require('request');
 var _ = require('underscore');
 var util = require('util');
 
+// TODO include settings via middleware
+
 module.exports = function(app) {
   app.get('/', function(req, res) {
     app.db.settings(function(err, settings) {
@@ -15,20 +17,40 @@ module.exports = function(app) {
     });
   });
   app.get('/about', function(req, res) {
-    res.render('layout.html', {partials: {body: 'about.html'}});
+    app.db.settings(function(err, settings) {
+      res.render('layout.html', {
+        appSettings: settings,
+        partials: {body: 'about.html'}
+      });
+    });
   });
   app.get('/hotline', function(req, res) {
-    res.render('layout.html', {partials: {body: 'hotline.html'}});
+    app.db.settings(function(err, settings) {
+      res.render('layout.html', {
+        appSettings: settings,
+        partials: {body: 'hotline.html'}
+      });
+    });
   });
   app.get('/partners', function(req, res) {
-    res.render('layout.html', {partials: {body: 'partners.html'}});
+    app.db.settings(function(err, settings) {
+      res.render('layout.html', {
+        appSettings: settings,
+        partials: {body: 'partners.html'}
+      });
+    });
   });
   app.get('/admin', function(req, res) {
     if (!req.session.user) {
       res.writeHead(302, {'Location': '/login?ref=/admin'});
       return res.end();
     }
-    res.render('layout.html', {partials: {body: 'admin.html'}});
+    app.db.settings(function(err, settings) {
+      res.render('layout.html', {
+        appSettings: settings,
+        partials: {body: 'admin.html'}
+      });
+    });
   });
   app.post('/admin', function(req, res) {
     if (!req.session.user) {
@@ -59,10 +81,20 @@ module.exports = function(app) {
     cmreq.end(JSON.stringify(postdata));
   });
   app.get('/admin/settings', function(req, res) {
-    res.render('layout.html', {partials: {body: 'settings.html'}});
+    app.db.settings(function(err, settings) {
+      res.render('layout.html', {
+        appSettings: settings,
+        partials: {body: 'settings.html'}
+      });
+    });
   });
   app.get('/login', function(req, res) {
-    res.render('layout.html', {partials: {body: 'login.html'}});
+    app.db.settings(function(err, settings) {
+      res.render('layout.html', {
+        appSettings: settings,
+        partials: {body: 'login.html'}
+      });
+    });
   });
   app.post('/login', function(req, res) {
     // TODO also attach perms to user
