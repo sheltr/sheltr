@@ -30,10 +30,6 @@ article {
   width: 85%;  
 }
 
-h1 {
-  margin-bottom: 15px;
-}
-
 header {
   margin: 0 auto;
   width: 100%;
@@ -44,13 +40,13 @@ header h1 {
 }
 
 header h1 a {
-  display: block;
-  margin-bottom: 30px;
 /*
  * TODO make logo manageable by settings
   background: url('../img/sheltr-logo-desktop.png') no-repeat 0 0;  
+  display: block;
   width: 315px;
   height: 110px;
+  margin-bottom: 30px;
   margin: 0 auto;
   text-indent: -5000px;
 */
@@ -337,12 +333,15 @@ textarea {
   }
 
   h1 a {
+    /* allow for varying logo sizes
     width: 200px;
     height: 70px;
-    max-width: 100%;
-    background-size: contain;
     overflow: hidden;
     margin-bottom: 0;
+    background-size: contain;
+    */
+    line-height: normal;
+    max-width: 100%;
   }
 
   footer {
@@ -350,7 +349,6 @@ textarea {
   }
 
   form {
-    margin-top: -20px; /*because we can't seem to change the h1 margin-bottom for mobile*/
     margin-bottom: 5%;
     width: 95%;
   }
