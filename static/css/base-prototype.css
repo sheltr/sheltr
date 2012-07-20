@@ -58,11 +58,13 @@ header {
 h1 {display:none;} /*TODO: hiding this for now*/
 
 h1 a {
+  /*
   background: url('../img/sheltr-logo-mobile.png') no-repeat 0 0;  
   display: block;
   width: 200px;
   height: 69px;
   text-indent: -5000px;
+  */
 }
 
 form {
